@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Casa Verde — Villa privada de lujo en Gran Roque, Archipiélago Los Roques, Venezuela. Hasta 10 huéspedes, chef privado, bote privado 24/7.">
   <meta name="theme-color" content="#1A4A4A">
   <title>Casa Verde — Gran Roque, Los Roques</title>
@@ -12,63 +12,75 @@
   <style>
     /* ─── TOKENS ─────────────────────────────────────────────── */
     :root {
-      --sand:       #F5F0E8;
-      --sand-dark:  #EDE6D8;
-      --teal:       #1A4A4A;
-      --teal-mid:   #2A6060;
-      --charcoal:   #2C2C2C;
-      --ink:        #1A1A1A;
-      --gold:       #C9A96E;
-      --gold-lt:    #D4B882;
-      --white:      #FFFFFF;
-      --wa:         #25D366;
-      --f-display:  'Cormorant Garamond', Georgia, serif;
-      --f-body:     'DM Sans', system-ui, sans-serif;
-      --ease:       cubic-bezier(0.25, 0.1, 0.25, 1);
+      --sand:      #F5F0E8;
+      --sand-dark: #EDE6D8;
+      --teal:      #1A4A4A;
+      --teal-mid:  #2A6060;
+      --charcoal:  #2C2C2C;
+      --ink:       #1A1A1A;
+      --gold:      #C9A96E;
+      --gold-lt:   #D4B882;
+      --white:     #FFFFFF;
+      --wa:        #25D366;
+      --f-disp:    'Cormorant Garamond', Georgia, serif;
+      --f-body:    'DM Sans', system-ui, sans-serif;
+      --ease:      cubic-bezier(0.25, 0.1, 0.25, 1);
+      --nav-h:     72px;
     }
 
     /* ─── RESET ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-    body { font-family: var(--f-body); color: var(--ink); background: var(--sand); overflow-x: hidden; }
-    a { text-decoration: none; color: inherit; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    body {
+      font-family: var(--f-body); color: var(--ink); background: var(--sand);
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    a, button {
+      color: inherit; text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
     img { max-width: 100%; display: block; }
     button { background: none; border: none; cursor: pointer; font-family: inherit; }
 
     /* ─── NAV ────────────────────────────────────────────────── */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      height: 72px; padding: 0 52px;
+      height: var(--nav-h); padding: 0 52px;
       display: flex; align-items: center; justify-content: space-between;
       transition: background .45s var(--ease), backdrop-filter .45s var(--ease), border-color .45s var(--ease);
       border-bottom: 1px solid transparent;
     }
     .nav.scrolled {
-      background: rgba(245,240,232,.92);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: rgba(245,240,232,.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom-color: rgba(26,74,74,.1);
     }
     .nav-logo {
-      font-family: var(--f-display); font-size: 21px; font-weight: 500;
-      letter-spacing: .1em; color: #fff;
-      transition: color .4s var(--ease);
+      font-family: var(--f-disp); font-size: 21px; font-weight: 500;
+      letter-spacing: .1em; color: #fff; transition: color .4s var(--ease);
+      flex-shrink: 0;
     }
     .nav.scrolled .nav-logo { color: var(--teal); }
 
-    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
       font-size: 12px; font-weight: 400; letter-spacing: .14em; text-transform: uppercase;
       color: rgba(255,255,255,.82); transition: opacity .3s;
     }
     .nav.scrolled .nav-links a { color: var(--charcoal); }
-    .nav-links a:hover { opacity: .5; }
 
-    .nav-right { display: flex; align-items: center; gap: 22px; }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
 
     .nav-ig { color: rgba(255,255,255,.75); display: flex; transition: opacity .3s; }
     .nav.scrolled .nav-ig { color: var(--charcoal); }
-    .nav-ig:hover { opacity: .5; }
 
     .lang-pill {
       display: flex; border-radius: 20px; padding: 3px;
@@ -79,41 +91,53 @@
     .nav.scrolled .lang-pill { background: rgba(26,74,74,.07); border-color: rgba(26,74,74,.18); }
 
     .lang-btn {
-      padding: 4px 13px; border-radius: 14px; font-size: 11px; font-weight: 500;
-      letter-spacing: .1em; text-transform: uppercase;
+      padding: 5px 13px; border-radius: 14px; font-size: 11px; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase; min-height: 28px;
       color: rgba(255,255,255,.62); background: transparent;
       transition: background .3s, color .3s;
     }
     .nav.scrolled .lang-btn { color: var(--charcoal); }
-    .lang-btn.active {
-      background: #fff !important;
-      color: var(--teal) !important;
-    }
-    .nav.scrolled .lang-btn.active {
-      background: var(--teal) !important;
-      color: #fff !important;
-    }
+    .lang-btn.active { background: #fff !important; color: var(--teal) !important; }
+    .nav.scrolled .lang-btn.active { background: var(--teal) !important; color: #fff !important; }
 
-    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px 4px; min-width: 32px; }
     .hamburger span { display: block; width: 22px; height: 1.5px; background: #fff; transition: background .4s; }
     .nav.scrolled .hamburger span { background: var(--charcoal); }
 
     .mobile-menu {
-      display: none; position: fixed; top: 72px; left: 0; right: 0;
+      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
       background: rgba(245,240,232,.97); backdrop-filter: blur(20px);
-      padding: 20px 28px 28px; border-bottom: 1px solid rgba(26,74,74,.1);
-      flex-direction: column; gap: 0; z-index: 99;
+      -webkit-backdrop-filter: blur(20px);
+      padding: 8px 24px 28px; border-bottom: 1px solid rgba(26,74,74,.1);
+      flex-direction: column; z-index: 99;
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a {
       font-size: 14px; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--charcoal); padding: 14px 0;
+      color: var(--charcoal); padding: 15px 0;
       border-bottom: 1px solid rgba(26,74,74,.09);
+      min-height: 48px; display: flex; align-items: center;
+    }
+    .mobile-menu-lang {
+      display: flex; gap: 12px; padding: 20px 0 4px;
+    }
+    .mobile-menu-lang .lang-btn {
+      min-height: 44px; min-width: 60px; border-radius: 4px;
+      border: 1px solid rgba(26,74,74,.2);
+      color: var(--charcoal);
+      font-size: 12px;
+    }
+    .mobile-menu-lang .lang-btn.active {
+      background: var(--teal) !important; color: #fff !important;
+      border-color: var(--teal) !important;
     }
 
     /* ─── HERO ───────────────────────────────────────────────── */
     .hero {
-      position: relative; height: 100vh; min-height: 600px;
+      position: relative;
+      height: 100vh;
+      height: 100svh;
+      min-height: 580px;
       display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
     .hero-bg {
@@ -129,39 +153,38 @@
     }
     .hero-content {
       position: relative; z-index: 2; text-align: center;
-      padding: 0 24px; max-width: 960px;
+      padding: 0 24px; max-width: 960px; width: 100%;
     }
     .hero-eyebrow {
       font-size: 10px; font-weight: 400; letter-spacing: .34em; text-transform: uppercase;
-      color: var(--gold-lt); margin-bottom: 22px;
+      color: var(--gold-lt); margin-bottom: 20px;
       opacity: 0; transform: translateY(18px);
       animation: fadeUp 1.2s var(--ease) .35s forwards;
     }
     .hero-title {
-      font-family: var(--f-display);
-      font-size: clamp(80px, 13vw, 140px);
+      font-family: var(--f-disp);
+      font-size: clamp(68px, 13vw, 140px);
       font-weight: 300; line-height: .9; letter-spacing: -.01em; color: #fff;
-      margin-bottom: 26px;
+      margin-bottom: 22px;
       opacity: 0; transform: translateY(28px);
       animation: fadeUp 1.4s var(--ease) .55s forwards;
     }
     .hero-sub {
-      font-family: var(--f-display); font-size: clamp(19px, 3vw, 28px);
+      font-family: var(--f-disp); font-size: clamp(18px, 3vw, 28px);
       font-weight: 300; font-style: italic;
-      color: rgba(255,255,255,.82); letter-spacing: .03em; margin-bottom: 52px;
+      color: rgba(255,255,255,.82); letter-spacing: .03em; margin-bottom: 44px;
       opacity: 0; transform: translateY(18px);
       animation: fadeUp 1.4s var(--ease) .72s forwards;
     }
     .hero-cta {
       display: inline-flex; align-items: center; gap: 10px;
-      padding: 15px 38px; border: 1px solid rgba(255,255,255,.46);
+      padding: 16px 38px; border: 1px solid rgba(255,255,255,.46);
       color: #fff; font-size: 11px; font-weight: 400; letter-spacing: .22em;
       text-transform: uppercase; border-radius: 2px;
       transition: background .35s, border-color .35s;
       opacity: 0; animation: fadeUp 1.4s var(--ease) .9s forwards;
+      min-height: 52px;
     }
-    .hero-cta:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.75); }
-
     .scroll-hint {
       position: absolute; bottom: 38px; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 10px;
@@ -172,96 +195,76 @@
       color: rgba(255,255,255,.42);
     }
     .scroll-line {
-      width: 1px; height: 44px; background: rgba(255,255,255,.2); overflow: hidden;
-      position: relative;
+      width: 1px; height: 44px; background: rgba(255,255,255,.2); overflow: hidden; position: relative;
     }
     .scroll-line::after {
       content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
-      background: var(--gold-lt);
-      animation: lineDrop 2.2s ease-in-out 2s infinite;
+      background: var(--gold-lt); animation: lineDrop 2.2s ease-in-out 2s infinite;
     }
 
     @keyframes fadeUp  { to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn  { to { opacity: 1; } }
     @keyframes lineDrop { 0% { top: -100%; } 100% { top: 110%; } }
 
-    /* ─── REVEAL ON SCROLL ───────────────────────────────────── */
+    /* ─── REVEAL ─────────────────────────────────────────────── */
     .reveal {
       opacity: 0; transform: translateY(36px);
-      transition: opacity .95s var(--ease), transform .95s var(--ease);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
     }
     .reveal.in { opacity: 1; transform: none; }
     .d1 { transition-delay: .1s; }
     .d2 { transition-delay: .22s; }
     .d3 { transition-delay: .36s; }
 
-    /* ─── SHARED SECTION STYLES ─────────────────────────────── */
+    /* ─── SHARED ─────────────────────────────────────────────── */
     section { padding: 128px 52px; }
     .wrap { max-width: 1200px; margin: 0 auto; }
     .s-label {
       display: block; font-size: 10px; font-weight: 500;
-      letter-spacing: .3em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 18px;
+      letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
     }
     .s-title {
-      font-family: var(--f-display); font-weight: 300; line-height: 1.04;
-      font-size: clamp(42px, 6vw, 76px); color: var(--teal);
+      font-family: var(--f-disp); font-weight: 300; line-height: 1.04;
+      font-size: clamp(38px, 6vw, 76px); color: var(--teal);
     }
     .s-body {
-      font-size: 17px; font-weight: 300; line-height: 1.78;
-      color: #4e4e4e; max-width: 560px;
+      font-size: 17px; font-weight: 300; line-height: 1.78; color: #4e4e4e; max-width: 560px;
     }
 
     /* ─── INTRO ──────────────────────────────────────────────── */
     .intro { background: var(--sand); text-align: center; }
     .intro-quote {
-      font-family: var(--f-display); font-style: italic; font-weight: 300;
-      font-size: clamp(23px, 3.6vw, 38px); line-height: 1.52;
-      color: var(--charcoal); max-width: 740px; margin: 0 auto 88px;
+      font-family: var(--f-disp); font-style: italic; font-weight: 300;
+      font-size: clamp(21px, 3.6vw, 38px); line-height: 1.52;
+      color: var(--charcoal); max-width: 740px; margin: 0 auto 80px;
     }
     .intro-cards {
-      display: grid; grid-template-columns: repeat(3, 1fr);
+      display: grid; grid-template-columns: repeat(3,1fr);
       gap: 2px; max-width: 960px; margin: 0 auto;
     }
     .i-card {
-      background: var(--teal); padding: 56px 44px;
+      background: var(--teal); padding: 52px 40px;
       display: flex; flex-direction: column; align-items: center; gap: 18px;
       transition: background .4s var(--ease);
     }
     .i-card:first-child { border-radius: 4px 0 0 4px; }
     .i-card:last-child  { border-radius: 0 4px 4px 0; }
-    .i-card:hover { background: var(--teal-mid); }
     .i-card svg { color: var(--gold); flex-shrink: 0; }
-    .i-card-title {
-      font-family: var(--f-display); font-size: 23px; font-weight: 400;
-      color: #fff; text-align: center;
-    }
-    .i-card-desc {
-      font-size: 14px; font-weight: 300; color: rgba(255,255,255,.58);
-      text-align: center; line-height: 1.65;
-    }
+    .i-card-title { font-family: var(--f-disp); font-size: 22px; font-weight: 400; color: #fff; text-align: center; }
+    .i-card-desc  { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.58); text-align: center; line-height: 1.65; }
 
     /* ─── VILLA ──────────────────────────────────────────────── */
     .villa { background: #fff; }
-    .villa-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 88px; align-items: center;
-    }
+    .villa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: center; }
     .villa-copy .s-title { margin-bottom: 26px; }
-    .villa-copy .s-body  { margin-bottom: 52px; }
-    .amenities {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 13px 28px;
-    }
+    .villa-copy .s-body  { margin-bottom: 52px; max-width: 100%; }
+    .amenities { display: grid; grid-template-columns: 1fr 1fr; gap: 13px 28px; }
     .am-item {
       display: flex; align-items: center; gap: 12px;
       font-size: 14px; font-weight: 400; color: var(--charcoal);
     }
-    .am-item::before {
-      content: ''; width: 18px; height: 1px; background: var(--gold); flex-shrink: 0;
-    }
-    .villa-img-wrap {
-      position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 2px;
-    }
+    .am-item::before { content: ''; width: 18px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .villa-img-wrap { position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 2px; }
     .villa-img-wrap .ph {
       width: 100%; height: 100%;
       background: linear-gradient(140deg,#1A4A4A 0%,#2d7a6a 42%,#4a9682 70%,#c9a96e 100%);
@@ -284,60 +287,36 @@
       color: rgba(255,255,255,.58); max-width: 520px; margin-bottom: 72px;
     }
     .exp-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-    .exp-card {
-      position: relative; overflow: hidden; border-radius: 3px;
-      aspect-ratio: 3/4;
-    }
-    .exp-ph {
-      position: absolute; inset: 0;
-      transition: transform .7s var(--ease);
-    }
-    .exp-card:hover .exp-ph { transform: scale(1.04); }
+    .exp-card { position: relative; overflow: hidden; border-radius: 3px; aspect-ratio: 3/4; }
+    .exp-ph { position: absolute; inset: 0; transition: transform .7s var(--ease); }
     .exp-ph-1 { background: linear-gradient(155deg,#0a3030 0%,#1a6a60 58%,#c9a96e 100%); }
     .exp-ph-2 { background: linear-gradient(155deg,#0d2a40 0%,#1a5570 58%,#3a8a96 100%); }
     .exp-ph-3 { background: linear-gradient(155deg,#1a1a0a 0%,#3a5a1a 55%,#7aaa44 100%); }
     .exp-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
       padding: 52px 28px 30px;
-      background: linear-gradient(to top, rgba(6,20,20,.94) 0%, transparent 100%);
+      background: linear-gradient(to top,rgba(6,20,20,.94) 0%,transparent 100%);
       transition: transform .4s var(--ease);
     }
-    .exp-card:hover .exp-overlay { transform: translateY(-5px); }
-    .exp-label {
-      font-size: 9px; letter-spacing: .28em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 8px; display: block;
-    }
-    .exp-title {
-      font-family: var(--f-display); font-size: 26px; font-weight: 400;
-      color: #fff; line-height: 1.18; margin-bottom: 10px;
-    }
-    .exp-desc {
-      font-size: 14px; font-weight: 300; color: rgba(255,255,255,.6); line-height: 1.65;
-    }
+    .exp-label { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; display: block; }
+    .exp-title { font-family: var(--f-disp); font-size: 26px; font-weight: 400; color: #fff; line-height: 1.18; margin-bottom: 10px; }
+    .exp-desc  { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.6); line-height: 1.65; }
 
     /* ─── GALLERY ────────────────────────────────────────────── */
     .gallery { background: var(--sand); }
     .gallery-head { margin-bottom: 52px; }
     .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: 320px 240px;
-      gap: 8px;
+      display: grid; grid-template-columns: repeat(12,1fr);
+      grid-template-rows: 320px 240px; gap: 8px;
     }
-    .g-item {
-      overflow: hidden; cursor: pointer; position: relative;
-    }
+    .g-item { overflow: hidden; cursor: pointer; position: relative; }
     .g-item:nth-child(1) { grid-column: span 7; grid-row: span 2; }
     .g-item:nth-child(2) { grid-column: span 5; }
     .g-item:nth-child(3) { grid-column: span 5; }
     .g-item:nth-child(4) { grid-column: span 4; }
     .g-item:nth-child(5) { grid-column: span 4; }
     .g-item:nth-child(6) { grid-column: span 4; }
-    .g-ph {
-      width: 100%; height: 100%;
-      transition: transform .65s var(--ease);
-    }
-    .g-item:hover .g-ph { transform: scale(1.04); }
+    .g-ph { width: 100%; height: 100%; transition: transform .65s var(--ease); }
     .g-ph-1 { background: linear-gradient(135deg,#1A4A4A,#4a9696); }
     .g-ph-2 { background: linear-gradient(135deg,#2d7a6a,#c9a96e); }
     .g-ph-3 { background: linear-gradient(135deg,#1a3a5a,#4a7aaa); }
@@ -349,12 +328,13 @@
       display: flex; align-items: center; justify-content: center;
       transition: background .35s;
     }
-    .g-item:hover .g-overlay { background: rgba(8,24,24,.38); }
-    .g-overlay svg {
-      color: #fff; opacity: 0; transform: scale(.78);
-      transition: opacity .35s, transform .35s;
+    .g-overlay svg { color: #fff; opacity: 0; transform: scale(.78); transition: opacity .35s, transform .35s; }
+
+    /* touch: show icon faintly always so users know it's tappable */
+    @media (hover: none) {
+      .g-overlay { background: rgba(8,24,24,.15); }
+      .g-overlay svg { opacity: .5; transform: scale(1); }
     }
-    .g-item:hover .g-overlay svg { opacity: 1; transform: scale(1); }
 
     /* ─── LIGHTBOX ───────────────────────────────────────────── */
     .lb {
@@ -363,163 +343,216 @@
       opacity: 0; pointer-events: none; transition: opacity .4s;
     }
     .lb.open { opacity: 1; pointer-events: all; }
-    .lb-frame {
-      width: min(82vw, 940px); aspect-ratio: 4/3;
-      border-radius: 3px; overflow: hidden;
-    }
+    .lb-frame { width: min(88vw,940px); aspect-ratio: 4/3; border-radius: 3px; overflow: hidden; }
     .lb-close {
-      position: absolute; top: 28px; right: 36px;
-      color: rgba(255,255,255,.6); font-size: 30px; line-height: 1;
+      position: absolute; top: 24px; right: 28px;
+      color: rgba(255,255,255,.6); font-size: 32px; line-height: 1;
+      width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
       transition: color .3s, transform .35s;
     }
-    .lb-close:hover { color: #fff; transform: rotate(90deg); }
     .lb-nav {
       position: absolute; top: 50%; transform: translateY(-50%);
-      width: 46px; height: 46px; border-radius: 50%;
+      width: 48px; height: 48px; border-radius: 50%;
       border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.65);
       display: flex; align-items: center; justify-content: center;
       transition: border-color .3s, color .3s, background .3s;
     }
-    .lb-nav:hover { border-color: rgba(255,255,255,.6); color: #fff; background: rgba(255,255,255,.07); }
-    .lb-prev { left: 28px; }
-    .lb-next { right: 28px; }
+    .lb-prev { left: 20px; }
+    .lb-next { right: 20px; }
+
+    /* ─── LOCATION ───────────────────────────────────────────── */
+    .location { background: #fff; padding-bottom: 0; }
+    .loc-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center; margin-bottom: 64px;
+    }
+    .loc-copy .s-title { margin-bottom: 22px; }
+    .loc-copy .s-body  { margin-bottom: 32px; }
+    .loc-facts { display: flex; flex-direction: column; gap: 16px; }
+    .loc-fact {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: 14px; color: var(--charcoal); line-height: 1.55;
+    }
+    .loc-fact-icon {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(26,74,74,.09); display: flex; align-items: center; justify-content: center;
+      color: var(--teal); margin-top: 1px;
+    }
+    .loc-map-wrap {
+      position: relative; width: 100%; height: 480px; overflow: hidden;
+      border-radius: 3px; background: var(--sand-dark);
+    }
+    .loc-map-wrap iframe {
+      width: 100%; height: 100%; border: 0; display: block;
+      filter: saturate(.88) contrast(1.04);
+    }
+    .loc-map-btn {
+      position: absolute; bottom: 20px; right: 20px;
+      display: flex; align-items: center; gap: 9px;
+      padding: 12px 22px; background: var(--teal); color: #fff;
+      border-radius: 3px; font-size: 12px; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+      transition: filter .3s, transform .3s;
+    }
 
     /* ─── CONTACT ────────────────────────────────────────────── */
     .contact { background: var(--sand-dark); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: start; }
     .contact-copy .s-title { margin-bottom: 22px; }
-    .contact-body {
-      font-size: 17px; font-weight: 300; line-height: 1.78;
-      color: #5a5a5a; margin-bottom: 44px;
-    }
-    .c-detail {
-      display: flex; align-items: center; gap: 14px;
-      font-size: 14px; color: var(--charcoal); margin-bottom: 15px;
-    }
+    .contact-body { font-size: 17px; font-weight: 300; line-height: 1.78; color: #5a5a5a; margin-bottom: 44px; }
+    .c-detail { display: flex; align-items: center; gap: 14px; font-size: 14px; color: var(--charcoal); margin-bottom: 15px; }
     .c-icon {
       width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-      background: rgba(26,74,74,.09); display: flex;
-      align-items: center; justify-content: center; color: var(--teal);
+      background: rgba(26,74,74,.09); display: flex; align-items: center; justify-content: center; color: var(--teal);
     }
     .contact-box {
       background: var(--teal); padding: 56px; border-radius: 3px;
       display: flex; flex-direction: column; gap: 18px;
     }
-    .cb-title {
-      font-family: var(--f-display); font-size: 30px; font-weight: 400;
-      color: #fff; margin-bottom: 4px;
-    }
-    .cb-note {
-      font-size: 14px; font-weight: 300; color: rgba(255,255,255,.56);
-      line-height: 1.65; margin-bottom: 6px;
-    }
+    .cb-title { font-family: var(--f-disp); font-size: 30px; font-weight: 400; color: #fff; margin-bottom: 4px; }
+    .cb-note  { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.56); line-height: 1.65; margin-bottom: 6px; }
     .btn-wa {
       display: flex; align-items: center; justify-content: center; gap: 12px;
       padding: 18px 32px; background: var(--wa); color: #fff;
-      border-radius: 3px; font-size: 13px; font-weight: 500;
-      letter-spacing: .07em; text-transform: uppercase;
-      transition: filter .3s, transform .3s;
+      border-radius: 3px; font-size: 13px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
+      transition: filter .3s, transform .3s; min-height: 56px;
     }
-    .btn-wa:hover { filter: brightness(1.09); transform: translateY(-1px); }
     .btn-ig {
       display: flex; align-items: center; justify-content: center; gap: 12px;
       padding: 18px 32px; border: 1px solid rgba(255,255,255,.28);
       color: rgba(255,255,255,.82); border-radius: 3px;
       font-size: 13px; font-weight: 400; letter-spacing: .07em; text-transform: uppercase;
-      transition: background .3s, border-color .3s;
+      transition: background .3s, border-color .3s; min-height: 56px;
     }
-    .btn-ig:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.55); }
-    .cb-min {
-      font-size: 11px; color: rgba(255,255,255,.35);
-      text-align: center; letter-spacing: .06em; margin-top: 2px;
-    }
+    .cb-min { font-size: 11px; color: rgba(255,255,255,.35); text-align: center; letter-spacing: .06em; margin-top: 2px; }
 
     /* ─── FOOTER ─────────────────────────────────────────────── */
     footer { background: var(--charcoal); padding: 60px 52px; }
     .foot-inner {
       max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 28px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px;
     }
-    .foot-logo {
-      font-family: var(--f-display); font-size: 28px;
-      font-weight: 400; letter-spacing: .06em; color: var(--sand);
-    }
+    .foot-logo { font-family: var(--f-disp); font-size: 28px; font-weight: 400; letter-spacing: .06em; color: var(--sand); }
     .foot-logo em { color: var(--gold); font-style: normal; }
-    .foot-sub {
-      font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
-      color: rgba(255,255,255,.28); font-family: var(--f-body);
-      font-weight: 300; margin-top: 5px;
-    }
+    .foot-sub { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.28); font-weight: 300; margin-top: 5px; }
     .foot-copy { font-size: 12px; color: rgba(255,255,255,.28); letter-spacing: .04em; }
     .foot-right { display: flex; align-items: center; gap: 22px; }
-    .foot-lang {
-      display: flex; border-radius: 20px; padding: 3px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-    }
-    .foot-lang .lang-btn {
-      color: rgba(255,255,255,.38);
-    }
-    .foot-lang .lang-btn.active {
-      background: rgba(255,255,255,.14) !important;
-      color: rgba(255,255,255,.9) !important;
-    }
+    .foot-lang { display: flex; border-radius: 20px; padding: 3px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); }
+    .foot-lang .lang-btn { color: rgba(255,255,255,.38); }
+    .foot-lang .lang-btn.active { background: rgba(255,255,255,.14) !important; color: rgba(255,255,255,.9) !important; }
     .foot-socials { display: flex; gap: 18px; }
-    .foot-socials a { color: rgba(255,255,255,.36); transition: color .3s; }
-    .foot-socials a:hover { color: var(--gold); }
+    .foot-socials a { color: rgba(255,255,255,.36); transition: color .3s; min-width: 32px; min-height: 32px; display: flex; align-items: center; justify-content: center; }
 
     /* ─── WHATSAPP FLOAT ─────────────────────────────────────── */
     .wa-float {
-      position: fixed; bottom: 30px; right: 30px; z-index: 200;
-      width: 56px; height: 56px; border-radius: 50%;
+      position: fixed;
+      bottom: calc(30px + env(safe-area-inset-bottom));
+      right: calc(30px + env(safe-area-inset-right));
+      z-index: 200; width: 56px; height: 56px; border-radius: 50%;
       background: var(--wa); color: #fff;
       display: flex; align-items: center; justify-content: center;
       box-shadow: 0 4px 22px rgba(37,211,102,.38);
       transition: transform .35s var(--ease), box-shadow .35s;
     }
-    .wa-float:hover { transform: scale(1.09); box-shadow: 0 6px 30px rgba(37,211,102,.52); }
     .wa-float::before {
       content: ''; position: absolute; inset: -5px; border-radius: 50%;
-      background: rgba(37,211,102,.28);
-      animation: waPulse 2.6s ease-out infinite;
+      background: rgba(37,211,102,.28); animation: waPulse 2.6s ease-out infinite;
     }
     @keyframes waPulse {
       0%   { transform: scale(1); opacity: .8; }
       100% { transform: scale(1.65); opacity: 0; }
     }
 
-    /* ─── LANG SWITCH FADE ───────────────────────────────────── */
+    /* ─── LANG SWITCH ────────────────────────────────────────── */
     .switching [data-t] { opacity: 0 !important; }
     [data-t] { transition: opacity .22s ease; }
 
-    /* ─── RESPONSIVE ─────────────────────────────────────────── */
-    @media (max-width: 1080px) {
-      section { padding: 96px 40px; }
-      .villa-grid { gap: 56px; }
+    /* ─── HOVER STATES: desktop pointer only ─────────────────── */
+    @media (hover: hover) and (pointer: fine) {
+      .nav-links a:hover   { opacity: .5; }
+      .nav-ig:hover        { opacity: .5; }
+      .hero-cta:hover      { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.75); }
+      .i-card:hover        { background: var(--teal-mid); }
+      .exp-card:hover .exp-ph      { transform: scale(1.04); }
+      .exp-card:hover .exp-overlay { transform: translateY(-5px); }
+      .g-item:hover .g-ph          { transform: scale(1.04); }
+      .g-item:hover .g-overlay     { background: rgba(8,24,24,.38); }
+      .g-item:hover .g-overlay svg { opacity: 1; transform: scale(1); }
+      .btn-wa:hover       { filter: brightness(1.09); transform: translateY(-1px); }
+      .btn-ig:hover       { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.55); }
+      .lb-close:hover     { color: #fff; transform: rotate(90deg); }
+      .lb-nav:hover       { border-color: rgba(255,255,255,.6); color: #fff; background: rgba(255,255,255,.07); }
+      .foot-socials a:hover { color: var(--gold); }
+      .wa-float:hover     { transform: scale(1.09); box-shadow: 0 6px 30px rgba(37,211,102,.52); }
+      .loc-map-btn:hover  { filter: brightness(1.12); transform: translateY(-1px); }
+    }
+
+    /* ─── REDUCE MOTION ──────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════ */
+
+    /* ── LARGE DESKTOP (1280px+) — already default ─────────── */
+
+    /* ── TABLET LANDSCAPE / SMALL DESKTOP (1100px) ─────────── */
+    @media (max-width: 1100px) {
+      section { padding: 100px 44px; }
+      .villa-grid   { gap: 60px; }
+      .contact-grid { gap: 60px; }
+      .loc-intro    { gap: 56px; }
+      .gallery-grid { grid-template-rows: 280px 210px; }
+    }
+
+    /* ── TABLET PORTRAIT + LANDSCAPE (1024px) ───────────────── */
+    @media (max-width: 1024px) {
+      :root { --nav-h: 64px; }
+      section { padding: 88px 40px; }
+      .nav { padding: 0 36px; }
+
       .exp-cards { grid-template-columns: 1fr 1fr; }
       .exp-cards .exp-card:last-child { grid-column: span 2; aspect-ratio: 16/7; }
+
+      .gallery-grid {
+        grid-template-columns: repeat(12,1fr);
+        grid-template-rows: 260px 200px;
+      }
+
+      .loc-intro { grid-template-columns: 1fr; gap: 48px; }
+      .loc-copy .s-body { max-width: 100%; }
+      .loc-map-wrap { height: 420px; }
     }
+
+    /* ── TABLET PORTRAIT (768px) ────────────────────────────── */
     @media (max-width: 768px) {
+      :root { --nav-h: 60px; }
       section { padding: 72px 24px; }
-      .nav { padding: 0 24px; }
+      .nav { padding: 0 20px; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .mobile-menu { padding: 16px 24px 24px; }
+      .nav-logo { font-size: 19px; }
 
+      .intro-quote { margin-bottom: 60px; font-size: clamp(20px, 5vw, 32px); }
       .intro-cards { grid-template-columns: 1fr; gap: 2px; }
+      .i-card { padding: 44px 32px; }
       .i-card:first-child { border-radius: 4px 4px 0 0; }
       .i-card:last-child  { border-radius: 0 0 4px 4px; }
 
-      .villa-grid  { grid-template-columns: 1fr; gap: 48px; }
-      .villa-img-wrap { aspect-ratio: 16/9; }
+      .villa-grid { grid-template-columns: 1fr; gap: 44px; }
+      .villa-img-wrap { aspect-ratio: 4/3; }
 
       .exp-cards { grid-template-columns: 1fr; gap: 12px; }
       .exp-cards .exp-card:last-child { grid-column: span 1; aspect-ratio: 3/4; }
+      .exp-intro { max-width: 100%; margin-bottom: 48px; }
 
       .gallery-grid {
+        display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 200px 200px 200px;
+        grid-template-rows: 200px 185px 185px;
       }
       .g-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
       .g-item:nth-child(2),
@@ -528,18 +561,58 @@
       .g-item:nth-child(5) { grid-column: span 1; }
       .g-item:nth-child(6) { grid-column: span 2; }
 
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .contact-box  { padding: 36px; }
+      .loc-intro { grid-template-columns: 1fr; gap: 40px; }
+      .loc-map-wrap { height: 340px; }
+      .loc-map-btn { font-size: 11px; padding: 11px 18px; }
+
+      .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+      .contact-box  { padding: 36px 28px; }
 
       footer { padding: 48px 24px; }
-      .foot-inner { flex-direction: column; align-items: flex-start; }
+      .foot-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .foot-right { width: 100%; justify-content: space-between; }
 
+      .lb-frame { width: 92vw; }
       .lb-prev { left: 10px; }
       .lb-next { right: 10px; }
+
+      .wa-float {
+        width: 52px; height: 52px;
+        bottom: calc(22px + env(safe-area-inset-bottom));
+        right: calc(22px + env(safe-area-inset-right));
+      }
     }
+
+    /* ── LARGE PHONE (480px) ────────────────────────────────── */
     @media (max-width: 480px) {
-      .amenities { grid-template-columns: 1fr; }
-      .hero-title { font-size: clamp(64px, 17vw, 100px); }
+      section { padding: 64px 18px; }
+      .hero-title { font-size: clamp(60px, 16vw, 90px); }
+      .hero-sub   { margin-bottom: 32px; }
+      .s-title    { font-size: clamp(34px, 9vw, 58px); }
+      .amenities  { grid-template-columns: 1fr; }
+      .i-card     { padding: 36px 24px; }
+      .contact-box { padding: 28px 22px; }
+      .gallery-grid { grid-template-rows: 185px 165px 165px; }
+      .loc-map-wrap { height: 300px; }
+      .exp-overlay  { padding: 40px 20px 22px; }
+    }
+
+    /* ── SMALL PHONE (390px — iPhone 14/15) ─────────────────── */
+    @media (max-width: 390px) {
+      section { padding: 56px 16px; }
+      .nav { padding: 0 16px; }
+      .hero-title { font-size: 60px; }
+      .hero-sub   { font-size: 17px; }
+      .hero-cta   { padding: 14px 28px; letter-spacing: .14em; font-size: 10px; }
+      .gallery-grid { grid-template-rows: 170px 150px 150px; }
+      .intro-quote  { font-size: 19px; }
+    }
+
+    /* ── TINY PHONE (360px — many Androids) ─────────────────── */
+    @media (max-width: 360px) {
+      .hero-title { font-size: 54px; }
+      .cb-title   { font-size: 24px; }
+      .contact-box { padding: 24px 18px; }
     }
   </style>
 </head>
@@ -553,6 +626,7 @@
     <li><a href="#villa"      data-t="nav_villa">La Villa</a></li>
     <li><a href="#experience" data-t="nav_exp">Experiencia</a></li>
     <li><a href="#gallery"    data-t="nav_gal">Galería</a></li>
+    <li><a href="#location"   data-t="nav_loc">Ubicación</a></li>
     <li><a href="#contact"    data-t="nav_cont">Contacto</a></li>
   </ul>
 
@@ -574,7 +648,12 @@
   <a href="#villa"      onclick="toggleMenu()" data-t="nav_villa">La Villa</a>
   <a href="#experience" onclick="toggleMenu()" data-t="nav_exp">Experiencia</a>
   <a href="#gallery"    onclick="toggleMenu()" data-t="nav_gal">Galería</a>
+  <a href="#location"   onclick="toggleMenu()" data-t="nav_loc">Ubicación</a>
   <a href="#contact"    onclick="toggleMenu()" data-t="nav_cont">Contacto</a>
+  <div class="mobile-menu-lang">
+    <button class="lang-btn" data-lc="es" onclick="setLang('es');toggleMenu()">ES</button>
+    <button class="lang-btn" data-lc="en" onclick="setLang('en');toggleMenu()">EN</button>
+  </div>
 </div>
 
 <!-- HERO ──────────────────────────────────────────────────── -->
@@ -731,13 +810,63 @@
   </button>
 </div>
 
+<!-- LOCATION ──────────────────────────────────────────────── -->
+<section class="location" id="location">
+  <div class="wrap">
+    <div class="loc-intro">
+      <div class="loc-copy">
+        <span class="s-label reveal" data-t="loc_lbl">Ubicación</span>
+        <h2 class="s-title reveal" data-t="loc_h">Gran Roque, Los Roques</h2>
+        <p class="s-body reveal" data-t="loc_p">
+          El Archipiélago Los Roques es Parque Nacional y uno de los ecosistemas marinos más prístinos del Caribe. Casa Verde se encuentra en Gran Roque, la única isla habitada, a 160 km al norte de Caracas.
+        </p>
+        <div class="loc-facts reveal">
+          <div class="loc-fact">
+            <div class="loc-fact-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+            </div>
+            <span data-t="loc_f1">Vuelo directo desde Caracas: ~40 minutos en avioneta chárter.</span>
+          </div>
+          <div class="loc-fact">
+            <div class="loc-fact-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <span data-t="loc_f2">Clima perfecto todo el año: 28 °C en promedio, brisa constante.</span>
+          </div>
+          <div class="loc-fact">
+            <div class="loc-fact-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <span data-t="loc_f3">Más de 300 cayos, lagunas turquesas y la segunda barrera de coral del Atlántico.</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="loc-map-wrap reveal">
+          <iframe
+            src="https://maps.google.com/maps?q=Gran+Roque,+Los+Roques,+Venezuela&z=14&output=embed&hl=es"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Casa Verde — Gran Roque, Los Roques">
+          </iframe>
+          <a href="https://maps.app.goo.gl/oZi7Z5DEkzjafH2z6" target="_blank" rel="noopener" class="loc-map-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-t="loc_btn">Ver en Google Maps</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT ───────────────────────────────────────────────── -->
 <section class="contact" id="contact">
   <div class="wrap">
     <div class="contact-grid">
       <div class="contact-copy">
-        <span class="s-label reveal"  data-t="ct_lbl">Contacto</span>
-        <h2 class="s-title reveal"    data-t="ct_h">Reserva tu estadía</h2>
+        <span class="s-label reveal"   data-t="ct_lbl">Contacto</span>
+        <h2 class="s-title reveal"     data-t="ct_h">Reserva tu estadía</h2>
         <p class="contact-body reveal" data-t="ct_p">Para consultas sobre disponibilidad, tarifas y experiencias personalizadas, contáctanos directamente. Respondemos en menos de 24 horas.</p>
         <div class="reveal">
           <div class="c-detail">
@@ -780,7 +909,7 @@
       <div class="foot-logo">Casa <em>Verde</em></div>
       <div class="foot-sub">Los Roques, Venezuela</div>
     </div>
-    <p class="foot-copy" data-t="foot_copy">© 2024 Casa Verde · Todos los derechos reservados</p>
+    <p class="foot-copy" data-t="foot_copy">© 2025 Casa Verde · Todos los derechos reservados</p>
     <div class="foot-right">
       <div class="foot-lang lang-pill">
         <button class="lang-btn" data-lc="es" onclick="setLang('es')">ES</button>
@@ -806,72 +935,84 @@
 <script>
 /* ─── CONTENT ──────────────────────────────────────────────── */
 const T = {
-  nav_villa:  { es:'La Villa',      en:'The Villa' },
-  nav_exp:    { es:'Experiencia',   en:'Experience' },
-  nav_gal:    { es:'Galería',       en:'Gallery' },
-  nav_cont:   { es:'Contacto',      en:'Contact' },
+  nav_villa: { es:'La Villa',      en:'The Villa' },
+  nav_exp:   { es:'Experiencia',   en:'Experience' },
+  nav_gal:   { es:'Galería',       en:'Gallery' },
+  nav_loc:   { es:'Ubicación',     en:'Location' },
+  nav_cont:  { es:'Contacto',      en:'Contact' },
 
-  hero_eye:   { es:'Gran Roque · Los Roques · Venezuela', en:'Gran Roque · Los Roques · Venezuela' },
-  hero_sub:   { es:'Tu paraíso privado en Los Roques',    en:'Your private paradise in Los Roques' },
-  hero_cta:   { es:'Reservar estadía',                    en:'Book your stay' },
-  scroll:     { es:'Descubrir',                           en:'Discover' },
+  hero_eye:  { es:'Gran Roque · Los Roques · Venezuela', en:'Gran Roque · Los Roques · Venezuela' },
+  hero_sub:  { es:'Tu paraíso privado en Los Roques',    en:'Your private paradise in Los Roques' },
+  hero_cta:  { es:'Reservar estadía',                    en:'Book your stay' },
+  scroll:    { es:'Descubrir',                           en:'Discover' },
 
-  intro_q:    {
+  intro_q: {
     es:'En Casa Verde, el lujo no se declara — se vive. Una villa privada diseñada para quienes buscan lo extraordinario: silencio, mar turquesa, y una atención sin igual.',
     en:'At Casa Verde, luxury isn\'t announced — it\'s felt. A private villa designed for those who seek the extraordinary: stillness, turquoise sea, and service without equal.'
   },
 
-  c1_title:   { es:'Chef Privado',          en:'Private Chef' },
-  c1_desc:    { es:'Gastronomía de autor preparada especialmente para ti. Desayuno, almuerzo y cena incluidos.', en:'Signature cuisine prepared exclusively for you. Breakfast, lunch, and dinner included.' },
-  c2_title:   { es:'Bote Privado 24/7',     en:'Private Boat 24/7' },
-  c2_desc:    { es:'Tu bote y tripulación disponibles en todo momento. Explora cada cayo del archipiélago a tu ritmo.', en:'Your boat and crew available at all hours. Explore every caye of the archipelago at your pace.' },
-  c3_title:   { es:'Hasta 10 Huéspedes',    en:'Up to 10 Guests' },
-  c3_desc:    { es:'Espacio generoso para grupos, familias y celebraciones íntimas en un entorno de lujo absoluto.', en:'Generous space for groups, families, and intimate celebrations in absolute luxury.' },
+  c1_title: { es:'Chef Privado',       en:'Private Chef' },
+  c1_desc:  { es:'Gastronomía de autor preparada especialmente para ti. Desayuno, almuerzo y cena incluidos.', en:'Signature cuisine prepared exclusively for you. Breakfast, lunch, and dinner included.' },
+  c2_title: { es:'Bote Privado 24/7',  en:'Private Boat 24/7' },
+  c2_desc:  { es:'Tu bote y tripulación disponibles en todo momento. Explora cada cayo del archipiélago a tu ritmo.', en:'Your boat and crew available at all hours. Explore every caye of the archipelago at your pace.' },
+  c3_title: { es:'Hasta 10 Huéspedes', en:'Up to 10 Guests' },
+  c3_desc:  { es:'Espacio generoso para grupos, familias y celebraciones íntimas en un entorno de lujo absoluto.', en:'Generous space for groups, families, and intimate celebrations in absolute luxury.' },
 
-  villa_lbl:  { es:'La Villa',              en:'The Villa' },
-  villa_h:    { es:'Un refugio privado en el Caribe', en:'A private Caribbean retreat' },
-  villa_p:    {
+  villa_lbl: { es:'La Villa',          en:'The Villa' },
+  villa_h:   { es:'Un refugio privado en el Caribe', en:'A private Caribbean retreat' },
+  villa_p:   {
     es:'Casa Verde es una villa de lujo en Gran Roque, el corazón del Archipiélago Los Roques. Sus tres habitaciones premium, terraza rooftop con vistas panorámicas y cocina gourmet crean un espacio donde cada detalle ha sido concebido para el descanso absoluto.',
     en:'Casa Verde is a luxury villa in Gran Roque, the heart of Los Roques Archipelago. Its three premium bedrooms, rooftop terrace with panoramic views, and gourmet kitchen create a space where every detail has been conceived for absolute rest.'
   },
-  am1:  { es:'3 Habitaciones de lujo', en:'3 Luxury Bedrooms' },
-  am2:  { es:'Aire acondicionado',     en:'Air Conditioning' },
-  am3:  { es:'WiFi de alta velocidad', en:'High-Speed WiFi' },
-  am4:  { es:'Smart TV por habitación',en:'Smart TV per room' },
-  am5:  { es:'Cocina gourmet equipada',en:'Fully Equipped Kitchen' },
-  am6:  { es:'Terraza rooftop',        en:'Rooftop Terrace' },
-  am7:  { es:'Sala de estar premium',  en:'Premium Living Room' },
-  am8:  { es:'Personal incluido',      en:'Full Staff Included' },
+  am1: { es:'3 Habitaciones de lujo', en:'3 Luxury Bedrooms' },
+  am2: { es:'Aire acondicionado',     en:'Air Conditioning' },
+  am3: { es:'WiFi de alta velocidad', en:'High-Speed WiFi' },
+  am4: { es:'Smart TV por habitación',en:'Smart TV per room' },
+  am5: { es:'Cocina gourmet equipada',en:'Fully Equipped Kitchen' },
+  am6: { es:'Terraza rooftop',        en:'Rooftop Terrace' },
+  am7: { es:'Sala de estar premium',  en:'Premium Living Room' },
+  am8: { es:'Personal incluido',      en:'Full Staff Included' },
 
-  exp_lbl:    { es:'La Experiencia',        en:'The Experience' },
-  exp_h:      { es:'Todo incluido. Nada improvisado.', en:'All-inclusive. Nothing left to chance.' },
-  exp_p:      {
+  exp_lbl: { es:'La Experiencia',   en:'The Experience' },
+  exp_h:   { es:'Todo incluido. Nada improvisado.', en:'All-inclusive. Nothing left to chance.' },
+  exp_p:   {
     es:'Cada estadía en Casa Verde es gestionada por un equipo dedicado: chef, asistentes y tripulación. No hay detalles que atender — solo disfrutar.',
     en:'Every stay at Casa Verde is managed by a dedicated team: chef, assistants, and boat crew. There are no details to attend to — only to enjoy.'
   },
-  ec1_lbl:    { es:'Gastronomía',           en:'Gastronomy' },
-  ec1_h:      { es:'Tu chef, tu menú',      en:'Your chef, your menu' },
-  ec1_p:      { es:'El chef de casa diseña el menú según tus preferencias. Pescados frescos del día, frutas tropicales y cocina internacional de primer nivel.', en:'The house chef designs the menu to your preferences. Fresh catch of the day, tropical fruits, and world-class international cuisine.' },
-  ec2_lbl:    { es:'Mar & Cayos',           en:'Sea & Cayes' },
-  ec2_h:      { es:'Los Roques a tu ritmo', en:'Los Roques at your pace' },
-  ec2_p:      { es:'Con tu bote y tripulación disponibles las 24 horas, cada cayo, playa virgen y spot de snorkel del archipiélago está a tu alcance.', en:'With your boat and crew available 24 hours, every caye, pristine beach, and snorkel spot in the archipelago is within reach.' },
-  ec3_lbl:    { es:'Descanso',              en:'Rest' },
-  ec3_h:      { es:'Silencio y horizonte',  en:'Silence and horizon' },
-  ec3_p:      { es:'La terraza rooftop te regala atardeceres únicos sobre el Caribe. Un lugar donde el tiempo se detiene y el mundo se simplifica.', en:'The rooftop terrace gifts you sunsets unlike any other over the Caribbean. A place where time stops and the world simplifies.' },
+  ec1_lbl: { es:'Gastronomía',          en:'Gastronomy' },
+  ec1_h:   { es:'Tu chef, tu menú',     en:'Your chef, your menu' },
+  ec1_p:   { es:'El chef de casa diseña el menú según tus preferencias. Pescados frescos del día, frutas tropicales y cocina internacional de primer nivel.', en:'The house chef designs the menu to your preferences. Fresh catch of the day, tropical fruits, and world-class international cuisine.' },
+  ec2_lbl: { es:'Mar & Cayos',          en:'Sea & Cayes' },
+  ec2_h:   { es:'Los Roques a tu ritmo',en:'Los Roques at your pace' },
+  ec2_p:   { es:'Con tu bote y tripulación disponibles las 24 horas, cada cayo, playa virgen y spot de snorkel del archipiélago está a tu alcance.', en:'With your boat and crew available 24 hours, every caye, pristine beach, and snorkel spot in the archipelago is within reach.' },
+  ec3_lbl: { es:'Descanso',             en:'Rest' },
+  ec3_h:   { es:'Silencio y horizonte', en:'Silence and horizon' },
+  ec3_p:   { es:'La terraza rooftop te regala atardeceres únicos sobre el Caribe. Un lugar donde el tiempo se detiene y el mundo se simplifica.', en:'The rooftop terrace gifts you sunsets unlike any other over the Caribbean. A place where time stops and the world simplifies.' },
 
-  gal_lbl:    { es:'Galería',               en:'Gallery' },
-  gal_h:      { es:'La villa en imágenes',  en:'The villa in images' },
+  gal_lbl: { es:'Galería',              en:'Gallery' },
+  gal_h:   { es:'La villa en imágenes', en:'The villa in images' },
 
-  ct_lbl:     { es:'Contacto',              en:'Contact' },
-  ct_h:       { es:'Reserva tu estadía',    en:'Reserve your stay' },
-  ct_p:       { es:'Para consultas sobre disponibilidad, tarifas y experiencias personalizadas, contáctanos directamente. Respondemos en menos de 24 horas.', en:'For inquiries about availability, rates, and personalized experiences, contact us directly. We respond within 24 hours.' },
-  cb_h:       { es:'¿Cuándo nos visitas?',  en:'When will you arrive?' },
-  cb_p:       { es:'Escríbenos por WhatsApp para consultar disponibilidad y obtener una propuesta personalizada para tu grupo.', en:'Message us on WhatsApp to check availability and receive a personalized proposal for your group.' },
-  btn_wa:     { es:'Escribir por WhatsApp', en:'Message on WhatsApp' },
-  btn_ig:     { es:'Ver en Instagram',      en:'View on Instagram' },
-  min_stay:   { es:'Estadía mínima: 3 noches · Minimum stay: 3 nights', en:'Minimum stay: 3 nights · Estadía mínima: 3 noches' },
+  loc_lbl: { es:'Ubicación',            en:'Location' },
+  loc_h:   { es:'Gran Roque, Los Roques', en:'Gran Roque, Los Roques' },
+  loc_p:   {
+    es:'El Archipiélago Los Roques es Parque Nacional y uno de los ecosistemas marinos más prístinos del Caribe. Casa Verde se encuentra en Gran Roque, la única isla habitada, a 160 km al norte de Caracas.',
+    en:'Los Roques Archipelago is a National Park and one of the most pristine marine ecosystems in the Caribbean. Casa Verde is located in Gran Roque, the only inhabited island, 160 km north of Caracas.'
+  },
+  loc_f1:  { es:'Vuelo directo desde Caracas: ~40 minutos en avioneta chárter.', en:'Direct flight from Caracas: ~40 minutes by charter plane.' },
+  loc_f2:  { es:'Clima perfecto todo el año: 28 °C en promedio, brisa constante.', en:'Perfect weather year-round: 28 °C average, constant breeze.' },
+  loc_f3:  { es:'Más de 300 cayos, lagunas turquesas y la segunda barrera de coral del Atlántico.', en:'Over 300 cayes, turquoise lagoons, and the second largest coral reef in the Atlantic.' },
+  loc_btn: { es:'Ver en Google Maps',   en:'View on Google Maps' },
 
-  foot_copy:  { es:'© 2024 Casa Verde · Todos los derechos reservados', en:'© 2024 Casa Verde · All rights reserved' },
+  ct_lbl:  { es:'Contacto',             en:'Contact' },
+  ct_h:    { es:'Reserva tu estadía',   en:'Reserve your stay' },
+  ct_p:    { es:'Para consultas sobre disponibilidad, tarifas y experiencias personalizadas, contáctanos directamente. Respondemos en menos de 24 horas.', en:'For inquiries about availability, rates, and personalized experiences, contact us directly. We respond within 24 hours.' },
+  cb_h:    { es:'¿Cuándo nos visitas?', en:'When will you arrive?' },
+  cb_p:    { es:'Escríbenos por WhatsApp para consultar disponibilidad y obtener una propuesta personalizada para tu grupo.', en:'Message us on WhatsApp to check availability and receive a personalized proposal for your group.' },
+  btn_wa:  { es:'Escribir por WhatsApp',en:'Message on WhatsApp' },
+  btn_ig:  { es:'Ver en Instagram',     en:'View on Instagram' },
+  min_stay:{ es:'Estadía mínima: 3 noches · Minimum stay: 3 nights', en:'Minimum stay: 3 nights · Estadía mínima: 3 noches' },
+
+  foot_copy: { es:'© 2025 Casa Verde · Todos los derechos reservados', en:'© 2025 Casa Verde · All rights reserved' },
 };
 
 /* ─── LANGUAGE ─────────────────────────────────────────────── */
@@ -893,10 +1034,7 @@ function setLang(l) {
   lang = l;
   localStorage.setItem('cv-lang', l);
   document.body.classList.add('switching');
-  setTimeout(() => {
-    applyLang(l);
-    document.body.classList.remove('switching');
-  }, 200);
+  setTimeout(() => { applyLang(l); document.body.classList.remove('switching'); }, 200);
 }
 
 applyLang(lang);
@@ -904,29 +1042,37 @@ applyLang(lang);
 /* ─── NAV SCROLL ───────────────────────────────────────────── */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 56);
+  nav.classList.toggle('scrolled', window.scrollY > 50);
 }, { passive: true });
 
-/* ─── PARALLAX HERO ────────────────────────────────────────── */
+/* ─── PARALLAX (desktop only — skip on mobile for perf) ────── */
 const heroBg = document.getElementById('heroBg');
-window.addEventListener('scroll', () => {
+const mq = window.matchMedia('(hover: hover) and (min-width: 769px)');
+function onScroll() {
+  if (!mq.matches) return;
   if (window.scrollY < window.innerHeight * 1.2) {
     heroBg.style.transform = `translateY(${window.scrollY * 0.38}px)`;
   }
-}, { passive: true });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
 
 /* ─── SCROLL REVEAL ────────────────────────────────────────── */
 const ro = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
-  });
-}, { threshold: 0.1 });
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+}, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
 /* ─── MOBILE MENU ──────────────────────────────────────────── */
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
+document.addEventListener('click', e => {
+  const menu = document.getElementById('mobileMenu');
+  const ham  = document.getElementById('hamburger');
+  if (menu.classList.contains('open') && !menu.contains(e.target) && !ham.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
 
 /* ─── LIGHTBOX ─────────────────────────────────────────────── */
 const LB_BG = [
@@ -947,20 +1093,17 @@ function openLb(i) {
   lbEl.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function closeLb() {
-  lbEl.classList.remove('open');
-  document.body.style.overflow = '';
-}
-function lbBg(e) { if (e.target === lbEl) closeLb(); }
-function navLb(d) {
+function closeLb() { lbEl.classList.remove('open'); document.body.style.overflow = ''; }
+function lbBg(e)   { if (e.target === lbEl) closeLb(); }
+function navLb(d)  {
   lbIdx = (lbIdx + d + LB_BG.length) % LB_BG.length;
   lbFrame.style.background = LB_BG[lbIdx];
 }
 document.addEventListener('keydown', e => {
   if (!lbEl.classList.contains('open')) return;
-  if (e.key === 'Escape')      closeLb();
-  if (e.key === 'ArrowLeft')   navLb(-1);
-  if (e.key === 'ArrowRight')  navLb(1);
+  if (e.key === 'Escape')     closeLb();
+  if (e.key === 'ArrowLeft')  navLb(-1);
+  if (e.key === 'ArrowRight') navLb(1);
 });
 let tx = 0;
 lbEl.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
