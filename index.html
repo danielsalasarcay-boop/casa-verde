@@ -426,7 +426,16 @@
     .cb-min { font-size: 11px; color: rgba(255,255,255,.35); text-align: center; letter-spacing: .06em; margin-top: 2px; }
 
     /* ─── FOOTER ─────────────────────────────────────────────── */
-    footer { background: var(--charcoal); padding: 60px 52px; }
+    footer {
+      position: relative; padding: 60px 52px;
+      background-image: url('IMG_0861.JPG');
+      background-size: cover; background-position: center;
+    }
+    footer::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0,0,0,0.55); pointer-events: none;
+    }
+    footer > * { position: relative; z-index: 1; }
     .foot-inner {
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px;
