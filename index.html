@@ -68,12 +68,11 @@
     }
     .nav-logo img {
       height: 52px; width: auto; display: block;
-      filter: brightness(0) invert(1);
-      transition: filter .3s ease;
+      filter: invert(1);
+      transition: filter 0.3s ease;
     }
-    /* scrolled: logo en color teal de Casa Verde */
     .nav.scrolled .nav-logo img {
-      filter: invert(19%) sepia(56%) saturate(541%) hue-rotate(136deg) brightness(90%) contrast(100%);
+      filter: invert(0);
     }
 
     .nav-links { display: flex; gap: 32px; list-style: none; }
@@ -444,7 +443,7 @@
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px;
     }
     .foot-logo { display: flex; flex-direction: column; gap: 6px; }
-    .foot-logo img { height: 64px; width: auto; display: block; filter: brightness(0) invert(1); }
+    .foot-logo img { height: 64px; width: auto; display: block; filter: invert(1); }
     .foot-sub { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.28); font-weight: 300; }
     .foot-copy { font-size: 12px; color: rgba(255,255,255,.28); letter-spacing: .04em; }
     .foot-right { display: flex; align-items: center; gap: 22px; }
@@ -632,7 +631,7 @@
 <!-- NAV ───────────────────────────────────────────────────── -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo" aria-label="Casa Verde">
-    <img src="logo.svg" alt="Casa Verde">
+    <img src="logo.png" alt="Casa Verde">
   </a>
 
   <ul class="nav-links">
@@ -901,7 +900,7 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-logo">
-      <img src="logo.svg" alt="Casa Verde">
+      <img src="logo.png" alt="Casa Verde">
       <div class="foot-sub">Los Roques, Venezuela</div>
     </div>
     <p class="foot-copy" data-t="foot_copy">© 2025 Casa Verde · Todos los derechos reservados</p>
