@@ -64,11 +64,14 @@
       border-bottom-color: rgba(26,74,74,.1);
     }
     .nav-logo {
-      font-family: var(--f-disp); font-size: 21px; font-weight: 500;
-      letter-spacing: .1em; color: #fff; transition: color .4s var(--ease);
-      flex-shrink: 0;
+      display: flex; align-items: center; flex-shrink: 0;
     }
-    .nav.scrolled .nav-logo { color: var(--teal); }
+    .nav-logo img {
+      height: 52px; width: auto; display: block;
+      filter: invert(1);
+      transition: filter .3s ease;
+    }
+    .nav.scrolled .nav-logo img { filter: invert(0); }
 
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
@@ -433,9 +436,9 @@
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px;
     }
-    .foot-logo { font-family: var(--f-disp); font-size: 28px; font-weight: 400; letter-spacing: .06em; color: var(--sand); }
-    .foot-logo em { color: var(--gold); font-style: normal; }
-    .foot-sub { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.28); font-weight: 300; margin-top: 5px; }
+    .foot-logo { display: flex; flex-direction: column; gap: 6px; }
+    .foot-logo img { height: 64px; width: auto; display: block; filter: invert(1); }
+    .foot-sub { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.28); font-weight: 300; }
     .foot-copy { font-size: 12px; color: rgba(255,255,255,.28); letter-spacing: .04em; }
     .foot-right { display: flex; align-items: center; gap: 22px; }
     .foot-lang { display: flex; border-radius: 20px; padding: 3px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); }
@@ -534,7 +537,7 @@
       .nav { padding: 0 20px; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .nav-logo { font-size: 19px; }
+      .nav-logo img { height: 40px; }
 
       .intro-quote { margin-bottom: 60px; font-size: clamp(20px, 5vw, 32px); }
       .intro-cards { grid-template-columns: 1fr; gap: 2px; }
@@ -620,7 +623,9 @@
 
 <!-- NAV ───────────────────────────────────────────────────── -->
 <nav class="nav" id="nav">
-  <a href="#" class="nav-logo">Casa Verde</a>
+  <a href="#" class="nav-logo" aria-label="Casa Verde">
+    <img src="logo.png" alt="Casa Verde">
+  </a>
 
   <ul class="nav-links">
     <li><a href="#villa"      data-t="nav_villa">La Villa</a></li>
@@ -885,8 +890,8 @@
 <!-- FOOTER ────────────────────────────────────────────────── -->
 <footer>
   <div class="foot-inner">
-    <div>
-      <div class="foot-logo">Casa <em>Verde</em></div>
+    <div class="foot-logo">
+      <img src="logo.png" alt="Casa Verde">
       <div class="foot-sub">Los Roques, Venezuela</div>
     </div>
     <p class="foot-copy" data-t="foot_copy">© 2025 Casa Verde · Todos los derechos reservados</p>
