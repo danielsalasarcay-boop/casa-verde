@@ -6,8 +6,13 @@
   <meta name="description" content="Casa Verde — Casa privada de lujo en Gran Roque, Archipiélago Los Roques, Venezuela. Hasta 10 huéspedes, chef privado, bote privado 24/7.">
   <meta name="theme-color" content="#1A4A4A">
   <title>Casa Verde — Gran Roque, Los Roques</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <style>
     /* ─── TOKENS ─────────────────────────────────────────────── */
@@ -38,6 +43,8 @@
       -webkit-text-size-adjust: 100%;
       text-size-adjust: 100%;
     }
+    html.lenis { height: auto; }
+    html.lenis-smooth { scroll-behavior: auto !important; }
     body {
       font-family: var(--f-body); color: var(--ink); background: var(--sand);
       overflow-x: hidden;
@@ -70,46 +77,35 @@
     }
     .nav-logo img {
       height: 52px; width: auto; display: block;
-      filter: invert(1);
-      transition: filter 0.3s ease;
-    }
-    .nav.scrolled .nav-logo img {
-      filter: invert(0);
     }
 
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
       font-size: 12px; font-weight: 400; letter-spacing: .14em; text-transform: uppercase;
-      color: rgba(255,255,255,.82); transition: opacity .3s;
+      color: var(--charcoal); transition: opacity .3s;
     }
-    .nav.scrolled .nav-links a { color: var(--charcoal); }
 
     .nav-right { display: flex; align-items: center; gap: 20px; }
 
-    .nav-ig { color: rgba(255,255,255,.75); display: flex; transition: opacity .3s; }
-    .nav.scrolled .nav-ig { color: var(--charcoal); }
+    .nav-ig { color: var(--charcoal); display: flex; transition: opacity .3s; }
 
     .lang-pill {
       display: flex; border-radius: 20px; padding: 3px;
-      border: 1px solid rgba(255,255,255,.28);
-      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(26,74,74,.18);
+      background: rgba(26,74,74,.07);
       transition: border-color .4s, background .4s;
     }
-    .nav.scrolled .lang-pill { background: rgba(26,74,74,.07); border-color: rgba(26,74,74,.18); }
 
     .lang-btn {
       padding: 5px 13px; border-radius: 14px; font-size: 11px; font-weight: 500;
       letter-spacing: .1em; text-transform: uppercase; min-height: 28px;
-      color: rgba(255,255,255,.62); background: transparent;
+      color: var(--charcoal); background: transparent;
       transition: background .3s, color .3s;
     }
-    .nav.scrolled .lang-btn { color: var(--charcoal); }
-    .lang-btn.active { background: #fff !important; color: var(--verde-dk) !important; }
-    .nav.scrolled .lang-btn.active { background: var(--verde) !important; color: #fff !important; }
+    .lang-btn.active { background: var(--verde) !important; color: #fff !important; }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px 4px; min-width: 32px; }
-    .hamburger span { display: block; width: 22px; height: 1.5px; background: #fff; transition: background .4s; }
-    .nav.scrolled .hamburger span { background: var(--charcoal); }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--charcoal); transition: background .4s; }
 
     .mobile-menu {
       display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
@@ -139,82 +135,180 @@
       border-color: var(--verde) !important;
     }
 
-    /* ─── HERO ───────────────────────────────────────────────── */
-    .hero {
+    /* ─── HERO: pinned zoom-through (Jesko style) ────────────── */
+    .hero-pin {
       position: relative;
-      height: 100vh;
-      height: 100svh;
+      height: 240vh;
+      padding: 0 !important;
+    }
+    .hero-stage {
+      position: sticky; top: 0;
+      height: 100vh; height: 100svh;
       min-height: 580px;
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
+      width: 100%; overflow: hidden;
+      background: var(--sand);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: var(--nav-h) 32px 0;
     }
-    .hero-bg {
-      position: absolute; inset: -12%;
-      will-change: transform; overflow: hidden;
-    }
-    .hero-bg img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center 30%;
-      display: block;
-    }
-    .hero-overlay {
+    .hero-destination {
       position: absolute; inset: 0;
-      background: linear-gradient(to bottom,
-        rgba(8,24,24,.22) 0%, rgba(8,24,24,.34) 55%, rgba(8,24,24,.58) 100%);
+      background-image: url('img/aerial-losroques.jpeg');
+      background-size: cover; background-position: center;
+      opacity: 0; transform: scale(1.08);
+      will-change: opacity, transform;
+      z-index: 0;
     }
-    .hero-content {
-      position: relative; z-index: 2; text-align: center;
-      padding: 0 24px; max-width: 960px; width: 100%;
+    .hero-dest-caption {
+      position: absolute; bottom: 48px; left: 0; right: 0;
+      text-align: center; z-index: 1; opacity: 0;
+      will-change: opacity;
     }
+    .hero-dest-caption span {
+      display: inline-block; padding: 12px 26px;
+      font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+      color: #fff; background: rgba(8,24,24,.35);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.25); border-radius: 2px;
+    }
+    .hero-grid {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; gap: clamp(20px, 3vw, 48px);
+      max-width: 1380px; margin: 0 auto; width: 100%;
+    }
+    .hero-display {
+      font-family: var(--f-disp);
+      font-size: clamp(56px, 9.5vw, 150px);
+      font-weight: 300; line-height: .92; letter-spacing: -.015em;
+      color: var(--teal);
+      will-change: transform, opacity;
+    }
+    .hero-display-left  { text-align: right; font-style: italic; }
+    .hero-display-right { text-align: left; }
     .hero-eyebrow {
+      position: absolute; top: calc(var(--nav-h) + 34px); left: 0; right: 0;
+      text-align: center; z-index: 2;
       font-size: 10px; font-weight: 400; letter-spacing: .34em; text-transform: uppercase;
-      color: var(--gold-lt); margin-bottom: 20px;
+      color: var(--verde-dk);
       opacity: 0; transform: translateY(18px);
       animation: fadeUp 1.2s var(--ease) .35s forwards;
+      will-change: transform, opacity;
     }
-    .hero-title {
-      font-family: var(--f-disp);
-      font-size: clamp(68px, 13vw, 140px);
-      font-weight: 300; line-height: .9; letter-spacing: -.01em; color: #fff;
-      margin-bottom: 22px;
-      opacity: 0; transform: translateY(28px);
-      animation: fadeUp 1.4s var(--ease) .55s forwards;
+    .porthole-wrap {
+      width: clamp(240px, 30vw, 400px);
+      aspect-ratio: 1 / 1;
+      transform-origin: center center;
+      will-change: transform, opacity;
+      opacity: 0; animation: fadeIn 1.4s var(--ease) .5s forwards;
     }
-    .hero-sub {
-      font-family: var(--f-disp); font-size: clamp(18px, 3vw, 28px);
-      font-weight: 300; font-style: italic;
-      color: rgba(255,255,255,.82); letter-spacing: .03em; margin-bottom: 44px;
-      opacity: 0; transform: translateY(18px);
-      animation: fadeUp 1.4s var(--ease) .72s forwards;
+    .porthole-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 30%;
+      border-radius: 50%;
+      box-shadow: 0 30px 80px rgba(26,74,74,.28);
+      will-change: border-radius;
     }
+    .hero-meta-overlay {
+      position: absolute; bottom: 44px; left: 0; right: 0;
+      padding: 0 48px; z-index: 2;
+      will-change: opacity, transform;
+      opacity: 0; animation: fadeUp 1.4s var(--ease) .9s forwards;
+    }
+    .hero-meta-grid {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: end; gap: 24px;
+      max-width: 1380px; margin: 0 auto;
+    }
+    .hero-side-copy {
+      font-family: var(--f-disp); font-style: italic;
+      font-size: 17px; font-weight: 400; line-height: 1.5;
+      color: var(--charcoal); max-width: 300px;
+    }
+    .hero-cta-zone { display: flex; flex-direction: column; align-items: center; gap: 18px; }
     .hero-cta {
       display: inline-flex; align-items: center; gap: 10px;
-      padding: 16px 38px; border: 1px solid rgba(255,255,255,.46);
-      color: #fff; font-size: 11px; font-weight: 400; letter-spacing: .22em;
-      text-transform: uppercase; border-radius: 2px;
-      transition: background .35s, border-color .35s;
-      opacity: 0; animation: fadeUp 1.4s var(--ease) .9s forwards;
+      padding: 16px 38px; border: 1px solid var(--teal);
+      color: var(--teal); font-size: 11px; font-weight: 500; letter-spacing: .22em;
+      text-transform: uppercase; border-radius: 40px;
+      transition: background .35s, color .35s, border-color .35s;
       min-height: 52px;
     }
     .scroll-hint {
-      position: absolute; bottom: 38px; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 10px;
-      opacity: 0; animation: fadeIn .9s var(--ease) 1.6s forwards;
     }
     .scroll-hint span {
       font-size: 9px; letter-spacing: .28em; text-transform: uppercase;
-      color: rgba(255,255,255,.42);
+      color: rgba(44,44,44,.45);
     }
     .scroll-line {
-      width: 1px; height: 44px; background: rgba(255,255,255,.2); overflow: hidden; position: relative;
+      width: 1px; height: 38px; background: rgba(26,74,74,.18); overflow: hidden; position: relative;
     }
     .scroll-line::after {
       content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
       background: var(--verde); animation: lineDrop 2.2s ease-in-out 2s infinite;
     }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; margin: -1px;
+      clip: rect(0 0 0 0); overflow: hidden; white-space: nowrap;
+    }
+    /* Fallback sin GSAP: hero estático, destino oculto */
+    .no-gsap .hero-pin { height: 100vh; height: 100svh; }
 
     @keyframes fadeUp  { to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn  { to { opacity: 1; } }
     @keyframes lineDrop { 0% { top: -100%; } 100% { top: 110%; } }
+
+    /* ─── STATS STRIP ────────────────────────────────────────── */
+    .stats { background: var(--sand); border-top: 1px solid rgba(26,74,74,.12); border-bottom: 1px solid rgba(26,74,74,.12); padding: 56px 52px; }
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 32px; max-width: 1200px; margin: 0 auto;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: var(--f-disp); font-weight: 300;
+      font-size: clamp(38px, 4.6vw, 60px); line-height: 1; color: var(--teal);
+    }
+    .stat-num small { font-size: .5em; color: var(--verde-dk); font-style: italic; }
+    .stat-label {
+      display: block; margin-top: 10px;
+      font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: #8a8578;
+    }
+
+    /* ─── ATMÓSFERA (full-bleed parallax + quote) ────────────── */
+    .atmosphere {
+      position: relative; overflow: hidden;
+      min-height: 82vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+    }
+    .atmosphere-bg {
+      position: absolute; inset: -18% 0;
+      will-change: transform;
+    }
+    .atmosphere-bg img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .atmosphere::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(8,24,24,.34);
+    }
+    .atmosphere-quote {
+      position: relative; z-index: 2; text-align: center; padding: 120px 24px;
+      max-width: 900px;
+    }
+    .atmosphere-quote .s-label { color: var(--verde); }
+    .atmosphere-quote h2 {
+      font-family: var(--f-disp); font-style: italic; font-weight: 300;
+      font-size: clamp(30px, 5.4vw, 62px); line-height: 1.25; color: #fff;
+    }
+
+    /* ─── TILT 3D (tarjetas experiencia) ─────────────────────── */
+    .exp-card { transform-style: preserve-3d; }
+
+    /* ─── CLIP REVEAL (imágenes) ─────────────────────────────── */
+    .fx-clip { clip-path: inset(100% 0 0 0); }
+    .no-gsap .fx-clip { clip-path: inset(0 0 0 0); }
 
     /* ─── REVEAL ─────────────────────────────────────────────── */
     .reveal {
@@ -396,37 +490,6 @@
       transition: filter .3s, transform .3s;
     }
 
-    /* ─── CONTACT ────────────────────────────────────────────── */
-    .contact { background: var(--sand-dark); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: start; }
-    .contact-copy .s-title { margin-bottom: 22px; }
-    .contact-body { font-size: 17px; font-weight: 300; line-height: 1.78; color: #5a5a5a; margin-bottom: 44px; }
-    .c-detail { display: flex; align-items: center; gap: 14px; font-size: 14px; color: var(--charcoal); margin-bottom: 15px; }
-    .c-icon {
-      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-      background: rgba(62,207,171,.13); display: flex; align-items: center; justify-content: center; color: var(--verde-dk);
-    }
-    .contact-box {
-      background: var(--teal); padding: 56px; border-radius: 3px;
-      display: flex; flex-direction: column; gap: 18px;
-    }
-    .cb-title { font-family: var(--f-disp); font-size: 30px; font-weight: 400; color: #fff; margin-bottom: 4px; }
-    .cb-note  { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.56); line-height: 1.65; margin-bottom: 6px; }
-    .btn-wa {
-      display: flex; align-items: center; justify-content: center; gap: 12px;
-      padding: 18px 32px; background: var(--wa); color: #fff;
-      border-radius: 3px; font-size: 13px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
-      transition: filter .3s, transform .3s; min-height: 56px;
-    }
-    .btn-ig {
-      display: flex; align-items: center; justify-content: center; gap: 12px;
-      padding: 18px 32px; border: 1px solid rgba(255,255,255,.28);
-      color: rgba(255,255,255,.82); border-radius: 3px;
-      font-size: 13px; font-weight: 400; letter-spacing: .07em; text-transform: uppercase;
-      transition: background .3s, border-color .3s; min-height: 56px;
-    }
-    .cb-min { font-size: 11px; color: rgba(255,255,255,.35); text-align: center; letter-spacing: .06em; margin-top: 2px; }
-
     /* ─── FOOTER ─────────────────────────────────────────────── */
     footer {
       background:
@@ -486,8 +549,6 @@
       .g-item:hover img            { transform: scale(1.04); }
       .g-item:hover .g-overlay     { background: rgba(8,24,24,.38); }
       .g-item:hover .g-overlay svg { opacity: 1; transform: scale(1); }
-      .btn-wa:hover       { filter: brightness(1.09); transform: translateY(-1px); }
-      .btn-ig:hover       { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.55); }
       .lb-close:hover     { color: #fff; transform: rotate(90deg); }
       .lb-nav:hover       { border-color: rgba(255,255,255,.6); color: #fff; background: rgba(255,255,255,.07); }
       .foot-links a:hover   { color: var(--verde); }
@@ -512,7 +573,6 @@
     @media (max-width: 1100px) {
       section { padding: 100px 44px; }
       .villa-grid   { gap: 60px; }
-      .contact-grid { gap: 60px; }
       .loc-intro    { gap: 56px; }
       .gallery-grid { columns: 3; }
     }
@@ -542,6 +602,24 @@
       .hamburger { display: flex; }
       .nav-logo img { height: 40px; }
 
+      .hero-pin { height: 200vh; }
+      .hero-stage { padding: var(--nav-h) 20px 0; }
+      .hero-grid {
+        grid-template-columns: 1fr; gap: 14px;
+        justify-items: center; text-align: center;
+      }
+      .hero-display-left, .hero-display-right { text-align: center; font-size: clamp(48px, 14vw, 76px); }
+      .porthole-wrap { width: clamp(200px, 52vw, 300px); }
+      .hero-meta-overlay { bottom: 22px; padding: 0 20px; }
+      .hero-meta-grid { grid-template-columns: 1fr; justify-items: center; gap: 14px; }
+      .hero-side-copy { display: none; }
+      .hero-eyebrow { top: calc(var(--nav-h) + 18px); font-size: 9px; letter-spacing: .26em; }
+      .hero-dest-caption { bottom: 28px; }
+
+      .stats { padding: 44px 20px; }
+      .stats-row { grid-template-columns: repeat(2,1fr); gap: 28px 16px; }
+      .atmosphere { min-height: 64vh; }
+
       .intro-quote { margin-bottom: 60px; font-size: clamp(20px, 5vw, 32px); }
       .intro-cards { grid-template-columns: 1fr; gap: 2px; }
       .i-card { padding: 44px 32px; }
@@ -561,8 +639,6 @@
       .loc-map-wrap { height: 340px; }
       .loc-map-btn { font-size: 11px; padding: 11px 18px; }
 
-      .contact-grid { grid-template-columns: 1fr; gap: 44px; }
-      .contact-box  { padding: 36px 28px; }
 
       footer { padding: 44px 24px 28px; }
       .foot-links { gap: 18px; }
@@ -581,12 +657,11 @@
     /* ── LARGE PHONE (480px) ────────────────────────────────── */
     @media (max-width: 480px) {
       section { padding: 64px 18px; }
-      .hero-title { font-size: clamp(60px, 16vw, 90px); }
-      .hero-sub   { margin-bottom: 32px; }
+      .hero-pin { height: 180vh; }
+      .hero-display-left, .hero-display-right { font-size: clamp(42px, 13.5vw, 60px); }
       .s-title    { font-size: clamp(34px, 9vw, 58px); }
       .amenities  { grid-template-columns: 1fr; }
       .i-card     { padding: 36px 24px; }
-      .contact-box { padding: 28px 22px; }
       .gallery-grid { columns: 1; }
       .loc-map-wrap { height: 300px; }
       .exp-overlay  { padding: 40px 20px 22px; }
@@ -596,8 +671,7 @@
     @media (max-width: 390px) {
       section { padding: 56px 16px; }
       .nav { padding: 0 16px; }
-      .hero-title { font-size: 60px; }
-      .hero-sub   { font-size: 17px; }
+      .hero-display-left, .hero-display-right { font-size: 46px; }
       .hero-cta   { padding: 14px 28px; letter-spacing: .14em; font-size: 10px; }
       .gallery-grid { columns: 1; }
       .intro-quote  { font-size: 19px; }
@@ -605,9 +679,7 @@
 
     /* ── TINY PHONE (360px — many Androids) ─────────────────── */
     @media (max-width: 360px) {
-      .hero-title { font-size: 54px; }
-      .cb-title   { font-size: 24px; }
-      .contact-box { padding: 24px 18px; }
+      .hero-display-left, .hero-display-right { font-size: 42px; }
     }
   </style>
 </head>
@@ -624,7 +696,6 @@
     <li><a href="#experience" data-t="nav_exp">Experiencia</a></li>
     <li><a href="#gallery"    data-t="nav_gal">Galería</a></li>
     <li><a href="#location"   data-t="nav_loc">Ubicación</a></li>
-    <li><a href="#contact"    data-t="nav_cont">Contacto</a></li>
   </ul>
 
   <div class="nav-right">
@@ -646,28 +717,45 @@
   <a href="#experience" onclick="toggleMenu()" data-t="nav_exp">Experiencia</a>
   <a href="#gallery"    onclick="toggleMenu()" data-t="nav_gal">Galería</a>
   <a href="#location"   onclick="toggleMenu()" data-t="nav_loc">Ubicación</a>
-  <a href="#contact"    onclick="toggleMenu()" data-t="nav_cont">Contacto</a>
   <div class="mobile-menu-lang">
     <button class="lang-btn" data-lc="es" onclick="setLang('es');toggleMenu()">ES</button>
     <button class="lang-btn" data-lc="en" onclick="setLang('en');toggleMenu()">EN</button>
   </div>
 </div>
 
-<!-- HERO ──────────────────────────────────────────────────── -->
-<section class="hero" id="home">
-  <div class="hero-bg" id="heroBg">
-    <img src="hero.JPG" alt="Casa Verde, Los Roques" loading="eager" fetchpriority="high">
-  </div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
+<!-- HERO: zoom-through pineado ────────────────────────────── -->
+<section class="hero-pin" id="home">
+  <div class="hero-stage">
+    <h1 class="sr-only">Casa Verde — Gran Roque, Los Roques, Venezuela</h1>
+
+    <div class="hero-destination" aria-hidden="true"></div>
+    <div class="hero-dest-caption" aria-hidden="true">
+      <span data-t="hero_dest">Archipiélago Los Roques · 11°57′N 66°40′W</span>
+    </div>
+
     <p class="hero-eyebrow" data-t="hero_eye">Gran Roque · Los Roques · Venezuela</p>
-    <h1 class="hero-title">Casa Verde</h1>
-    <p class="hero-sub" data-t="hero_sub">Tu paraíso privado en Los Roques</p>
-    <a href="#contact" class="hero-cta" data-t="hero_cta">Reservar estadía</a>
-  </div>
-  <div class="scroll-hint">
-    <span data-t="scroll">Descubrir</span>
-    <div class="scroll-line"></div>
+
+    <div class="hero-grid" aria-hidden="true">
+      <div class="hero-display hero-display-left">Casa</div>
+      <div class="porthole-wrap">
+        <img src="hero.JPG" alt="" loading="eager" fetchpriority="high">
+      </div>
+      <div class="hero-display hero-display-right">Verde</div>
+    </div>
+
+    <div class="hero-meta-overlay">
+      <div class="hero-meta-grid">
+        <p class="hero-side-copy" data-t="hero_side">Una casa privada frente al mar. Chef, bote y silencio — el Caribe como debe ser.</p>
+        <div class="hero-cta-zone">
+          <a href="https://wa.me/584123030330" target="_blank" rel="noopener" class="hero-cta" data-t="hero_cta">Reservar estadía</a>
+          <div class="scroll-hint">
+            <span data-t="scroll">Descubrir</span>
+            <div class="scroll-line"></div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -713,6 +801,28 @@
   </div>
 </section>
 
+<!-- STATS ─────────────────────────────────────────────────── -->
+<section class="stats" aria-label="Casa Verde en números">
+  <div class="stats-row">
+    <div class="stat reveal">
+      <span class="stat-num"><span class="stat-count" data-target="3">0</span></span>
+      <span class="stat-label" data-t="st1">Habitaciones de lujo</span>
+    </div>
+    <div class="stat reveal d1">
+      <span class="stat-num"><span class="stat-count" data-target="10">0</span></span>
+      <span class="stat-label" data-t="st2">Huéspedes</span>
+    </div>
+    <div class="stat reveal d2">
+      <span class="stat-num"><span class="stat-count" data-target="350">0</span><small>+</small></span>
+      <span class="stat-label" data-t="st3">Cayos por explorar</span>
+    </div>
+    <div class="stat reveal d3">
+      <span class="stat-num">24<small>/7</small></span>
+      <span class="stat-label" data-t="st4">Bote & tripulación</span>
+    </div>
+  </div>
+</section>
+
 <!-- VILLA ─────────────────────────────────────────────────── -->
 <section class="villa" id="villa">
   <div class="wrap">
@@ -734,7 +844,7 @@
           <span class="am-item" data-t="am8">Personal incluido</span>
         </div>
       </div>
-      <div class="villa-img-wrap reveal">
+      <div class="villa-img-wrap reveal fx-clip">
         <img src="OBW_5601.JPG" alt="Casa Verde" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
         <div class="villa-accent"></div>
       </div>
@@ -752,7 +862,7 @@
     </p>
     <div class="exp-cards">
       <div class="exp-card reveal d1">
-        <div class="exp-ph exp-ph-1"></div>
+        <div class="exp-ph exp-ph-1"><img src="img/exp-gastronomia.jpeg" alt="Cena privada al atardecer en Casa Verde" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
         <div class="exp-overlay">
           <span class="exp-label" data-t="ec1_lbl">Gastronomía</span>
           <h3 class="exp-title" data-t="ec1_h">Tu chef, tu menú</h3>
@@ -760,7 +870,7 @@
         </div>
       </div>
       <div class="exp-card reveal d2">
-        <div class="exp-ph exp-ph-2"></div>
+        <div class="exp-ph exp-ph-2"><img src="img/exp-boat.jpeg" alt="Bote privado en un banco de arena de Los Roques" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
         <div class="exp-overlay">
           <span class="exp-label" data-t="ec2_lbl">Mar & Cayos</span>
           <h3 class="exp-title" data-t="ec2_h">Los Roques a tu ritmo</h3>
@@ -768,7 +878,7 @@
         </div>
       </div>
       <div class="exp-card reveal d3">
-        <div class="exp-ph exp-ph-3"></div>
+        <div class="exp-ph exp-ph-3"><img src="img/exp-rooftop.jpeg" alt="Terraza rooftop de Casa Verde al atardecer" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
         <div class="exp-overlay">
           <span class="exp-label" data-t="ec3_lbl">Descanso</span>
           <h3 class="exp-title" data-t="ec3_h">Silencio y horizonte</h3>
@@ -776,6 +886,17 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ATMÓSFERA ─────────────────────────────────────────────── -->
+<section class="atmosphere" aria-label="Los Roques desde el aire">
+  <div class="atmosphere-bg" data-parallax="0.35">
+    <img src="img/IMG_0861.JPG" alt="Vista aérea de Gran Roque, Los Roques" loading="lazy" decoding="async">
+  </div>
+  <div class="atmosphere-quote">
+    <span class="s-label reveal" data-t="atm_lbl">Desde el aire</span>
+    <h2 class="reveal d1" data-t="atm_q" data-html="true">El mar por delante.<br>El silencio por dentro.</h2>
   </div>
 </section>
 
@@ -842,48 +963,6 @@
   </div>
 </section>
 
-<!-- CONTACT ───────────────────────────────────────────────── -->
-<section class="contact" id="contact">
-  <div class="wrap">
-    <div class="contact-grid">
-      <div class="contact-copy">
-        <span class="s-label reveal"   data-t="ct_lbl">Contacto</span>
-        <h2 class="s-title reveal"     data-t="ct_h">Reserva tu estadía</h2>
-        <p class="contact-body reveal" data-t="ct_p">Para consultas sobre disponibilidad, tarifas y experiencias personalizadas, contáctanos directamente. Respondemos en menos de 24 horas.</p>
-        <div class="reveal">
-          <div class="c-detail">
-            <div class="c-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-            <span>Gran Roque, Archipiélago Los Roques, Venezuela</span>
-          </div>
-          <div class="c-detail">
-            <div class="c-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72c.128.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.572 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-            <span>+58 412 303 0330</span>
-          </div>
-          <div class="c-detail">
-            <div class="c-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
-            <span>@casaverdelosroques</span>
-          </div>
-        </div>
-      </div>
-      <div class="contact-box reveal">
-        <div>
-          <h3 class="cb-title" data-t="cb_h">¿Cuándo nos visitas?</h3>
-          <p class="cb-note"   data-t="cb_p">Escríbenos por WhatsApp para consultar disponibilidad y obtener una propuesta personalizada para tu grupo.</p>
-        </div>
-        <a href="https://wa.me/584123030330" target="_blank" rel="noopener" class="btn-wa">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-          <span data-t="btn_wa">Escribir por WhatsApp</span>
-        </a>
-        <a href="https://www.instagram.com/casaverdelosroques" target="_blank" rel="noopener" class="btn-ig">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          <span data-t="btn_ig">Ver en Instagram</span>
-        </a>
-        <p class="cb-min" data-t="min_stay">Estadía mínima: 3 noches · Minimum stay: 3 nights</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER ────────────────────────────────────────────────── -->
 <footer>
   <div class="foot-in">
@@ -897,7 +976,6 @@
       <li><a href="#experience"  data-t="nav_exp">Experiencia</a></li>
       <li><a href="#gallery"     data-t="nav_gal">Galería</a></li>
       <li><a href="#location"    data-t="nav_loc">Ubicación</a></li>
-      <li><a href="#contact"     data-t="nav_cont">Contacto</a></li>
     </ul>
     <div class="foot-socials">
       <a href="https://www.instagram.com/casaverdelosroques" target="_blank" rel="noopener" aria-label="Instagram">
@@ -924,12 +1002,20 @@ const T = {
   nav_exp:   { es:'Experiencia',   en:'Experience' },
   nav_gal:   { es:'Galería',       en:'Gallery' },
   nav_loc:   { es:'Ubicación',     en:'Location' },
-  nav_cont:  { es:'Contacto',      en:'Contact' },
 
   hero_eye:  { es:'Gran Roque · Los Roques · Venezuela', en:'Gran Roque · Los Roques · Venezuela' },
-  hero_sub:  { es:'Tu paraíso privado en Los Roques',    en:'Your private paradise in Los Roques' },
+  hero_side: { es:'Una casa privada frente al mar. Chef, bote y silencio — el Caribe como debe ser.', en:'A private home facing the sea. Chef, boat and stillness — the Caribbean as it should be.' },
+  hero_dest: { es:'Archipiélago Los Roques · 11°57′N 66°40′W', en:'Los Roques Archipelago · 11°57′N 66°40′W' },
   hero_cta:  { es:'Reservar estadía',                    en:'Book your stay' },
   scroll:    { es:'Descubrir',                           en:'Discover' },
+
+  st1: { es:'Habitaciones de lujo', en:'Luxury Bedrooms' },
+  st2: { es:'Huéspedes',            en:'Guests' },
+  st3: { es:'Cayos por explorar',   en:'Cayes to explore' },
+  st4: { es:'Bote & tripulación',   en:'Boat & crew' },
+
+  atm_lbl: { es:'Desde el aire', en:'From above' },
+  atm_q:   { es:'El mar por delante.<br>El silencio por dentro.', en:'The sea ahead.<br>Stillness within.' },
 
   intro_q: {
     es:'En Casa Verde, el lujo no se declara — se vive. Una casa privada diseñada para quienes buscan lo extraordinario: silencio, mar turquesa, y una atención sin igual.',
@@ -985,15 +1071,6 @@ const T = {
   },
   loc_btn: { es:'Ver en Google Maps',   en:'View on Google Maps' },
 
-  ct_lbl:  { es:'Contacto',             en:'Contact' },
-  ct_h:    { es:'Reserva tu estadía',   en:'Reserve your stay' },
-  ct_p:    { es:'Para consultas sobre disponibilidad, tarifas y experiencias personalizadas, contáctanos directamente. Respondemos en menos de 24 horas.', en:'For inquiries about availability, rates, and personalized experiences, contact us directly. We respond within 24 hours.' },
-  cb_h:    { es:'¿Cuándo nos visitas?', en:'When will you arrive?' },
-  cb_p:    { es:'Escríbenos por WhatsApp para consultar disponibilidad y obtener una propuesta personalizada para tu grupo.', en:'Message us on WhatsApp to check availability and receive a personalized proposal for your group.' },
-  btn_wa:  { es:'Escribir por WhatsApp',en:'Message on WhatsApp' },
-  btn_ig:  { es:'Ver en Instagram',     en:'View on Instagram' },
-  min_stay:{ es:'Estadía mínima: 3 noches · Minimum stay: 3 nights', en:'Minimum stay: 3 nights · Estadía mínima: 3 noches' },
-
   foot_copy: { es:'© 2025 Casa Verde · Todos los derechos reservados', en:'© 2025 Casa Verde · All rights reserved' },
   foot_copy_rights: { es:'Todos los derechos reservados.', en:'All rights reserved.' },
 };
@@ -1004,7 +1081,10 @@ let lang = localStorage.getItem('cv-lang') || 'es';
 function applyLang(l) {
   document.querySelectorAll('[data-t]').forEach(el => {
     const k = el.dataset.t;
-    if (T[k] && T[k][l]) el.textContent = T[k][l];
+    if (T[k] && T[k][l]) {
+      if (el.dataset.html) el.innerHTML = T[k][l];
+      else el.textContent = T[k][l];
+    }
   });
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lc === l);
@@ -1027,17 +1107,6 @@ const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 50);
 }, { passive: true });
-
-/* ─── PARALLAX (desktop only — skip on mobile for perf) ────── */
-const heroBg = document.getElementById('heroBg');
-const mq = window.matchMedia('(hover: hover) and (min-width: 769px)');
-function onScroll() {
-  if (!mq.matches) return;
-  if (window.scrollY < window.innerHeight * 1.2) {
-    heroBg.style.transform = `translateY(${window.scrollY * 0.38}px)`;
-  }
-}
-window.addEventListener('scroll', onScroll, { passive: true });
 
 /* ─── SCROLL REVEAL ────────────────────────────────────────── */
 const ro = new IntersectionObserver(entries => {
@@ -1097,6 +1166,138 @@ document.addEventListener('keydown', e => {
 let tx = 0;
 lbEl.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
 lbEl.addEventListener('touchend',   e => { if (Math.abs(e.changedTouches[0].clientX - tx) > 48) navLb(e.changedTouches[0].clientX < tx ? 1 : -1); });
+</script>
+
+<!-- ══ GSAP + Lenis: scroll cinemático ══ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!window.gsap || !window.ScrollTrigger || reduced) {
+    document.documentElement.classList.add('no-gsap');
+    // Sin animación: mostrar hero estático completo
+    document.querySelectorAll('.hero-display, .porthole-wrap, .hero-meta-overlay, .hero-eyebrow')
+      .forEach(el => { el.style.opacity = 1; el.style.animation = 'none'; el.style.transform = 'none'; });
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Lenis smooth scroll + puente con ScrollTrigger */
+  let lenis = null;
+  if (window.Lenis) {
+    lenis = new Lenis({
+      duration: 1.15,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false,
+    });
+    window.lenis = lenis;
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+
+    // Anclas internas suaves con offset del nav
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if (id.length < 2) return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target, { offset: id === '#home' ? 0 : -60 });
+      });
+    });
+  }
+
+  const isTouch = window.matchMedia('(hover: none)').matches;
+
+  /* ── HERO: zoom a través del ojo de buey ── */
+  const heroTL = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.hero-pin',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: isTouch ? 0.6 : 1.2,
+    }
+  });
+  heroTL
+    // FASE 1: los textos laterales salen
+    .to('.hero-display-left',  { opacity: 0, xPercent: -60, ease: 'power2.in', duration: 0.4 }, 0)
+    .to('.hero-display-right', { opacity: 0, xPercent: 60,  ease: 'power2.in', duration: 0.4 }, 0)
+    .to('.hero-meta-overlay',  { opacity: 0, y: 40, ease: 'power1.in', duration: 0.3 }, 0)
+    .to('.hero-eyebrow',       { opacity: 0, y: -30, ease: 'power1.in', duration: 0.3 }, 0)
+    // FASE 2: el ojo de buey escala y se cuadra
+    .to('.porthole-wrap',      { scale: 9, ease: 'power2.in', duration: 0.7 }, 0)
+    .to('.porthole-wrap img',  { borderRadius: '0%', ease: 'power2.in', duration: 0.5 }, 0.2)
+    // FASE 3: el destino 4K se revela detrás
+    .to('.hero-destination',   { opacity: 1, scale: 1, ease: 'power2.out', duration: 0.5 }, 0.4)
+    // FASE 4: el ojo de buey desaparece — Los Roques limpio
+    .to('.porthole-wrap',      { opacity: 0, ease: 'power2.out', duration: 0.35 }, 0.7)
+    .to('.hero-dest-caption',  { opacity: 1, ease: 'power2.out', duration: 0.25 }, 0.78);
+
+  /* ── Parallax full-bleed ── */
+  gsap.utils.toArray('[data-parallax]').forEach(el => {
+    const speed = parseFloat(el.getAttribute('data-parallax')) || 0.35;
+    gsap.fromTo(el, { yPercent: -speed * 14 }, {
+      yPercent: speed * 14,
+      ease: 'none',
+      scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+  });
+
+  /* ── Clip reveal (squeegee) en imágenes ── */
+  gsap.utils.toArray('.fx-clip').forEach(el => {
+    gsap.to(el, {
+      clipPath: 'inset(0% 0 0 0)',
+      duration: 1.4, ease: 'expo.out',
+      scrollTrigger: { trigger: el, start: 'top 74%' }
+    });
+  });
+
+  /* ── Tilt 3D en tarjetas de experiencia (solo cursor) ── */
+  if (!isTouch) {
+    document.querySelectorAll('.exp-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'transform 0.15s ease-out, box-shadow 0.35s cubic-bezier(0.25,0.1,0.25,1)';
+      });
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = 'perspective(900px) rotateY(' + (x*7) + 'deg) rotateX(' + (-y*7) + 'deg) translateY(-5px)';
+        card.style.boxShadow = '0 24px 60px rgba(6,20,20,.45)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+        setTimeout(() => { card.style.transition = ''; }, 200);
+      });
+    });
+  }
+
+  /* ── Contadores animados ── */
+  let counted = false;
+  ScrollTrigger.create({
+    trigger: '.stats-row',
+    start: 'top 82%',
+    onEnter: () => {
+      if (counted) return;
+      counted = true;
+      document.querySelectorAll('.stat-count').forEach(el => {
+        const target = +el.dataset.target;
+        const obj = { v: 0 };
+        gsap.to(obj, {
+          v: target, duration: 1.6, ease: 'power2.out',
+          onUpdate: () => { el.textContent = Math.round(obj.v); }
+        });
+      });
+    }
+  });
+})();
 </script>
 </body>
 </html>
