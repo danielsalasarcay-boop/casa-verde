@@ -6,7 +6,6 @@
   <meta name="description" content="Galería de Casa Verde — Casa privada de lujo en Gran Roque, Archipiélago Los Roques, Venezuela.">
   <meta name="theme-color" content="#1A4A4A">
   <title>Galería — Casa Verde, Los Roques</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,7 +47,7 @@
       color: var(--charcoal); transition: color .3s;
     }
     .bar-back:hover { color: var(--verde-dk); }
-    .bar-logo img { height: 40px; width: auto; display: block; }
+    .bar-logo img { height: 50px; width: auto; display: block; }
     .lang-pill {
       display: flex; border-radius: 20px; padding: 3px;
       border: 1px solid rgba(26,74,74,.18); background: rgba(26,74,74,.07);
@@ -136,7 +135,7 @@
     footer {
       background: var(--teal); color: #fff; text-align: center; padding: 44px 24px;
     }
-    footer img { height: 44px; margin: 0 auto 14px; filter: invert(1); }
+    footer img { height: 72px; margin: 0 auto 14px; filter: invert(1); }
     footer p { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.45); }
     .foot-back {
       display: inline-block; margin-top: 20px; padding: 13px 30px;
@@ -184,7 +183,7 @@
     <span data-t="back">Volver</span>
   </a>
   <a href="index.html" class="bar-logo" aria-label="Casa Verde">
-    <img src="logo.svg" alt="Casa Verde">
+    <img src="logo.png" alt="Casa Verde">
   </a>
   <div class="lang-pill">
     <button class="lang-btn" data-lc="es" onclick="setLang('es')">ES</button>
@@ -202,9 +201,10 @@
 <!-- GRID ──────────────────────────────────────────────────── -->
 <div class="gal-wrap">
   <div class="gal-grid" id="galGrid">
-    <div class="g-item reveal"><img src="img/portada.jpeg" alt="Casa Verde desde el mar al atardecer" loading="lazy" decoding="async"><div class="g-cap" data-t="c1">La casa desde el mar</div></div>
     <div class="g-item reveal"><img src="img/gal/casa-anochecer.jpeg" alt="Casa Verde iluminada al anochecer" loading="lazy" decoding="async"><div class="g-cap" data-t="c2">Anochecer frente al mar</div></div>
+    <div class="g-item reveal"><img src="img/portada.jpeg" alt="Casa Verde desde el mar al atardecer" loading="lazy" decoding="async"><div class="g-cap" data-t="c1">La casa desde el mar</div></div>
     <div class="g-item reveal"><img src="img/gal/casa-dia-mar.jpeg" alt="Casa Verde de día desde el agua" loading="lazy" decoding="async"><div class="g-cap" data-t="c3">Frente de mar</div></div>
+    <div class="g-item reveal"><img src="img/gal/terraza-dia.jpeg" alt="Terraza de Casa Verde con mar turquesa" loading="lazy" decoding="async"><div class="g-cap" data-t="c8">Terraza sobre el mar</div></div>
     <div class="g-item reveal"><img src="img/gal/sala-estar.jpeg" alt="Sala de estar de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c4">Sala de estar</div></div>
     <div class="g-item reveal"><img src="OBW_5601.JPG" alt="Interior de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c5">La casa por dentro</div></div>
     <div class="g-item reveal"><img src="OBW_5567.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
@@ -216,7 +216,6 @@
     <div class="g-item reveal"><img src="OBW_5594.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
     <div class="g-item reveal"><img src="OBW_5597.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
     <div class="g-item reveal"><img src="OBW_5599.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c7">Baño</div></div>
-    <div class="g-item reveal"><img src="img/gal/terraza-dia.jpeg" alt="Terraza de Casa Verde con mar turquesa" loading="lazy" decoding="async"><div class="g-cap" data-t="c8">Terraza sobre el mar</div></div>
     <div class="g-item reveal"><img src="img/gal/terraza-atardecer-botes.jpeg" alt="Terraza al atardecer con botes" loading="lazy" decoding="async"><div class="g-cap" data-t="c9">Atardecer desde la terraza</div></div>
     <div class="g-item reveal"><img src="img/gal/atardecer-terraza.jpeg" alt="Atardecer naranja desde la terraza" loading="lazy" decoding="async"><div class="g-cap" data-t="c9">Atardecer desde la terraza</div></div>
     <div class="g-item reveal"><img src="img/gal/bote-playa-atardecer.jpeg" alt="Bote en la playa al atardecer" loading="lazy" decoding="async"><div class="g-cap" data-t="c10">Tu bote, tu atardecer</div></div>
@@ -240,7 +239,7 @@
 
 <!-- FOOTER ────────────────────────────────────────────────── -->
 <footer>
-  <img src="logo.svg" alt="Casa Verde">
+  <img src="logo.png" alt="Casa Verde">
   <p>Gran Roque · Los Roques · Venezuela</p>
   <a href="index.html" class="foot-back" data-t="back_home">← Volver a la página principal</a>
 </footer>
