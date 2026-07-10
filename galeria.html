@@ -4,18 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Galería de Casa Verde — Casa privada de lujo en Gran Roque, Archipiélago Los Roques, Venezuela.">
-  <meta name="theme-color" content="#1A4A4A">
+  <meta name="theme-color" content="#0C2424">
   <title>Galería — Casa Verde, Los Roques</title>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <style>
     :root {
       --sand:      #F5F0E8;
-      --sand-dark: #EDE6D8;
       --teal:      #1A4A4A;
+      --deep:      #0C2424;
       --charcoal:  #2C2C2C;
       --verde:     #3ECFAB;
       --verde-dk:  #2BA88C;
@@ -26,8 +28,14 @@
       --nav-h:     64px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-    body { font-family: var(--f-body); color: var(--charcoal); background: var(--sand); -webkit-tap-highlight-color: transparent; }
+    html { -webkit-font-smoothing: antialiased; }
+    html.lenis { height: auto; }
+    html.lenis-smooth { scroll-behavior: auto !important; }
+    body {
+      font-family: var(--f-body); color: #fff; background: var(--deep);
+      overflow-x: clip; /* contiene el desborde horizontal sin romper sticky */
+      -webkit-tap-highlight-color: transparent;
+    }
     a, button { color: inherit; text-decoration: none; touch-action: manipulation; }
     img { max-width: 100%; display: block; }
     button { background: none; border: none; cursor: pointer; font-family: inherit; }
@@ -37,113 +45,147 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--nav-h); padding: 0 28px;
       display: flex; align-items: center; justify-content: space-between;
-      background: rgba(245,240,232,.94);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(26,74,74,.1);
+      background: rgba(12,36,36,.72);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
     .bar-back {
       display: flex; align-items: center; gap: 10px;
       font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--charcoal); transition: color .3s;
+      color: rgba(255,255,255,.75); transition: color .3s;
     }
-    .bar-back:hover { color: var(--verde-dk); }
-    .bar-logo img { height: 50px; width: auto; display: block; }
+    .bar-back:hover { color: var(--verde); }
+    .bar-logo img { height: 50px; width: auto; display: block; filter: invert(1); }
     .lang-pill {
       display: flex; border-radius: 20px; padding: 3px;
-      border: 1px solid rgba(26,74,74,.18); background: rgba(26,74,74,.07);
+      border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.08);
     }
     .lang-btn {
       padding: 5px 13px; border-radius: 14px; font-size: 11px; font-weight: 500;
       letter-spacing: .1em; text-transform: uppercase; min-height: 28px;
-      color: var(--charcoal); transition: background .3s, color .3s;
+      color: rgba(255,255,255,.6); transition: background .3s, color .3s;
     }
-    .lang-btn.active { background: var(--verde) !important; color: #fff !important; }
+    .lang-btn.active { background: var(--verde) !important; color: var(--deep) !important; }
 
-    /* ─── HEADER ─────────────────────────────────────────────── */
-    .gal-head {
-      padding: calc(var(--nav-h) + 72px) 24px 56px; text-align: center;
-    }
     .s-label {
       display: block; font-size: 10px; font-weight: 500;
-      letter-spacing: .3em; text-transform: uppercase; color: var(--verde-dk); margin-bottom: 16px;
-    }
-    .gal-head h1 {
-      font-family: var(--f-disp); font-weight: 300; line-height: 1.04;
-      font-size: clamp(42px, 7vw, 84px); color: var(--teal); margin-bottom: 18px;
-    }
-    .gal-head p {
-      font-family: var(--f-disp); font-style: italic; font-weight: 300;
-      font-size: clamp(17px, 2.6vw, 23px); color: #6a6558;
+      letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.5);
     }
 
-    /* ─── GRID ───────────────────────────────────────────────── */
-    .gal-wrap { max-width: 1380px; margin: 0 auto; padding: 0 24px 96px; }
-    .gal-grid { columns: 3; column-gap: 10px; }
-    .g-item {
-      overflow: hidden; cursor: pointer; position: relative;
-      break-inside: avoid; margin-bottom: 10px; border-radius: 2px;
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .gal-hero {
+      position: relative;
+      height: 100vh; height: 100svh; min-height: 580px;
+      background: var(--deep);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; gap: 28px; padding: 0 24px;
     }
-    .g-item img { width: 100%; height: auto; transition: transform .65s var(--ease); }
-    .g-cap {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 40px 16px 12px;
-      background: linear-gradient(to top, rgba(8,24,24,.62) 0%, transparent 100%);
-      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-      color: rgba(255,255,255,.85);
-      opacity: 0; transition: opacity .35s;
+    .gal-hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 110%, rgba(62,207,171,.12) 0%, transparent 55%);
     }
-    @media (hover: hover) and (pointer: fine) {
-      .g-item:hover img { transform: scale(1.04); }
-      .g-item:hover .g-cap { opacity: 1; }
+    .gal-hero-title {
+      font-family: var(--f-disp); font-weight: 300;
+      font-size: clamp(48px, 8vw, 110px);
+      color: #fff; line-height: 1.05;
     }
-    @media (hover: none) { .g-cap { opacity: .9; padding-top: 28px; } }
+    .gal-hero-title em { color: var(--verde); font-style: italic; }
+    .gal-scroll-hint {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+    }
+    .hint-line {
+      width: 1px; height: 60px;
+      background: var(--verde);
+      transform-origin: top;
+      animation: hintPulse 1.8s var(--ease) infinite;
+    }
+    @keyframes hintPulse {
+      0%   { transform: scaleY(0); opacity: 1; }
+      70%  { transform: scaleY(1); opacity: 1; }
+      100% { transform: scaleY(1); opacity: 0; }
+    }
 
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
-    .reveal.in { opacity: 1; transform: none; }
+    /* ─── GALERÍA HORIZONTAL INMERSIVA ───────────────────────── */
+    .gal-h-section { height: 900vh; position: relative; padding: 0 !important; background: var(--deep); overflow: clip; }
+    .gal-h-sticky { position: sticky; top: 0; height: 100vh; overflow: clip; display: flex; align-items: center; }
+    .gal-h-header {
+      position: absolute; top: calc(var(--nav-h) + 22px); left: 4vw; right: 4vw; z-index: 3;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .gal-h-counter { font-family: var(--f-disp); font-size: 15px; color: rgba(255,255,255,.7); letter-spacing: .2em; }
+    .gal-current-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+    .gal-current { display: inline-block; }
+    .gal-h-track {
+      display: flex; align-items: center; gap: 5vw;
+      padding: 0 8vw; will-change: transform;
+    }
+    .gal-h-item { flex-shrink: 0; margin: 0; position: relative; }
+    .gal-h-imgwrap { overflow: hidden; border-radius: 4px; }
+    .gal-h-item img {
+      display: block; object-fit: cover;
+      width: 32vw; height: 52vh;
+      transform: scale(1.15);
+      will-change: transform;
+    }
+    .gal-h-item:nth-child(3n) img { width: 26vw; height: 68vh; }   /* alta */
+    .gal-h-item:nth-child(4n) img { width: 44vw; height: 46vh; }   /* ancha */
+    .gal-h-item figcaption {
+      display: flex; gap: 14px; align-items: baseline; margin-top: 14px;
+    }
+    .gal-h-num { font-family: var(--f-disp); font-size: 13px; color: var(--verde); }
+    .gal-h-cap {
+      font-size: 11px; letter-spacing: .22em;
+      text-transform: uppercase; color: rgba(255,255,255,.55);
+    }
+    .gal-h-quote {
+      flex-shrink: 0; max-width: 30vw; margin: 0;
+      font-family: var(--f-disp); font-size: clamp(26px, 3vw, 44px);
+      font-weight: 300; font-style: italic; line-height: 1.25; color: #fff;
+    }
+    .gal-h-quote em { color: var(--verde); }
+    .gal-h-progress {
+      position: absolute; bottom: 32px; left: 4vw; right: 4vw;
+      height: 1px; background: rgba(255,255,255,.15);
+    }
+    .gal-h-bar { height: 100%; width: 0%; background: var(--verde); box-shadow: 0 0 12px rgba(62,207,171,.6); }
+    @media (max-width: 768px) {
+      .gal-h-section { height: 1150vh; } /* paseo más lento y sereno en móvil */
+      .gal-h-item img { width: 74vw !important; height: 48vh !important; }
+      .gal-h-quote { max-width: 78vw; }
+    }
 
-    /* ─── LIGHTBOX ───────────────────────────────────────────── */
-    .lb {
-      position: fixed; inset: 0; background: rgba(6,12,12,.96); z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity .4s;
+    /* ─── CURSOR minimalista: punto verde ────────────────────── */
+    .gal-cursor {
+      position: fixed; top: 0; left: 0;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--verde);
+      pointer-events: none; z-index: 100; opacity: 0;
+      transform: translate(-50%, -50%) scale(0.4);
+      transition: opacity .25s var(--ease), transform .25s var(--ease);
+      will-change: transform;
     }
-    .lb.open { opacity: 1; pointer-events: all; }
-    .lb img { max-width: 90vw; max-height: 86vh; width: auto; height: auto; border-radius: 3px; }
-    .lb-close {
-      position: absolute; top: 20px; right: 24px; z-index: 2;
-      color: rgba(255,255,255,.6); font-size: 34px; line-height: 1;
-      width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
-      transition: color .3s, transform .35s;
-    }
-    .lb-close:hover { color: #fff; transform: rotate(90deg); }
-    .lb-nav {
-      position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
-      width: 48px; height: 48px; border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.65);
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color .3s, color .3s, background .3s;
-    }
-    .lb-nav:hover { border-color: rgba(255,255,255,.6); color: #fff; background: rgba(255,255,255,.07); }
-    .lb-prev { left: 18px; }
-    .lb-next { right: 18px; }
-    .lb-count {
-      position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
-      font-size: 11px; letter-spacing: .22em; color: rgba(255,255,255,.5);
-    }
+    .gal-cursor.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .gal-cursor.grabbing { transform: translate(-50%, -50%) scale(2.2); opacity: .7; }
+    .gal-h-sticky.cursor-hidden { cursor: none; }
 
     /* ─── FOOTER ─────────────────────────────────────────────── */
     footer {
-      background: var(--teal); color: #fff; text-align: center; padding: 44px 24px;
+      background: var(--deep); border-top: 1px solid rgba(255,255,255,.08);
+      color: #fff; text-align: center; padding: 52px 24px;
     }
     footer img { height: 72px; margin: 0 auto 14px; filter: invert(1); }
     footer p { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.45); }
     .foot-back {
-      display: inline-block; margin-top: 20px; padding: 13px 30px;
+      display: inline-block; margin-top: 22px; padding: 13px 30px;
       border: 1px solid rgba(255,255,255,.3); border-radius: 40px;
       font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #fff;
       transition: background .3s, border-color .3s;
     }
-    .foot-back:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.6); }
+    .foot-back:hover { background: rgba(255,255,255,.09); border-color: var(--verde); }
 
     /* ─── WHATSAPP FLOAT ─────────────────────────────────────── */
     .wa-float {
@@ -161,16 +203,17 @@
     [data-t] { transition: opacity .22s ease; }
     .switching [data-t] { opacity: 0 !important; }
 
-    @media (max-width: 1024px) { .gal-grid { columns: 2; } }
-    @media (max-width: 600px)  {
-      .gal-grid { columns: 1; }
-      .bar { padding: 0 18px; }
-      .bar-back span { display: none; }
-      .gal-wrap { padding: 0 16px 72px; }
-    }
+    /* ─── Sin GSAP o reduced-motion: fluye en vertical ───────── */
+    .no-gsap .gal-h-section { height: auto; }
+    .no-gsap .gal-h-sticky { position: static; height: auto; }
+    .no-gsap .gal-h-track { flex-wrap: wrap; justify-content: center; padding: 96px 8vw 64px; gap: 32px; }
+    .no-gsap .gal-h-item img { transform: none; width: min(86vw, 560px) !important; height: auto !important; }
+    .no-gsap .gal-h-quote { max-width: 86vw; }
+    .no-gsap .gal-hero { height: auto; min-height: 0; padding: 140px 24px 60px; }
+    .no-gsap .gal-h-progress, .no-gsap .gal-cursor { display: none; }
     @media (prefers-reduced-motion: reduce) {
+      .gal-h-section { height: auto !important; }
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-      .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -191,51 +234,117 @@
   </div>
 </header>
 
-<!-- HEADER ────────────────────────────────────────────────── -->
-<section class="gal-head">
-  <span class="s-label" data-t="lbl">Galería</span>
-  <h1 data-t="title">La casa en imágenes</h1>
-  <p data-t="sub">Blanco, verde y mar — así se vive Casa Verde.</p>
+<!-- HERO ──────────────────────────────────────────────────── -->
+<section class="gal-hero">
+  <p class="s-label" data-t="lbl">Galería</p>
+  <h1 class="gal-hero-title" data-t="title" data-html="true">Así se vive <em>el paraíso</em></h1>
+  <div class="gal-scroll-hint">
+    <span data-t="hint">Desliza para explorar</span>
+    <div class="hint-line"></div>
+  </div>
 </section>
 
-<!-- GRID ──────────────────────────────────────────────────── -->
-<div class="gal-wrap">
-  <div class="gal-grid" id="galGrid">
-    <div class="g-item reveal"><img src="img/gal/casa-anochecer.jpeg" alt="Casa Verde iluminada al anochecer" loading="lazy" decoding="async"><div class="g-cap" data-t="c2">Anochecer frente al mar</div></div>
-    <div class="g-item reveal"><img src="img/portada.jpeg" alt="Casa Verde desde el mar al atardecer" loading="lazy" decoding="async"><div class="g-cap" data-t="c1">La casa desde el mar</div></div>
-    <div class="g-item reveal"><img src="img/gal/casa-dia-mar.jpeg" alt="Casa Verde de día desde el agua" loading="lazy" decoding="async"><div class="g-cap" data-t="c3">Frente de mar</div></div>
-    <div class="g-item reveal"><img src="img/gal/terraza-dia.jpeg" alt="Terraza de Casa Verde con mar turquesa" loading="lazy" decoding="async"><div class="g-cap" data-t="c8">Terraza sobre el mar</div></div>
-    <div class="g-item reveal"><img src="img/gal/sala-estar.jpeg" alt="Sala de estar de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c4">Sala de estar</div></div>
-    <div class="g-item reveal"><img src="OBW_5601.JPG" alt="Interior de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c5">La casa por dentro</div></div>
-    <div class="g-item reveal"><img src="OBW_5567.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
-    <div class="g-item reveal"><img src="OBW_5572.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c7">Baño</div></div>
-    <div class="g-item reveal"><img src="OBW_5575.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
-    <div class="g-item reveal"><img src="OBW_5577.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c7">Baño</div></div>
-    <div class="g-item reveal"><img src="OBW_5579.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
-    <div class="g-item reveal"><img src="OBW_5587.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c7">Baño</div></div>
-    <div class="g-item reveal"><img src="OBW_5594.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
-    <div class="g-item reveal"><img src="OBW_5597.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
-    <div class="g-item reveal"><img src="OBW_5599.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c7">Baño</div></div>
-    <div class="g-item reveal"><img src="img/gal/terraza-atardecer-botes.jpeg" alt="Terraza al atardecer con botes" loading="lazy" decoding="async"><div class="g-cap" data-t="c9">Atardecer desde la terraza</div></div>
-    <div class="g-item reveal"><img src="img/gal/atardecer-terraza.jpeg" alt="Atardecer naranja desde la terraza" loading="lazy" decoding="async"><div class="g-cap" data-t="c9">Atardecer desde la terraza</div></div>
-    <div class="g-item reveal"><img src="img/gal/bote-playa-atardecer.jpeg" alt="Bote en la playa al atardecer" loading="lazy" decoding="async"><div class="g-cap" data-t="c10">Tu bote, tu atardecer</div></div>
-    <div class="g-item reveal"><img src="img/gal/pelicano-atardecer.jpeg" alt="Pelícano volando al atardecer en Los Roques" loading="lazy" decoding="async"><div class="g-cap" data-t="c11">Vecinos de Los Roques</div></div>
-    <div class="g-item reveal"><img src="img/gal/casa-noche.jpeg" alt="Casa Verde de noche" loading="lazy" decoding="async"><div class="g-cap" data-t="c12">La casa de noche</div></div>
-  </div>
-</div>
+<!-- GALERÍA HORIZONTAL INMERSIVA ──────────────────────────── -->
+<section id="galeria" class="gal-h-section" aria-label="Galería">
+  <div class="gal-h-sticky">
+    <header class="gal-h-header">
+      <p class="s-label" data-t="lbl">Galería</p>
+      <span class="gal-h-counter"><span class="gal-current-mask"><span class="gal-current">01</span></span> / <span class="gal-total">00</span></span>
+    </header>
+    <div class="gal-h-track">
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/casa-anochecer.jpeg" alt="Casa Verde iluminada al anochecer" loading="eager" decoding="async"></div>
+        <figcaption><span class="gal-h-num">01</span><span class="gal-h-cap" data-t="c2">Anochecer frente al mar</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/portada.jpeg" alt="Casa Verde desde el mar al atardecer" loading="eager" decoding="async"></div>
+        <figcaption><span class="gal-h-num">02</span><span class="gal-h-cap" data-t="c1">La casa desde el mar</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/casa-dia-mar.jpeg" alt="Casa Verde de día desde el agua" loading="eager" decoding="async"></div>
+        <figcaption><span class="gal-h-num">03</span><span class="gal-h-cap" data-t="c3">Frente de mar</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/terraza-dia.jpeg" alt="Terraza de Casa Verde con mar turquesa" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">04</span><span class="gal-h-cap" data-t="c8">Terraza sobre el mar</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/sala-estar.jpeg" alt="Sala de estar de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">05</span><span class="gal-h-cap" data-t="c4">Sala de estar</span></figcaption>
+      </figure>
 
-<!-- LIGHTBOX ──────────────────────────────────────────────── -->
-<div class="lb" id="lb">
-  <button class="lb-close" onclick="closeLb()" aria-label="Cerrar">×</button>
-  <button class="lb-nav lb-prev" onclick="navLb(-1)" aria-label="Anterior">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-  </button>
-  <img id="lbImg" src="" alt="">
-  <button class="lb-nav lb-next" onclick="navLb(1)" aria-label="Siguiente">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-  </button>
-  <span class="lb-count" id="lbCount"></span>
-</div>
+      <blockquote class="gal-h-quote" data-t="q1" data-html="true">Blanco como la arena,<br><em>verde como el mar</em></blockquote>
+
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="OBW_5601.JPG" alt="Interior de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">06</span><span class="gal-h-cap" data-t="c5">La casa por dentro</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="OBW_5567.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">07</span><span class="gal-h-cap" data-t="c6">Habitación</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="OBW_5572.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">08</span><span class="gal-h-cap" data-t="c7">Baño</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="OBW_5575.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">09</span><span class="gal-h-cap" data-t="c6">Habitación</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="OBW_5577.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">10</span><span class="gal-h-cap" data-t="c7">Baño</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="OBW_5579.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">11</span><span class="gal-h-cap" data-t="c6">Habitación</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="OBW_5587.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">12</span><span class="gal-h-cap" data-t="c7">Baño</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="OBW_5594.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">13</span><span class="gal-h-cap" data-t="c6">Habitación</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="OBW_5597.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">14</span><span class="gal-h-cap" data-t="c6">Habitación</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="OBW_5599.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">15</span><span class="gal-h-cap" data-t="c7">Baño</span></figcaption>
+      </figure>
+
+      <blockquote class="gal-h-quote" data-t="q2" data-html="true">Y al final del día,<br><em>el cielo hace el resto</em></blockquote>
+
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/terraza-atardecer-botes.jpeg" alt="Terraza al atardecer con botes" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">16</span><span class="gal-h-cap" data-t="c9">Atardecer desde la terraza</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/atardecer-terraza.jpeg" alt="Atardecer naranja desde la terraza" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">17</span><span class="gal-h-cap" data-t="c9">Atardecer desde la terraza</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/bote-playa-atardecer.jpeg" alt="Bote en la playa al atardecer" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">18</span><span class="gal-h-cap" data-t="c10">Tu bote, tu atardecer</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/pelicano-atardecer.jpeg" alt="Pelícano volando al atardecer en Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">19</span><span class="gal-h-cap" data-t="c11">Vecinos de Los Roques</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/casa-noche.jpeg" alt="Casa Verde de noche" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">20</span><span class="gal-h-cap" data-t="c12">La casa de noche</span></figcaption>
+      </figure>
+    </div>
+    <div class="gal-h-progress"><div class="gal-h-bar"></div></div>
+  </div>
+</section>
+
+<!-- Cursor minimalista de la galería -->
+<div class="gal-cursor" aria-hidden="true"></div>
 
 <!-- FOOTER ────────────────────────────────────────────────── -->
 <footer>
@@ -254,9 +363,11 @@
 const T = {
   back:      { es:'Volver',                en:'Back' },
   lbl:       { es:'Galería',               en:'Gallery' },
-  title:     { es:'La casa en imágenes',   en:'The home in images' },
-  sub:       { es:'Blanco, verde y mar — así se vive Casa Verde.', en:'White, green and sea — this is life at Casa Verde.' },
+  title:     { es:'Así se vive <em>el paraíso</em>', en:'This is how <em>paradise</em> feels' },
+  hint:      { es:'Desliza para explorar', en:'Scroll to explore' },
   back_home: { es:'← Volver a la página principal', en:'← Back to the main page' },
+  q1:  { es:'Blanco como la arena,<br><em>verde como el mar</em>', en:'White as the sand,<br><em>green as the sea</em>' },
+  q2:  { es:'Y al final del día,<br><em>el cielo hace el resto</em>', en:'And at the end of the day,<br><em>the sky does the rest</em>' },
   c1:  { es:'La casa desde el mar',      en:'The home from the sea' },
   c2:  { es:'Anochecer frente al mar',   en:'Dusk by the sea' },
   c3:  { es:'Frente de mar',             en:'Seafront' },
@@ -275,7 +386,10 @@ let lang = localStorage.getItem('cv-lang') || 'es';
 function applyLang(l) {
   document.querySelectorAll('[data-t]').forEach(el => {
     const k = el.dataset.t;
-    if (T[k] && T[k][l]) el.textContent = T[k][l];
+    if (T[k] && T[k][l]) {
+      if (el.dataset.html) el.innerHTML = T[k][l];
+      else el.textContent = T[k][l];
+    }
   });
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lc === l);
@@ -290,44 +404,255 @@ function setLang(l) {
   setTimeout(() => { applyLang(l); document.body.classList.remove('switching'); }, 200);
 }
 applyLang(lang);
+</script>
 
-/* ─── REVEAL ───────────────────────────────────────────────── */
-const ro = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
-}, { threshold: 0.06 });
-document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+<!-- ══ GSAP + Lenis: galería inmersiva ══ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || reduced) {
+    document.documentElement.classList.add('no-gsap');
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger);
+  /* en móvil, la barra del navegador cambia el viewport al scrollear y
+     provocaba recálculos a mitad de gesto (saltos foto a foto) */
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  var isTouch = window.matchMedia('(hover: none)').matches;
 
-/* ─── LIGHTBOX ─────────────────────────────────────────────── */
-const items   = Array.from(document.querySelectorAll('#galGrid .g-item img'));
-const lbEl    = document.getElementById('lb');
-const lbImg   = document.getElementById('lbImg');
-const lbCount = document.getElementById('lbCount');
-let lbIdx = 0;
+  /* Lenis smooth scroll */
+  if (typeof Lenis !== 'undefined') {
+    var lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    window.lenis = lenis;
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
 
-function renderLb(i) {
-  lbImg.src = items[i].src;
-  lbImg.alt = items[i].alt;
-  lbCount.textContent = (i + 1) + ' / ' + items.length;
-}
-function openLb(i) {
-  lbIdx = i; renderLb(i);
-  lbEl.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeLb() { lbEl.classList.remove('open'); document.body.style.overflow = ''; }
-function navLb(d)  { lbIdx = (lbIdx + d + items.length) % items.length; renderLb(lbIdx); }
+  /* Hero: título con clip-path reveal + hint */
+  gsap.fromTo('.gal-hero-title',
+    { clipPath: 'inset(100% 0 0 0)', y: 40 },
+    { clipPath: 'inset(0% 0 0 0)', y: 0, duration: 1.2, ease: 'power3.out', delay: 0.15 });
+  gsap.from('.gal-scroll-hint', { opacity: 0, duration: 0.8, delay: 0.8 });
 
-items.forEach((img, i) => { img.closest('.g-item').addEventListener('click', () => openLb(i)); });
-lbEl.addEventListener('click', e => { if (e.target === lbEl) closeLb(); });
-document.addEventListener('keydown', e => {
-  if (!lbEl.classList.contains('open')) return;
-  if (e.key === 'Escape')     closeLb();
-  if (e.key === 'ArrowLeft')  navLb(-1);
-  if (e.key === 'ArrowRight') navLb(1);
-});
-let tx = 0;
-lbEl.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-lbEl.addEventListener('touchend',   e => { if (Math.abs(e.changedTouches[0].clientX - tx) > 48) navLb(e.changedTouches[0].clientX < tx ? 1 : -1); });
+  var galSection = document.querySelector('.gal-h-section');
+  if (!galSection) return;
+  var galTrack = galSection.querySelector('.gal-h-track');
+  var galBar = galSection.querySelector('.gal-h-bar');
+  var galItems = galSection.querySelectorAll('.gal-h-item');
+  var galCurrent = galSection.querySelector('.gal-current');
+  var galTotal = galSection.querySelector('.gal-total');
+  galTotal.textContent = String(galItems.length).padStart(2, '0');
+
+  /* Counter con transición: dígito sale arriba, el nuevo entra desde abajo */
+  var lastCounterTxt = galCurrent.textContent;
+  function setCounter(txt){
+    if (txt === lastCounterTxt) return;
+    lastCounterTxt = txt;
+    gsap.timeline({ overwrite: true })
+      .to(galCurrent, { yPercent: -110, duration: 0.15, ease: 'power2.in', overwrite: true })
+      .add(function(){ galCurrent.textContent = txt; })
+      .fromTo(galCurrent, { yPercent: 110 }, { yPercent: 0, duration: 0.15, ease: 'power2.out' });
+  }
+
+  /* Skew sutil por velocidad: peso físico del track */
+  var skewSetter = gsap.quickSetter(galTrack, 'skewX', 'deg');
+  var clampSkew = gsap.utils.clamp(-3, 3);
+  var skewTarget = 0, skewCurrent = 0;
+  if (!isTouch) gsap.ticker.add(function(){
+    skewTarget *= 0.9;
+    skewCurrent += (skewTarget - skewCurrent) * 0.15;
+    if (Math.abs(skewCurrent) < 0.02 && Math.abs(skewTarget) < 0.02) { skewCurrent = 0; }
+    skewSetter(skewCurrent);
+  });
+
+  var lastFocus = -1;
+  /* la base CSS lleva scale(1.15) como zoom de recorte: los valores de foco lo multiplican */
+  var SCALE_FOCUS = 1.15 * 1.04, SCALE_REST = 1.15 * 0.97;
+
+  function updateFocus(){
+    var cx = window.innerWidth / 2, best = 0, bestDist = Infinity;
+    galItems.forEach(function(item, i){
+      var r = item.getBoundingClientRect();
+      var d = Math.abs(r.left + r.width / 2 - cx);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    if (best === lastFocus) return;
+    lastFocus = best;
+    galItems.forEach(function(item, i){
+      gsap.to(item.querySelector('img'), {
+        scale: i === best ? SCALE_FOCUS : SCALE_REST,
+        filter: i === best ? 'brightness(1)' : 'brightness(0.75)',
+        duration: 0.4, overwrite: 'auto'
+      });
+    });
+  }
+
+  var galTween = gsap.to(galTrack, {
+    x: function(){ return -(galTrack.scrollWidth - window.innerWidth + 120); },
+    ease: 'none',
+    scrollTrigger: {
+      trigger: galSection,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: isTouch ? 0.5 : 2.4,
+      invalidateOnRefresh: true,
+      onUpdate: function(self){
+        galBar.style.width = (self.progress * 100) + '%';
+        var idx = Math.min(galItems.length, Math.max(1, Math.round(self.progress * galItems.length) + 1));
+        setCounter(String(idx).padStart(2, '0'));
+        if (!isTouch) skewTarget = clampSkew(self.getVelocity() / -350);
+        if (!isTouch) updateFocus();
+      }
+    }
+  });
+
+  /* Parallax de capas: imagen y caption a velocidades distintas */
+  galItems.forEach(function(item){
+    var img = item.querySelector('img');
+    var cap = item.querySelector('figcaption');
+    /* Reveal de máscara: la imagen se descubre de derecha a izquierda al entrar */
+    var wrap = item.querySelector('.gal-h-imgwrap');
+    gsap.set(wrap, { clipPath: 'inset(0% 0% 0% 100%)' });
+    gsap.to(wrap, {
+      clipPath: 'inset(0% 0% 0% 0%)', duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: item, containerAnimation: galTween, start: 'left 105%', once: true }
+    });
+    if (!isTouch) {
+      gsap.fromTo(img, { xPercent: -8 }, {
+        xPercent: 8, ease: 'none',
+        scrollTrigger: { trigger: item, containerAnimation: galTween, start: 'left right', end: 'right left', scrub: true }
+      });
+      if (cap) gsap.fromTo(cap, { xPercent: 4 }, {
+        xPercent: -4, ease: 'none',
+        scrollTrigger: { trigger: item, containerAnimation: galTween, start: 'left right', end: 'right left', scrub: true }
+      });
+    }
+  });
+
+  /* Entrada cinematográfica de las 3 primeras imágenes */
+  var first3 = Array.prototype.slice.call(galItems, 0, 3).map(function(i){ return i.querySelector('img'); });
+  gsap.from(first3, {
+    y: 60, opacity: 0, stagger: 0.15, duration: 0.9, ease: 'power3.out',
+    scrollTrigger: { trigger: galSection, start: 'top 70%', once: true }
+  });
+
+  /* helpers de arrastre compartidos (desktop y touch) */
+  var sticky = galSection.querySelector('.gal-h-sticky');
+  function dragFactorShared(){
+    return (galSection.offsetHeight - window.innerHeight) /
+           Math.max(1, galTrack.scrollWidth - window.innerWidth + 120);
+  }
+  function scrollToYShared(y){
+    if (window.lenis) { window.lenis.scrollTo(y, { immediate: true }); }
+    else { window.scrollTo(0, y); }
+  }
+
+  /* Swipe horizontal en táctil: deslizar derecha↔izquierda también pasa las fotos */
+  if (isTouch) {
+    var tStartX = 0, tStartY = 0, tStartScroll = 0, tLastX = 0, tLastT = 0;
+    var tActive = false, tHoriz = false, tVelo = 0;
+    sticky.addEventListener('touchstart', function(e){
+      tActive = true; tHoriz = false; tVelo = 0;
+      tStartX = tLastX = e.touches[0].clientX;
+      tStartY = e.touches[0].clientY;
+      tStartScroll = window.scrollY;
+      tLastT = performance.now();
+    }, { passive: true });
+    sticky.addEventListener('touchmove', function(e){
+      if (!tActive) return;
+      var x = e.touches[0].clientX, y = e.touches[0].clientY;
+      var dx = x - tStartX, dy = y - tStartY;
+      if (!tHoriz) {
+        if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.2) { tHoriz = true; }
+        else if (Math.abs(dy) > 14) { tActive = false; return; } /* gesto vertical: scroll nativo */
+      }
+      if (tHoriz) {
+        e.preventDefault();
+        var now = performance.now();
+        var dt = Math.max(1, now - tLastT);
+        tVelo = (tLastX - x) / dt;
+        tLastX = x; tLastT = now;
+        scrollToYShared(tStartScroll + (tStartX - x) * dragFactorShared() * 1.35);
+      }
+    }, { passive: false });
+    sticky.addEventListener('touchend', function(){
+      if (tHoriz) {
+        var v = tVelo * dragFactorShared() * 1.35 * 16;
+        (function momentum(){
+          if (Math.abs(v) < 0.4) return;
+          scrollToYShared(window.scrollY + v);
+          v *= 0.94;
+          requestAnimationFrame(momentum);
+        })();
+      }
+      tActive = false; tHoriz = false;
+    }, { passive: true });
+  }
+
+  /* Cursor drag elegante + arrastre con momentum (solo desktop) */
+  if (!isTouch) {
+    var cursor = document.querySelector('.gal-cursor');
+    var inGal = false;
+
+    var cMouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    var cPos = { x: cMouse.x, y: cMouse.y };
+    window.addEventListener('mousemove', function(e){
+      cMouse.x = e.clientX; cMouse.y = e.clientY;
+    }, { passive: true });
+    gsap.ticker.add(function(){
+      cPos.x += (cMouse.x - cPos.x) * 0.15;
+      cPos.y += (cMouse.y - cPos.y) * 0.15;
+      cursor.style.left = cPos.x + 'px';
+      cursor.style.top = cPos.y + 'px';
+    });
+
+    sticky.addEventListener('mouseenter', function(){
+      inGal = true;
+      cursor.classList.add('active');
+      sticky.classList.add('cursor-hidden');
+    });
+    sticky.addEventListener('mouseleave', function(){
+      inGal = false;
+      cursor.classList.remove('active', 'grabbing');
+      sticky.classList.remove('cursor-hidden');
+    });
+
+    /* arrastre horizontal → scroll vertical equivalente, con momentum al soltar */
+    var dragging = false, startX = 0, startScroll = 0;
+    var velo = 0, lastMoveX = 0, lastMoveT = 0;
+    sticky.addEventListener('pointerdown', function(e){
+      if (!inGal) return;
+      dragging = true;
+      startX = e.clientX; startScroll = window.scrollY;
+      velo = 0; lastMoveX = e.clientX; lastMoveT = performance.now();
+      cursor.classList.add('grabbing');
+    });
+    window.addEventListener('pointermove', function(e){
+      if (!dragging) return;
+      var now = performance.now();
+      var dt = Math.max(1, now - lastMoveT);
+      velo = (lastMoveX - e.clientX) / dt;
+      lastMoveX = e.clientX; lastMoveT = now;
+      scrollToYShared(startScroll + (startX - e.clientX) * dragFactorShared() * 0.7);
+    });
+    window.addEventListener('pointerup', function(){
+      if (!dragging) return;
+      dragging = false;
+      cursor.classList.remove('grabbing');
+      var v = velo * dragFactorShared() * 0.7 * 16;
+      (function momentum(){
+        if (dragging || Math.abs(v) < 0.4) return;
+        scrollToYShared(window.scrollY + v);
+        v *= 0.94;
+        requestAnimationFrame(momentum);
+      })();
+    });
+  }
+})();
 </script>
 </body>
 </html>
