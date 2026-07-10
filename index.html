@@ -449,53 +449,35 @@
     .exp-title { font-family: var(--f-disp); font-size: 26px; font-weight: 400; color: #fff; line-height: 1.18; margin-bottom: 10px; }
     .exp-desc  { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.6); line-height: 1.65; }
 
-    /* ─── GALLERY ────────────────────────────────────────────── */
-    .gallery { background: var(--sand); }
-    .gallery-head { margin-bottom: 52px; }
-    .gallery-grid {
-      columns: 3; column-gap: 8px;
-    }
-    .g-item {
-      overflow: hidden; cursor: pointer; position: relative;
-      break-inside: avoid; margin-bottom: 8px;
-    }
-    .g-item img { width: 100%; height: auto; object-fit: cover; display: block; transition: transform .65s var(--ease); }
-    .g-overlay {
-      position: absolute; inset: 0; background: rgba(8,24,24,0);
+    /* ─── GALLERY TEASER ─────────────────────────────────────── */
+    .gal-teaser {
+      position: relative; overflow: hidden;
+      min-height: 88vh;
       display: flex; align-items: center; justify-content: center;
-      transition: background .35s;
+      padding: 120px 24px;
     }
-    .g-overlay svg { color: #fff; opacity: 0; transform: scale(.78); transition: opacity .35s, transform .35s; }
-
-    /* touch: show icon faintly always so users know it's tappable */
-    @media (hover: none) {
-      .g-overlay { background: rgba(8,24,24,.15); }
-      .g-overlay svg { opacity: .5; transform: scale(1); }
+    .gal-teaser-bg { position: absolute; inset: -18% 0; will-change: transform; }
+    .gal-teaser-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gal-teaser::after { content: ''; position: absolute; inset: 0; background: rgba(8,24,24,.32); }
+    .gal-plaque {
+      position: relative; z-index: 2; text-align: center;
+      background: rgba(245,240,232,.96);
+      padding: 56px 60px 52px; border-radius: 3px;
+      max-width: 480px;
+      box-shadow: 0 30px 90px rgba(4,14,14,.45);
     }
-
-    /* ─── LIGHTBOX ───────────────────────────────────────────── */
-    .lb {
-      position: fixed; inset: 0; background: rgba(6,12,12,.96); z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity .4s;
+    .gal-plaque .s-title { font-size: clamp(34px, 4.6vw, 54px); margin-bottom: 14px; }
+    .gal-plaque-sub {
+      font-size: 14px; font-weight: 300; line-height: 1.7; color: #6a6558;
+      margin-bottom: 28px;
     }
-    .lb.open { opacity: 1; pointer-events: all; }
-    .lb-frame { width: min(88vw,940px); aspect-ratio: 4/3; border-radius: 3px; overflow: hidden; }
-    .lb-close {
-      position: absolute; top: 24px; right: 28px;
-      color: rgba(255,255,255,.6); font-size: 32px; line-height: 1;
-      width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
-      transition: color .3s, transform .35s;
+    .gal-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 15px 34px; background: var(--verde-dk); color: #fff;
+      border-radius: 40px; font-size: 11px; font-weight: 500;
+      letter-spacing: .18em; text-transform: uppercase;
+      transition: filter .3s, transform .3s; min-height: 50px;
     }
-    .lb-nav {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 48px; height: 48px; border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.65);
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color .3s, color .3s, background .3s;
-    }
-    .lb-prev { left: 20px; }
-    .lb-next { right: 20px; }
 
     /* ─── LOCATION ───────────────────────────────────────────── */
     .location { background: #fff; padding-bottom: 0; }
@@ -588,12 +570,7 @@
       .i-card:hover        { background: var(--teal-mid); }
       .exp-card:hover .exp-ph      { transform: scale(1.04); }
       .exp-card:hover .exp-overlay { transform: translateY(-5px); }
-      .g-item:hover .g-ph          { transform: scale(1.04); }
-      .g-item:hover img            { transform: scale(1.04); }
-      .g-item:hover .g-overlay     { background: rgba(8,24,24,.38); }
-      .g-item:hover .g-overlay svg { opacity: 1; transform: scale(1); }
-      .lb-close:hover     { color: #fff; transform: rotate(90deg); }
-      .lb-nav:hover       { border-color: rgba(255,255,255,.6); color: #fff; background: rgba(255,255,255,.07); }
+      .gal-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
       .foot-links a:hover   { color: var(--verde); }
       .foot-phone a:hover   { color: var(--verde) !important; }
       .foot-socials a:hover { background: var(--verde); border-color: var(--verde); color: #fff; transform: translateY(-2px); }
@@ -617,7 +594,6 @@
       section { padding: 100px 44px; }
       .villa-grid   { gap: 60px; }
       .loc-intro    { gap: 56px; }
-      .gallery-grid { columns: 3; }
     }
 
     /* ── TABLET PORTRAIT + LANDSCAPE (1024px) ───────────────── */
@@ -629,7 +605,6 @@
       .exp-cards { grid-template-columns: 1fr 1fr; }
       .exp-cards .exp-card:last-child { grid-column: span 2; aspect-ratio: 16/7; }
 
-      .gallery-grid { columns: 3; }
 
       .loc-intro { grid-template-columns: 1fr; gap: 48px; }
       .loc-copy .s-body { max-width: 100%; }
@@ -660,6 +635,9 @@
       .cover-hint { bottom: 26px; }
       .cover-mark { width: 46px; }
 
+      .gal-teaser { min-height: 70vh; padding: 88px 18px; }
+      .gal-plaque { padding: 42px 28px 40px; }
+
       .stats { padding: 44px 20px; }
       .stats-row { grid-template-columns: repeat(2,1fr); gap: 28px 16px; }
       .atmosphere { min-height: 64vh; }
@@ -677,7 +655,6 @@
       .exp-cards .exp-card:last-child { grid-column: span 1; aspect-ratio: 3/4; }
       .exp-intro { max-width: 100%; margin-bottom: 48px; }
 
-      .gallery-grid { columns: 2; }
 
       .loc-intro { grid-template-columns: 1fr; gap: 40px; }
       .loc-map-wrap { height: 340px; }
@@ -686,10 +663,6 @@
 
       footer { padding: 44px 24px 28px; }
       .foot-links { gap: 18px; }
-
-      .lb-frame { width: 92vw; }
-      .lb-prev { left: 10px; }
-      .lb-next { right: 10px; }
 
       .wa-float {
         width: 52px; height: 52px;
@@ -706,7 +679,6 @@
       .s-title    { font-size: clamp(34px, 9vw, 58px); }
       .amenities  { grid-template-columns: 1fr; }
       .i-card     { padding: 36px 24px; }
-      .gallery-grid { columns: 1; }
       .loc-map-wrap { height: 300px; }
       .exp-overlay  { padding: 40px 20px 22px; }
     }
@@ -717,7 +689,6 @@
       .nav { padding: 0 16px; }
       .hero-display-left, .hero-display-right { font-size: 46px; }
       .hero-cta   { padding: 14px 28px; letter-spacing: .14em; font-size: 10px; }
-      .gallery-grid { columns: 1; }
       .intro-quote  { font-size: 19px; }
     }
 
@@ -738,7 +709,7 @@
   <ul class="nav-links">
     <li><a href="#villa"      data-t="nav_villa">La Villa</a></li>
     <li><a href="#experience" data-t="nav_exp">Experiencia</a></li>
-    <li><a href="#gallery"    data-t="nav_gal">Galería</a></li>
+    <li><a href="galeria.html" data-t="nav_gal">Galería</a></li>
     <li><a href="#location"   data-t="nav_loc">Ubicación</a></li>
   </ul>
 
@@ -759,7 +730,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="#villa"      onclick="toggleMenu()" data-t="nav_villa">La Villa</a>
   <a href="#experience" onclick="toggleMenu()" data-t="nav_exp">Experiencia</a>
-  <a href="#gallery"    onclick="toggleMenu()" data-t="nav_gal">Galería</a>
+  <a href="galeria.html" onclick="toggleMenu()" data-t="nav_gal">Galería</a>
   <a href="#location"   onclick="toggleMenu()" data-t="nav_loc">Ubicación</a>
   <div class="mobile-menu-lang">
     <button class="lang-btn" data-lc="es" onclick="setLang('es');toggleMenu()">ES</button>
@@ -960,38 +931,18 @@
   </div>
 </section>
 
-<!-- GALLERY ───────────────────────────────────────────────── -->
-<section class="gallery" id="gallery">
-  <div class="wrap">
-    <div class="gallery-head reveal">
-      <span class="s-label" data-t="gal_lbl">Galería</span>
-      <h2 class="s-title" data-t="gal_h">La villa en imágenes</h2>
-    </div>
-    <div class="gallery-grid">
-      <div class="g-item reveal"    onclick="openLb(0)"><img src="OBW_5567.JPG" alt="Habitación 1" loading="lazy"><div class="g-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="g-item reveal d1" onclick="openLb(1)"><img src="OBW_5572.JPG" alt="Baño 1" loading="lazy"><div class="g-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="g-item reveal d2" onclick="openLb(2)"><img src="OBW_5575.JPG" alt="Habitación 1" loading="lazy"><div class="g-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="g-item reveal d1" onclick="openLb(3)"><img src="OBW_5577.JPG" alt="Baño 2" loading="lazy"><div class="g-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="g-item reveal d2" onclick="openLb(4)"><img src="OBW_5579.JPG" alt="Habitación 2" loading="lazy"><div class="g-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="g-item reveal d1" onclick="openLb(5)"><img src="OBW_5587.JPG" alt="Baño 3" loading="lazy"><div class="g-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="g-item reveal d2" onclick="openLb(6)"><img src="OBW_5594.JPG" alt="Habitación 3" loading="lazy"><div class="g-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="g-item reveal d3" onclick="openLb(7)"><img src="OBW_5597.JPG" alt="Habitación 3" loading="lazy"><div class="g-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-      <div class="g-item reveal d1" onclick="openLb(8)"><img src="OBW_5599.JPG" alt="Baño 3" loading="lazy"><div class="g-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div></div>
-    </div>
+<!-- GALLERY TEASER ────────────────────────────────────────── -->
+<section class="gal-teaser" id="gallery" aria-label="Galería">
+  <div class="gal-teaser-bg" data-parallax="0.3">
+    <img src="img/gal/casa-anochecer.jpeg" alt="Casa Verde iluminada al anochecer" loading="lazy" decoding="async">
+  </div>
+  <div class="gal-plaque reveal">
+    <span class="s-label" data-t="gal_lbl">Galería</span>
+    <h2 class="s-title" data-t="gal_h">La casa en imágenes</h2>
+    <p class="gal-plaque-sub" data-t="gal_sub">21 fotografías de la casa, la terraza y los atardeceres de Los Roques.</p>
+    <a href="galeria.html" class="gal-btn" data-t="gal_btn">Explorar la galería →</a>
   </div>
 </section>
-
-<!-- LIGHTBOX ──────────────────────────────────────────────── -->
-<div class="lb" id="lb" onclick="lbBg(event)">
-  <button class="lb-close" onclick="closeLb()">×</button>
-  <button class="lb-nav lb-prev" onclick="navLb(-1)">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-  </button>
-  <div class="lb-frame" id="lbFrame"></div>
-  <button class="lb-nav lb-next" onclick="navLb(1)">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-  </button>
-</div>
 
 <!-- LOCATION ──────────────────────────────────────────────── -->
 <section class="location" id="location">
@@ -1034,7 +985,7 @@
     <ul class="foot-links">
       <li><a href="#villa"       data-t="nav_villa">La Casa</a></li>
       <li><a href="#experience"  data-t="nav_exp">Experiencia</a></li>
-      <li><a href="#gallery"     data-t="nav_gal">Galería</a></li>
+      <li><a href="galeria.html" data-t="nav_gal">Galería</a></li>
       <li><a href="#location"    data-t="nav_loc">Ubicación</a></li>
     </ul>
     <div class="foot-socials">
@@ -1122,6 +1073,8 @@ const T = {
 
   gal_lbl: { es:'Galería',              en:'Gallery' },
   gal_h:   { es:'La casa en imágenes', en:'The home in images' },
+  gal_sub: { es:'21 fotografías de la casa, la terraza y los atardeceres de Los Roques.', en:'21 photographs of the home, the terrace and the sunsets of Los Roques.' },
+  gal_btn: { es:'Explorar la galería →', en:'Explore the gallery →' },
 
   loc_lbl: { es:'Ubicación',            en:'Location' },
   loc_h:   { es:'Gran Roque, Los Roques', en:'Gran Roque, Los Roques' },
@@ -1186,46 +1139,6 @@ document.addEventListener('click', e => {
   }
 });
 
-/* ─── LIGHTBOX ─────────────────────────────────────────────── */
-const LB_SRCS = [
-  'OBW_5567.JPG',
-  'OBW_5572.JPG',
-  'OBW_5575.JPG',
-  'OBW_5577.JPG',
-  'OBW_5579.JPG',
-  'OBW_5587.JPG',
-  'OBW_5594.JPG',
-  'OBW_5597.JPG',
-  'OBW_5599.JPG',
-];
-let lbIdx = 0;
-const lbEl    = document.getElementById('lb');
-const lbFrame = document.getElementById('lbFrame');
-
-function renderLb(i) {
-  lbFrame.style.background = '';
-  lbFrame.innerHTML = `<img src="${LB_SRCS[i]}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">`;
-}
-function openLb(i) {
-  lbIdx = i; renderLb(i);
-  lbEl.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeLb() { lbEl.classList.remove('open'); document.body.style.overflow = ''; }
-function lbBg(e)   { if (e.target === lbEl) closeLb(); }
-function navLb(d)  {
-  lbIdx = (lbIdx + d + LB_SRCS.length) % LB_SRCS.length;
-  renderLb(lbIdx);
-}
-document.addEventListener('keydown', e => {
-  if (!lbEl.classList.contains('open')) return;
-  if (e.key === 'Escape')     closeLb();
-  if (e.key === 'ArrowLeft')  navLb(-1);
-  if (e.key === 'ArrowRight') navLb(1);
-});
-let tx = 0;
-lbEl.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-lbEl.addEventListener('touchend',   e => { if (Math.abs(e.changedTouches[0].clientX - tx) > 48) navLb(e.changedTouches[0].clientX < tx ? 1 : -1); });
 </script>
 
 <!-- ══ GSAP + Lenis: scroll cinemático ══ -->

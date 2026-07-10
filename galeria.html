@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Galería de Casa Verde — Casa privada de lujo en Gran Roque, Archipiélago Los Roques, Venezuela.">
+  <meta name="theme-color" content="#1A4A4A">
+  <title>Galería — Casa Verde, Los Roques</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sand:      #F5F0E8;
+      --sand-dark: #EDE6D8;
+      --teal:      #1A4A4A;
+      --charcoal:  #2C2C2C;
+      --verde:     #3ECFAB;
+      --verde-dk:  #2BA88C;
+      --wa:        #25D366;
+      --f-disp:    'Cormorant Garamond', Georgia, serif;
+      --f-body:    'DM Sans', system-ui, sans-serif;
+      --ease:      cubic-bezier(0.25, 0.1, 0.25, 1);
+      --nav-h:     64px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--f-body); color: var(--charcoal); background: var(--sand); -webkit-tap-highlight-color: transparent; }
+    a, button { color: inherit; text-decoration: none; touch-action: manipulation; }
+    img { max-width: 100%; display: block; }
+    button { background: none; border: none; cursor: pointer; font-family: inherit; }
+
+    /* ─── TOP BAR ────────────────────────────────────────────── */
+    .bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h); padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(245,240,232,.94);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(26,74,74,.1);
+    }
+    .bar-back {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--charcoal); transition: color .3s;
+    }
+    .bar-back:hover { color: var(--verde-dk); }
+    .bar-logo img { height: 40px; width: auto; display: block; }
+    .lang-pill {
+      display: flex; border-radius: 20px; padding: 3px;
+      border: 1px solid rgba(26,74,74,.18); background: rgba(26,74,74,.07);
+    }
+    .lang-btn {
+      padding: 5px 13px; border-radius: 14px; font-size: 11px; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase; min-height: 28px;
+      color: var(--charcoal); transition: background .3s, color .3s;
+    }
+    .lang-btn.active { background: var(--verde) !important; color: #fff !important; }
+
+    /* ─── HEADER ─────────────────────────────────────────────── */
+    .gal-head {
+      padding: calc(var(--nav-h) + 72px) 24px 56px; text-align: center;
+    }
+    .s-label {
+      display: block; font-size: 10px; font-weight: 500;
+      letter-spacing: .3em; text-transform: uppercase; color: var(--verde-dk); margin-bottom: 16px;
+    }
+    .gal-head h1 {
+      font-family: var(--f-disp); font-weight: 300; line-height: 1.04;
+      font-size: clamp(42px, 7vw, 84px); color: var(--teal); margin-bottom: 18px;
+    }
+    .gal-head p {
+      font-family: var(--f-disp); font-style: italic; font-weight: 300;
+      font-size: clamp(17px, 2.6vw, 23px); color: #6a6558;
+    }
+
+    /* ─── GRID ───────────────────────────────────────────────── */
+    .gal-wrap { max-width: 1380px; margin: 0 auto; padding: 0 24px 96px; }
+    .gal-grid { columns: 3; column-gap: 10px; }
+    .g-item {
+      overflow: hidden; cursor: pointer; position: relative;
+      break-inside: avoid; margin-bottom: 10px; border-radius: 2px;
+    }
+    .g-item img { width: 100%; height: auto; transition: transform .65s var(--ease); }
+    .g-cap {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 40px 16px 12px;
+      background: linear-gradient(to top, rgba(8,24,24,.62) 0%, transparent 100%);
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(255,255,255,.85);
+      opacity: 0; transition: opacity .35s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .g-item:hover img { transform: scale(1.04); }
+      .g-item:hover .g-cap { opacity: 1; }
+    }
+    @media (hover: none) { .g-cap { opacity: .9; padding-top: 28px; } }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ─── LIGHTBOX ───────────────────────────────────────────── */
+    .lb {
+      position: fixed; inset: 0; background: rgba(6,12,12,.96); z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .4s;
+    }
+    .lb.open { opacity: 1; pointer-events: all; }
+    .lb img { max-width: 90vw; max-height: 86vh; width: auto; height: auto; border-radius: 3px; }
+    .lb-close {
+      position: absolute; top: 20px; right: 24px; z-index: 2;
+      color: rgba(255,255,255,.6); font-size: 34px; line-height: 1;
+      width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+      transition: color .3s, transform .35s;
+    }
+    .lb-close:hover { color: #fff; transform: rotate(90deg); }
+    .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.65);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .3s, color .3s, background .3s;
+    }
+    .lb-nav:hover { border-color: rgba(255,255,255,.6); color: #fff; background: rgba(255,255,255,.07); }
+    .lb-prev { left: 18px; }
+    .lb-next { right: 18px; }
+    .lb-count {
+      position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
+      font-size: 11px; letter-spacing: .22em; color: rgba(255,255,255,.5);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--teal); color: #fff; text-align: center; padding: 44px 24px;
+    }
+    footer img { height: 44px; margin: 0 auto 14px; filter: invert(1); }
+    footer p { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+    .foot-back {
+      display: inline-block; margin-top: 20px; padding: 13px 30px;
+      border: 1px solid rgba(255,255,255,.3); border-radius: 40px;
+      font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #fff;
+      transition: background .3s, border-color .3s;
+    }
+    .foot-back:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.6); }
+
+    /* ─── WHATSAPP FLOAT ─────────────────────────────────────── */
+    .wa-float {
+      position: fixed;
+      bottom: calc(26px + env(safe-area-inset-bottom));
+      right: calc(26px + env(safe-area-inset-right));
+      z-index: 200; width: 54px; height: 54px; border-radius: 50%;
+      background: var(--wa); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 22px rgba(37,211,102,.38);
+      transition: transform .35s var(--ease);
+    }
+    .wa-float:hover { transform: scale(1.08); }
+
+    [data-t] { transition: opacity .22s ease; }
+    .switching [data-t] { opacity: 0 !important; }
+
+    @media (max-width: 1024px) { .gal-grid { columns: 2; } }
+    @media (max-width: 600px)  {
+      .gal-grid { columns: 1; }
+      .bar { padding: 0 18px; }
+      .bar-back span { display: none; }
+      .gal-wrap { padding: 0 16px 72px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR ───────────────────────────────────────────────── -->
+<header class="bar">
+  <a href="index.html" class="bar-back">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    <span data-t="back">Volver</span>
+  </a>
+  <a href="index.html" class="bar-logo" aria-label="Casa Verde">
+    <img src="logo.svg" alt="Casa Verde">
+  </a>
+  <div class="lang-pill">
+    <button class="lang-btn" data-lc="es" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" data-lc="en" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<!-- HEADER ────────────────────────────────────────────────── -->
+<section class="gal-head">
+  <span class="s-label" data-t="lbl">Galería</span>
+  <h1 data-t="title">La casa en imágenes</h1>
+  <p data-t="sub">Blanco, verde y mar — así se vive Casa Verde.</p>
+</section>
+
+<!-- GRID ──────────────────────────────────────────────────── -->
+<div class="gal-wrap">
+  <div class="gal-grid" id="galGrid">
+    <div class="g-item reveal"><img src="img/portada.jpeg" alt="Casa Verde desde el mar al atardecer" loading="lazy" decoding="async"><div class="g-cap" data-t="c1">La casa desde el mar</div></div>
+    <div class="g-item reveal"><img src="img/gal/casa-anochecer.jpeg" alt="Casa Verde iluminada al anochecer" loading="lazy" decoding="async"><div class="g-cap" data-t="c2">Anochecer frente al mar</div></div>
+    <div class="g-item reveal"><img src="img/gal/casa-dia-mar.jpeg" alt="Casa Verde de día desde el agua" loading="lazy" decoding="async"><div class="g-cap" data-t="c3">Frente de mar</div></div>
+    <div class="g-item reveal"><img src="img/gal/sala-estar.jpeg" alt="Sala de estar de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c4">Sala de estar</div></div>
+    <div class="g-item reveal"><img src="OBW_5601.JPG" alt="Interior de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c5">La casa por dentro</div></div>
+    <div class="g-item reveal"><img src="OBW_5567.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
+    <div class="g-item reveal"><img src="OBW_5572.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c7">Baño</div></div>
+    <div class="g-item reveal"><img src="OBW_5575.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
+    <div class="g-item reveal"><img src="OBW_5577.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c7">Baño</div></div>
+    <div class="g-item reveal"><img src="OBW_5579.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
+    <div class="g-item reveal"><img src="OBW_5587.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c7">Baño</div></div>
+    <div class="g-item reveal"><img src="OBW_5594.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
+    <div class="g-item reveal"><img src="OBW_5597.JPG" alt="Habitación de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c6">Habitación</div></div>
+    <div class="g-item reveal"><img src="OBW_5599.JPG" alt="Baño de Casa Verde" loading="lazy" decoding="async"><div class="g-cap" data-t="c7">Baño</div></div>
+    <div class="g-item reveal"><img src="img/gal/terraza-dia.jpeg" alt="Terraza de Casa Verde con mar turquesa" loading="lazy" decoding="async"><div class="g-cap" data-t="c8">Terraza sobre el mar</div></div>
+    <div class="g-item reveal"><img src="img/gal/terraza-atardecer-botes.jpeg" alt="Terraza al atardecer con botes" loading="lazy" decoding="async"><div class="g-cap" data-t="c9">Atardecer desde la terraza</div></div>
+    <div class="g-item reveal"><img src="img/gal/atardecer-terraza.jpeg" alt="Atardecer naranja desde la terraza" loading="lazy" decoding="async"><div class="g-cap" data-t="c9">Atardecer desde la terraza</div></div>
+    <div class="g-item reveal"><img src="img/gal/bote-playa-atardecer.jpeg" alt="Bote en la playa al atardecer" loading="lazy" decoding="async"><div class="g-cap" data-t="c10">Tu bote, tu atardecer</div></div>
+    <div class="g-item reveal"><img src="img/gal/pelicano-atardecer.jpeg" alt="Pelícano volando al atardecer en Los Roques" loading="lazy" decoding="async"><div class="g-cap" data-t="c11">Vecinos de Los Roques</div></div>
+    <div class="g-item reveal"><img src="img/gal/casa-noche.jpeg" alt="Casa Verde de noche" loading="lazy" decoding="async"><div class="g-cap" data-t="c12">La casa de noche</div></div>
+    <div class="g-item reveal"><img src="img/gal/dibujo-casa.jpeg" alt="Dibujo de Casa Verde hecho a mano" loading="lazy" decoding="async"><div class="g-cap" data-t="c13">Casa Verde, por un artista de la casa</div></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX ──────────────────────────────────────────────── -->
+<div class="lb" id="lb">
+  <button class="lb-close" onclick="closeLb()" aria-label="Cerrar">×</button>
+  <button class="lb-nav lb-prev" onclick="navLb(-1)" aria-label="Anterior">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" onclick="navLb(1)" aria-label="Siguiente">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+  <span class="lb-count" id="lbCount"></span>
+</div>
+
+<!-- FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <img src="logo.svg" alt="Casa Verde">
+  <p>Gran Roque · Los Roques · Venezuela</p>
+  <a href="index.html" class="foot-back" data-t="back_home">← Volver a la página principal</a>
+</footer>
+
+<!-- WHATSAPP FLOAT ────────────────────────────────────────── -->
+<a href="https://wa.me/584123030330" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+</a>
+
+<script>
+/* ─── TRADUCCIONES ─────────────────────────────────────────── */
+const T = {
+  back:      { es:'Volver',                en:'Back' },
+  lbl:       { es:'Galería',               en:'Gallery' },
+  title:     { es:'La casa en imágenes',   en:'The home in images' },
+  sub:       { es:'Blanco, verde y mar — así se vive Casa Verde.', en:'White, green and sea — this is life at Casa Verde.' },
+  back_home: { es:'← Volver a la página principal', en:'← Back to the main page' },
+  c1:  { es:'La casa desde el mar',      en:'The home from the sea' },
+  c2:  { es:'Anochecer frente al mar',   en:'Dusk by the sea' },
+  c3:  { es:'Frente de mar',             en:'Seafront' },
+  c4:  { es:'Sala de estar',             en:'Living room' },
+  c5:  { es:'La casa por dentro',        en:'Inside the home' },
+  c6:  { es:'Habitación',                en:'Bedroom' },
+  c7:  { es:'Baño',                      en:'Bathroom' },
+  c8:  { es:'Terraza sobre el mar',      en:'Terrace over the sea' },
+  c9:  { es:'Atardecer desde la terraza',en:'Sunset from the terrace' },
+  c10: { es:'Tu bote, tu atardecer',     en:'Your boat, your sunset' },
+  c11: { es:'Vecinos de Los Roques',     en:'Los Roques neighbours' },
+  c12: { es:'La casa de noche',          en:'The home at night' },
+  c13: { es:'Casa Verde, por un artista de la casa', en:'Casa Verde, by a house artist' },
+};
+
+let lang = localStorage.getItem('cv-lang') || 'es';
+function applyLang(l) {
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const k = el.dataset.t;
+    if (T[k] && T[k][l]) el.textContent = T[k][l];
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lc === l);
+  });
+  document.documentElement.lang = l;
+}
+function setLang(l) {
+  if (l === lang) return;
+  lang = l;
+  localStorage.setItem('cv-lang', l);
+  document.body.classList.add('switching');
+  setTimeout(() => { applyLang(l); document.body.classList.remove('switching'); }, 200);
+}
+applyLang(lang);
+
+/* ─── REVEAL ───────────────────────────────────────────────── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+}, { threshold: 0.06 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+/* ─── LIGHTBOX ─────────────────────────────────────────────── */
+const items   = Array.from(document.querySelectorAll('#galGrid .g-item img'));
+const lbEl    = document.getElementById('lb');
+const lbImg   = document.getElementById('lbImg');
+const lbCount = document.getElementById('lbCount');
+let lbIdx = 0;
+
+function renderLb(i) {
+  lbImg.src = items[i].src;
+  lbImg.alt = items[i].alt;
+  lbCount.textContent = (i + 1) + ' / ' + items.length;
+}
+function openLb(i) {
+  lbIdx = i; renderLb(i);
+  lbEl.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() { lbEl.classList.remove('open'); document.body.style.overflow = ''; }
+function navLb(d)  { lbIdx = (lbIdx + d + items.length) % items.length; renderLb(lbIdx); }
+
+items.forEach((img, i) => { img.closest('.g-item').addEventListener('click', () => openLb(i)); });
+lbEl.addEventListener('click', e => { if (e.target === lbEl) closeLb(); });
+document.addEventListener('keydown', e => {
+  if (!lbEl.classList.contains('open')) return;
+  if (e.key === 'Escape')     closeLb();
+  if (e.key === 'ArrowLeft')  navLb(-1);
+  if (e.key === 'ArrowRight') navLb(1);
+});
+let tx = 0;
+lbEl.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+lbEl.addEventListener('touchend',   e => { if (Math.abs(e.changedTouches[0].clientX - tx) > 48) navLb(e.changedTouches[0].clientX < tx ? 1 : -1); });
+</script>
+</body>
+</html>
