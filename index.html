@@ -522,6 +522,19 @@
       100% { transform: scale(1.65); opacity: 0; }
     }
 
+    /* ─── INSTAGRAM FLOAT (secundario, encima del de WhatsApp) ── */
+    .ig-float {
+      position: fixed;
+      bottom: calc(98px + env(safe-area-inset-bottom));
+      right: calc(34px + env(safe-area-inset-right));
+      z-index: 200; width: 48px; height: 48px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 18px rgba(214,36,159,.35);
+      transition: transform .35s var(--ease), box-shadow .35s;
+    }
+
     /* ─── LANG SWITCH ────────────────────────────────────────── */
     .switching [data-t] { opacity: 0 !important; }
     [data-t] { transition: opacity .22s ease; }
@@ -543,6 +556,7 @@
       .foot-phone a:hover   { color: var(--verde) !important; }
       .foot-socials a:hover { background: var(--verde); border-color: var(--verde); color: #fff; transform: translateY(-2px); }
       .wa-float:hover     { transform: scale(1.09); box-shadow: 0 6px 30px rgba(37,211,102,.52); }
+      .ig-float:hover     { transform: scale(1.09); box-shadow: 0 6px 26px rgba(214,36,159,.5); }
       .loc-map-btn:hover  { filter: brightness(1.12); transform: translateY(-1px); }
     }
 
@@ -624,6 +638,11 @@
         width: 52px; height: 52px;
         bottom: calc(22px + env(safe-area-inset-bottom));
         right: calc(22px + env(safe-area-inset-right));
+      }
+      .ig-float {
+        width: 44px; height: 44px;
+        bottom: calc(84px + env(safe-area-inset-bottom));
+        right: calc(26px + env(safe-area-inset-right));
       }
     }
 
@@ -970,6 +989,11 @@ setTimeout(function(){
     <p class="foot-copy">© 2025 Casa Verde. <span data-t="foot_copy_rights">Todos los derechos reservados.</span></p>
   </div>
 </footer>
+
+<!-- INSTAGRAM FLOAT ───────────────────────────────────────── -->
+<a href="https://www.instagram.com/casaverdelosroques" target="_blank" rel="noopener" class="ig-float" aria-label="Instagram">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+</a>
 
 <!-- WHATSAPP FLOAT ────────────────────────────────────────── -->
 <a href="https://wa.me/584123030330" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
