@@ -1238,15 +1238,40 @@ document.addEventListener('click', e => {
   gsap.from(['.hero-sub', '.hero-cta'], { opacity: 0, y: 24, stagger: .14, duration: .9, ease: 'power2.out', delay: preDone + .45 });
   gsap.from('.hero-hint', { opacity: 0, duration: .8, delay: preDone + 1 });
 
-  /* ── TRAZO ARQUITECTÓNICO: al hacer scroll, estas líneas recorren la
-     plataforma, los postes y el techo de la casa — eco del logo que se
-     autodibuja en el preloader, ahora trazado sobre la foto real. ── */
+  /* ── TRAZO ARQUITECTÓNICO: apenas el usuario intenta hacer scroll, se
+     retiene el scroll un instante y las líneas dibujan de una vez la
+     plataforma, los postes y el techo de la casa (animación corta, no
+     atada al avance del scroll) — eco del logo que se autodibuja en el
+     preloader. Al terminar, se libera el scroll y la página sigue normal. ── */
   const tracePaths = gsap.utils.toArray('.hero-trace path');
   tracePaths.forEach(p => {
     const L = p.getTotalLength();
     p.style.strokeDasharray = L;
     p.style.strokeDashoffset = L;
   });
+
+  let traceStarted = false;
+  function triggerHeroTrace() {
+    if (traceStarted) return;
+    traceStarted = true;
+    document.body.style.overflow = 'hidden';
+    if (lenis) lenis.stop();
+    gsap.timeline({
+      onComplete: () => {
+        document.body.style.overflow = '';
+        if (lenis) lenis.start();
+      }
+    })
+      .to('.trace-base',   { opacity: .95, strokeDashoffset: 0, ease: 'power1.inOut', duration: .45 }, 0)
+      .to('.trace-post-a', { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .28 }, .32)
+      .to('.trace-post-b', { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .28 }, .44)
+      .to('.trace-roof',   { opacity: .95, strokeDashoffset: 0, ease: 'power1.inOut', duration: .5  }, .62);
+  }
+  window.addEventListener('wheel', triggerHeroTrace, { passive: true, once: true });
+  window.addEventListener('touchmove', triggerHeroTrace, { passive: true, once: true });
+  window.addEventListener('keydown', e => {
+    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) triggerHeroTrace();
+  }, { once: true });
 
   gsap.timeline({
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
@@ -1255,15 +1280,7 @@ document.addEventListener('click', e => {
     .to('.hero-bg img', { scale: 1.18, ease: 'none', duration: 1 }, 0)
     .to('.hero-content', { y: -90, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
     .to('.hero-hint', { opacity: 0, ease: 'none', duration: 1 }, 0)
-    // la plataforma se dibuja primero, afianzando la base de la casa
-    .to('.trace-base', { opacity: .95, strokeDashoffset: 0, ease: 'power1.inOut', duration: .26 }, .08)
-    // los postes suben desde la plataforma
-    .to('.trace-post-a', { opacity: .95, strokeDashoffset: 0, ease: 'power1.out', duration: .16 }, .3)
-    .to('.trace-post-b', { opacity: .95, strokeDashoffset: 0, ease: 'power1.out', duration: .16 }, .38)
-    // y el techo cierra el trazo de la casa
-    .to('.trace-roof', { opacity: .95, strokeDashoffset: 0, ease: 'power1.inOut', duration: .3 }, .5)
-    // el trazo completo se desvanece justo antes de pasar a Intro
-    .to('.hero-trace path', { opacity: 0, ease: 'none', duration: .18 }, .82);
+    .to('.hero-trace path', { opacity: 0, ease: 'none', duration: 1 }, 0);
 
   /* ── ZOOM ESPACIAL: de la estratósfera a Casa Verde ── */
   gsap.timeline({
