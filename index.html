@@ -154,10 +154,22 @@
     }
     .hero-bg { position: absolute; inset: -6% 0; will-change: transform; }
     .hero-bg img {
+      position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover; object-position: center 62%;
-      will-change: transform;
+      will-change: transform, opacity;
     }
+    /* la foto nítida (nano-banana pro) empieza oculta: se revela al hacer scroll */
+    .hero-img-reveal { opacity: 0; }
+    /* trazo arquitectónico: acento de línea que dibuja la placa al revelarse la foto nítida */
+    .hero-accent-line {
+      position: absolute; left: 22%; right: 22%; top: 71%; height: 1px;
+      background: var(--verde);
+      box-shadow: 0 0 14px 1px rgba(62,207,171,.85);
+      transform: scaleX(0); transform-origin: center; opacity: 0;
+      will-change: transform, opacity; z-index: 1;
+    }
+    .no-gsap .hero-img-reveal, .no-gsap .hero-accent-line { display: none; }
     .hero-shade {
       position: absolute; inset: 0;
       background: linear-gradient(to bottom,
@@ -763,7 +775,9 @@ setTimeout(function(){
 <!-- HERO cinemático ───────────────────────────────────────── -->
 <section class="hero" id="home">
   <div class="hero-bg">
-    <img src="img/portada.jpeg" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
+    <img class="hero-img-safe" src="img/portada.jpeg" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
+    <img class="hero-img-reveal" src="img/portada-reveal.jpeg" alt="" aria-hidden="true" loading="eager" decoding="async">
+    <div class="hero-accent-line" aria-hidden="true"></div>
   </div>
   <div class="hero-shade"></div>
   <div class="hero-content">
@@ -1207,7 +1221,7 @@ document.addEventListener('click', e => {
   }
 
   /* ── HERO cinemático: entrada + parallax de salida ── */
-  gsap.fromTo('.hero-bg img', { scale: 1.16 }, { scale: 1.02, duration: 3.4, ease: 'power2.out', delay: preDone * .75 });
+  gsap.fromTo('.hero-img-safe', { scale: 1.16 }, { scale: 1.02, duration: 3.4, ease: 'power2.out', delay: preDone * .75 });
   gsap.fromTo('.hero-title',
     { clipPath: 'inset(100% 0 0 0)', y: 46 },
     { clipPath: 'inset(0% 0 0 0)', y: 0, duration: 1.2, ease: 'power3.out', delay: preDone });
@@ -1215,13 +1229,19 @@ document.addEventListener('click', e => {
   gsap.from(['.hero-sub', '.hero-cta'], { opacity: 0, y: 24, stagger: .14, duration: .9, ease: 'power2.out', delay: preDone + .45 });
   gsap.from('.hero-hint', { opacity: 0, duration: .8, delay: preDone + 1 });
 
+  /* Al hacer scroll, la foto se revela en su versión nítida (nano-banana pro)
+     y un trazo arquitectónico (eco del logo que se autodibuja) marca la placa
+     de la casa un instante antes de que el hero se disuelva hacia Intro. */
   gsap.timeline({
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
   })
-    .to('.hero-bg', { yPercent: 16, ease: 'none' }, 0)
-    .to('.hero-bg img', { scale: 1.18, ease: 'none' }, 0)
-    .to('.hero-content', { y: -90, opacity: 0, ease: 'power1.in' }, 0)
-    .to('.hero-hint', { opacity: 0, ease: 'none' }, 0);
+    .to('.hero-bg', { yPercent: 16, ease: 'none', duration: 1 }, 0)
+    .to('.hero-img-safe', { scale: 1.18, opacity: 0, ease: 'none', duration: 1 }, 0)
+    .fromTo('.hero-img-reveal', { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, ease: 'power1.out', duration: .5 }, .12)
+    .fromTo('.hero-accent-line', { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: .9, ease: 'power2.out', duration: .22 }, .42)
+    .to('.hero-accent-line', { opacity: 0, ease: 'none', duration: .18 }, .74)
+    .to('.hero-content', { y: -90, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
+    .to('.hero-hint', { opacity: 0, ease: 'none', duration: 1 }, 0);
 
   /* ── ZOOM ESPACIAL: de la estratósfera a Casa Verde ── */
   gsap.timeline({
