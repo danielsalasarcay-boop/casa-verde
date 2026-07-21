@@ -191,10 +191,13 @@
       color: var(--verde); margin-bottom: 22px;
     }
     .hero-title {
+      position: absolute; z-index: 2;
+      top: calc(var(--nav-h) + 30px); left: 52px;
       font-family: var(--f-disp);
-      font-size: clamp(72px, 13vw, 168px);
+      font-size: clamp(28px, 3.2vw, 46px);
       font-weight: 300; line-height: .9; letter-spacing: -.01em; color: #fff;
-      margin-bottom: 20px;
+      text-shadow: 0 2px 18px rgba(0,0,0,.3);
+      margin: 0;
       will-change: clip-path, transform;
     }
     .hero-sub {
@@ -556,8 +559,12 @@
     }
 
     /* ─── LANG SWITCH ────────────────────────────────────────── */
-    .switching [data-t] { opacity: 0 !important; }
-    [data-t] { transition: opacity .22s ease; }
+    /* La transition va acotada a body.switching: una transition permanente
+       en [data-t] chocaba con las animaciones gsap.from() de entrada
+       (opacity) en cualquier elemento traducible — competían por la misma
+       propiedad y la dejaban trabada en 0. Solo debe existir mientras se
+       cambia de idioma. */
+    .switching [data-t] { opacity: 0 !important; transition: opacity .22s ease; }
 
     /* ─── HOVER STATES: desktop pointer only ─────────────────── */
     @media (hover: hover) and (pointer: fine) {
@@ -623,7 +630,7 @@
       .nav-logo img { height: 48px; }
 
       .hero { min-height: 560px; }
-      .hero-title { font-size: clamp(58px, 16vw, 92px); }
+      .hero-title { top: calc(var(--nav-h) + 20px); left: 20px; font-size: clamp(24px, 6.5vw, 34px); }
       .hero-eyebrow { font-size: 9.5px; letter-spacing: .3em; }
       .hero-hint { bottom: 26px; }
       .pre-stage { width: 76vw; }
@@ -669,7 +676,6 @@
     /* ── LARGE PHONE (480px) ────────────────────────────────── */
     @media (max-width: 480px) {
       section { padding: 64px 18px; }
-      .hero-title { font-size: clamp(52px, 15vw, 72px); }
       .s-title    { font-size: clamp(34px, 9vw, 58px); }
       .amenities  { grid-template-columns: 1fr; }
       .i-card     { padding: 26px 22px; }
@@ -681,14 +687,14 @@
     @media (max-width: 390px) {
       section { padding: 56px 16px; }
       .nav { padding: 0 16px; }
-      .hero-title { font-size: 52px; }
+      .hero-title { left: 16px; }
       .hero-cta   { padding: 14px 28px; letter-spacing: .14em; font-size: 10px; }
       .intro-quote  { font-size: 19px; }
     }
 
     /* ── TINY PHONE (360px — many Androids) ─────────────────── */
     @media (max-width: 360px) {
-      .hero-title { font-size: 48px; }
+      .hero-title { font-size: clamp(22px, 6vw, 28px); }
     }
   </style>
 </head>
@@ -789,9 +795,9 @@ setTimeout(function(){
     </svg>
   </div>
   <div class="hero-shade"></div>
+  <h1 class="hero-title">Casa Verde</h1>
   <div class="hero-content">
     <p class="hero-eyebrow" data-t="hero_eye">Gran Roque · Los Roques · Venezuela</p>
-    <h1 class="hero-title">Casa Verde</h1>
     <p class="hero-sub" data-t="hero_sub">Tu paraíso privado en Los Roques</p>
     <a href="https://wa.me/584123030330" target="_blank" rel="noopener" class="hero-cta" data-t="hero_cta">Reservar estadía</a>
   </div>
@@ -1207,10 +1213,24 @@ document.addEventListener('click', e => {
 
   const isTouch = window.matchMedia('(hover: none)').matches;
 
+  /* ── HERO cinemático: entrada + parallax de salida ──
+     Encadenada al onComplete del preloader (no a un delay independiente):
+     al remover el preloader del DOM se produce un salto de frame que puede
+     corromper tweens .from() que estén a mitad de camino en ese instante
+     exacto — encadenar evita esa carrera por completo. ── */
+  function startHeroEntrance() {
+    gsap.fromTo('.hero-bg img', { scale: 1.16 }, { scale: 1.02, duration: 3.4, ease: 'power2.out' });
+    gsap.fromTo('.hero-title',
+      { clipPath: 'inset(100% 0 0 0)', y: 46 },
+      { clipPath: 'inset(0% 0 0 0)', y: 0, duration: 1.2, ease: 'power3.out' });
+    gsap.from('.hero-eyebrow', { opacity: 0, y: 16, duration: .9, ease: 'power2.out', delay: .3 });
+    gsap.from(['.hero-sub', '.hero-cta'], { opacity: 0, y: 24, stagger: .14, duration: .9, ease: 'power2.out', delay: .45 });
+    gsap.from('.hero-hint', { opacity: 0, duration: .8, delay: 1 });
+  }
+
   /* ── PRELOADER: el logo se construye palito a palito en 3D ── */
   window.__preOk = true;
   const pre = document.getElementById('preloader');
-  let preDone = 0;
   if (pre) {
     document.body.style.overflow = 'hidden';
     const strokes = pre.querySelectorAll('svg path');
@@ -1219,24 +1239,16 @@ document.addEventListener('click', e => {
       p.style.strokeDasharray = L;
       p.style.strokeDashoffset = L;
     });
-    preDone = 2.55;
-    gsap.timeline({ onComplete: () => { pre.remove(); document.body.style.overflow = ''; } })
+    gsap.timeline({ onComplete: () => { pre.remove(); document.body.style.overflow = ''; startHeroEntrance(); } })
       .fromTo('.pre-stage',
         { rotateX: 34, rotateY: -16, scale: .86, transformPerspective: 900 },
         { rotateX: 0, rotateY: 0, scale: 1, duration: 2.1, ease: 'power2.inOut' }, 0)
       .to(strokes, { strokeDashoffset: 0, duration: 1.4, stagger: 0.06, ease: 'power2.inOut' }, 0.1)
       .from('.pre-word', { opacity: 0, letterSpacing: '.9em', duration: .7, ease: 'power2.out' }, 1.5)
       .to(pre, { yPercent: -100, duration: .75, ease: 'power4.inOut' }, 2.55);
+  } else {
+    startHeroEntrance();
   }
-
-  /* ── HERO cinemático: entrada + parallax de salida ── */
-  gsap.fromTo('.hero-bg img', { scale: 1.16 }, { scale: 1.02, duration: 3.4, ease: 'power2.out', delay: preDone * .75 });
-  gsap.fromTo('.hero-title',
-    { clipPath: 'inset(100% 0 0 0)', y: 46 },
-    { clipPath: 'inset(0% 0 0 0)', y: 0, duration: 1.2, ease: 'power3.out', delay: preDone });
-  gsap.from('.hero-eyebrow', { opacity: 0, y: 16, duration: .9, ease: 'power2.out', delay: preDone + .3 });
-  gsap.from(['.hero-sub', '.hero-cta'], { opacity: 0, y: 24, stagger: .14, duration: .9, ease: 'power2.out', delay: preDone + .45 });
-  gsap.from('.hero-hint', { opacity: 0, duration: .8, delay: preDone + 1 });
 
   /* ── TRAZO ARQUITECTÓNICO: apenas el usuario intenta hacer scroll, se
      retiene el scroll un instante y las líneas dibujan de una vez la
@@ -1278,6 +1290,7 @@ document.addEventListener('click', e => {
   })
     .to('.hero-bg', { yPercent: 16, ease: 'none', duration: 1 }, 0)
     .to('.hero-bg img', { scale: 1.18, ease: 'none', duration: 1 }, 0)
+    .to('.hero-title', { y: -20, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
     .to('.hero-content', { y: -90, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
     .to('.hero-hint', { opacity: 0, ease: 'none', duration: 1 }, 0)
     .to('.hero-trace path', { opacity: 0, ease: 'none', duration: 1 }, 0);
