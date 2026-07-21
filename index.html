@@ -154,27 +154,15 @@
     }
     .hero-bg { position: absolute; inset: -6% 0; will-change: transform; }
     .hero-bg img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center 62%;
-      will-change: transform;
-    }
-    /* trazo arquitectónico: al hacer scroll, estas líneas dibujan el contorno
-       de la casa (techo, plataforma, postes) — eco del logo que se autodibuja
-       en el preloader, ahora recorriendo la foto real. */
-    .hero-trace {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover; object-position: center 62%;
-      pointer-events: none; z-index: 1;
+      will-change: transform, opacity;
     }
-    .hero-trace path {
-      fill: none; stroke: var(--verde); stroke-width: 2;
-      stroke-linecap: round; stroke-linejoin: round;
-      filter: drop-shadow(0 0 5px rgba(62,207,171,.75));
-      opacity: 0;
-      will-change: stroke-dashoffset, opacity;
-    }
-    .no-gsap .hero-trace { display: none; }
+    /* día → atardecer → noche: las luces de la casa se encienden al hacer
+       scroll. Las capas de atardecer y noche empiezan invisibles. */
+    .hero-img-dusk, .hero-img-night { opacity: 0; }
+    .no-gsap .hero-img-dusk, .no-gsap .hero-img-night { display: none; }
     .hero-shade {
       position: absolute; inset: 0;
       background: linear-gradient(to bottom,
@@ -774,15 +762,9 @@ setTimeout(function(){
 <!-- HERO cinemático ───────────────────────────────────────── -->
 <section class="hero" id="home">
   <div class="hero-bg">
-    <img src="img/portada.jpeg" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
-    <svg class="hero-trace" viewBox="0 0 2000 1116" preserveAspectRatio="none" aria-hidden="true">
-      <path class="trace-base" vector-effect="non-scaling-stroke" d="M270,785 L1655,800"/>
-      <path class="trace-wall-left" vector-effect="non-scaling-stroke" d="M345,400 L345,786"/>
-      <path class="trace-wall-right" vector-effect="non-scaling-stroke" d="M1290,447 L1290,796"/>
-      <path class="trace-post-a" vector-effect="non-scaling-stroke" d="M795,336 L795,790"/>
-      <path class="trace-post-b" vector-effect="non-scaling-stroke" d="M1230,433 L1230,795"/>
-      <path class="trace-roof" vector-effect="non-scaling-stroke" d="M345,400 L735,322 L1290,447"/>
-    </svg>
+    <img class="hero-img-day" src="img/portada.jpeg" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
+    <img class="hero-img-dusk" src="img/portada-atardecer.jpeg" alt="" aria-hidden="true" loading="eager" decoding="async">
+    <img class="hero-img-night" src="img/portada-noche.jpeg" alt="" aria-hidden="true" loading="eager" decoding="async">
   </div>
   <div class="hero-shade"></div>
   <h1 class="hero-title">Casa Verde</h1>
@@ -1234,22 +1216,15 @@ document.addEventListener('click', e => {
     startHeroEntrance();
   }
 
-  /* ── TRAZO ARQUITECTÓNICO: apenas el usuario intenta hacer scroll, se
-     retiene el scroll un instante y las líneas dibujan de una vez la
-     plataforma, los postes y el techo de la casa (animación corta, no
-     atada al avance del scroll) — eco del logo que se autodibuja en el
-     preloader. Al terminar, se libera el scroll y la página sigue normal. ── */
-  const tracePaths = gsap.utils.toArray('.hero-trace path');
-  tracePaths.forEach(p => {
-    const L = p.getTotalLength();
-    p.style.strokeDasharray = L;
-    p.style.strokeDashoffset = L;
-  });
-
-  let traceStarted = false;
-  function triggerHeroTrace() {
-    if (traceStarted) return;
-    traceStarted = true;
+  /* ── DÍA → ATARDECER → NOCHE: apenas el usuario intenta hacer scroll, se
+     retiene el scroll un instante y la casa transiciona de día a noche
+     (las luces se encienden) en un crossfade corto y limpio — no atado al
+     avance del scroll. Al terminar, se libera el scroll y la página sigue
+     normal. ── */
+  let dayNightStarted = false;
+  function triggerDayNight() {
+    if (dayNightStarted) return;
+    dayNightStarted = true;
     document.body.style.overflow = 'hidden';
     if (lenis) lenis.stop();
     gsap.timeline({
@@ -1258,17 +1233,15 @@ document.addEventListener('click', e => {
         if (lenis) lenis.start();
       }
     })
-      .to('.trace-base',       { opacity: .95, strokeDashoffset: 0, ease: 'power1.inOut', duration: .4  }, 0)
-      .to('.trace-wall-left',  { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .22 }, .28)
-      .to('.trace-wall-right', { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .22 }, .36)
-      .to('.trace-post-a',     { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .18 }, .5)
-      .to('.trace-post-b',     { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .18 }, .58)
-      .to('.trace-roof',       { opacity: .95, strokeDashoffset: 0, ease: 'power1.inOut', duration: .4  }, .74);
+      .to('.hero-img-day',   { opacity: 0, ease: 'power1.inOut', duration: 1.1 }, 0)
+      .to('.hero-img-dusk',  { opacity: 1, ease: 'power1.inOut', duration: 1.1 }, 0)
+      .to('.hero-img-dusk',  { opacity: 0, ease: 'power1.inOut', duration: 1.1 }, 1.3)
+      .to('.hero-img-night', { opacity: 1, ease: 'power1.inOut', duration: 1.1 }, 1.3);
   }
-  window.addEventListener('wheel', triggerHeroTrace, { passive: true, once: true });
-  window.addEventListener('touchmove', triggerHeroTrace, { passive: true, once: true });
+  window.addEventListener('wheel', triggerDayNight, { passive: true, once: true });
+  window.addEventListener('touchmove', triggerDayNight, { passive: true, once: true });
   window.addEventListener('keydown', e => {
-    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) triggerHeroTrace();
+    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) triggerDayNight();
   }, { once: true });
 
   gsap.timeline({
@@ -1278,8 +1251,7 @@ document.addEventListener('click', e => {
     .to('.hero-bg img', { scale: 1.18, ease: 'none', duration: 1 }, 0)
     .to('.hero-title', { y: -20, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
     .to('.hero-eyebrow', { y: -20, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
-    .to('.hero-hint', { opacity: 0, ease: 'none', duration: 1 }, 0)
-    .to('.hero-trace path', { opacity: 0, ease: 'none', duration: 1 }, 0);
+    .to('.hero-hint', { opacity: 0, ease: 'none', duration: 1 }, 0);
 
   /* ── CAÍDA DESDE LA ESTRATÓSFERA HASTA CASA VERDE ──
      Cuatro escenas (espacio → aéreo → agua cristalina → la casa) que se
