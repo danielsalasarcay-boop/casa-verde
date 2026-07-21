@@ -145,10 +145,15 @@
     }
 
     /* ─── HERO cinemático ────────────────────────────────────── */
-    .hero {
-      position: relative;
+    /* .hero es la sección pineada: alta para dar espacio de scroll a la
+       transición día↔noche (bidireccional, atada al scroll, estilo
+       casa-panza); .hero-stage es el sticky que se queda fijo en pantalla
+       mientras eso ocurre. */
+    .hero { position: relative; height: 240vh; padding: 0 !important; }
+    .hero-stage {
+      position: sticky; top: 0;
       height: 100vh; height: 100svh; min-height: 620px;
-      overflow: hidden; padding: 0 !important;
+      overflow: hidden;
       display: flex; align-items: center; justify-content: center;
       background: var(--deep, #0C2424);
     }
@@ -163,6 +168,8 @@
        scroll. Las capas de atardecer y noche empiezan invisibles. */
     .hero-img-dusk, .hero-img-night { opacity: 0; }
     .no-gsap .hero-img-dusk, .no-gsap .hero-img-night { display: none; }
+    .no-gsap .hero { height: 100vh; height: 100svh; min-height: 620px; }
+    .no-gsap .hero-stage { position: relative; }
     .hero-shade {
       position: absolute; inset: 0;
       background: linear-gradient(to bottom,
@@ -605,7 +612,7 @@
       .hamburger { display: flex; }
       .nav-logo img { height: 48px; }
 
-      .hero { min-height: 560px; }
+      .hero-stage { min-height: 560px; }
       .hero-title { bottom: 26px; left: 20px; font-size: clamp(34px, 11vw, 60px); }
       .hero-eyebrow { bottom: auto; top: calc(var(--nav-h) + 24px); left: 20px; right: 20px; font-size: 9.5px; letter-spacing: .3em; }
       .hero-hint { bottom: 26px; }
@@ -761,18 +768,20 @@ setTimeout(function(){
 
 <!-- HERO cinemático ───────────────────────────────────────── -->
 <section class="hero" id="home">
-  <div class="hero-bg">
-    <img class="hero-img-day" src="img/portada.jpeg" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
-    <img class="hero-img-dusk" src="img/portada-atardecer.jpeg" alt="" aria-hidden="true" loading="eager" decoding="async">
-    <img class="hero-img-night" src="img/portada-noche.jpeg" alt="" aria-hidden="true" loading="eager" decoding="async">
-  </div>
-  <div class="hero-shade"></div>
-  <h1 class="hero-title">Casa Verde</h1>
-  <p class="hero-eyebrow" data-t="hero_eye">Los Roques · Venezuela</p>
-  <div class="hero-hint">
-    <div class="scroll-hint">
-      <span data-t="scroll">Descubrir</span>
-      <div class="scroll-line"></div>
+  <div class="hero-stage">
+    <div class="hero-bg">
+      <img class="hero-img-day" src="img/portada.jpeg" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
+      <img class="hero-img-dusk" src="img/portada-atardecer.jpeg" alt="" aria-hidden="true" loading="eager" decoding="async">
+      <img class="hero-img-night" src="img/portada-noche.jpeg" alt="" aria-hidden="true" loading="eager" decoding="async">
+    </div>
+    <div class="hero-shade"></div>
+    <h1 class="hero-title">Casa Verde</h1>
+    <p class="hero-eyebrow" data-t="hero_eye">Los Roques · Venezuela</p>
+    <div class="hero-hint">
+      <div class="scroll-hint">
+        <span data-t="scroll">Descubrir</span>
+        <div class="scroll-line"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1216,42 +1225,25 @@ document.addEventListener('click', e => {
     startHeroEntrance();
   }
 
-  /* ── DÍA → ATARDECER → NOCHE: apenas el usuario intenta hacer scroll, se
-     retiene el scroll un instante y la casa transiciona de día a noche
-     (las luces se encienden) en un crossfade corto y limpio — no atado al
-     avance del scroll. Al terminar, se libera el scroll y la página sigue
-     normal. ── */
-  let dayNightStarted = false;
-  function triggerDayNight() {
-    if (dayNightStarted) return;
-    dayNightStarted = true;
-    document.body.style.overflow = 'hidden';
-    if (lenis) lenis.stop();
-    gsap.timeline({
-      onComplete: () => {
-        document.body.style.overflow = '';
-        if (lenis) lenis.start();
-      }
-    })
-      .to('.hero-img-day',   { opacity: 0, ease: 'power1.inOut', duration: 1.1 }, 0)
-      .to('.hero-img-dusk',  { opacity: 1, ease: 'power1.inOut', duration: 1.1 }, 0)
-      .to('.hero-img-dusk',  { opacity: 0, ease: 'power1.inOut', duration: 1.1 }, 1.3)
-      .to('.hero-img-night', { opacity: 1, ease: 'power1.inOut', duration: 1.1 }, 1.3);
-  }
-  window.addEventListener('wheel', triggerDayNight, { passive: true, once: true });
-  window.addEventListener('touchmove', triggerDayNight, { passive: true, once: true });
-  window.addEventListener('keydown', e => {
-    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) triggerDayNight();
-  }, { once: true });
-
+  /* ── DÍA → ATARDECER → NOCHE: atado al scroll en ambos sentidos (estilo
+     casa-panza) — al bajar la casa transiciona a la noche con las luces
+     encendidas; al subir vuelve al atardecer y al día, como cualquier
+     ScrollTrigger scrubbed. ── */
   gsap.timeline({
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    scrollTrigger: {
+      trigger: '.hero', start: 'top top', end: 'bottom bottom',
+      scrub: isTouch ? 0.5 : 1,
+    }
   })
-    .to('.hero-bg', { yPercent: 16, ease: 'none', duration: 1 }, 0)
-    .to('.hero-bg img', { scale: 1.18, ease: 'none', duration: 1 }, 0)
-    .to('.hero-title', { y: -20, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
-    .to('.hero-eyebrow', { y: -20, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
-    .to('.hero-hint', { opacity: 0, ease: 'none', duration: 1 }, 0);
+    .to('.hero-img-day',   { opacity: 0, ease: 'power1.inOut', duration: .35 }, 0)
+    .to('.hero-img-dusk',  { opacity: 1, ease: 'power1.inOut', duration: .35 }, 0)
+    .to('.hero-img-dusk',  { opacity: 0, ease: 'power1.inOut', duration: .34 }, .44)
+    .to('.hero-img-night', { opacity: 1, ease: 'power1.inOut', duration: .34 }, .44)
+    .to('.hero-bg',        { yPercent: 16, ease: 'none', duration: .16 }, .84)
+    .to('.hero-bg img',    { scale: 1.18, ease: 'none', duration: .16 }, .84)
+    .to('.hero-title',     { y: -20, opacity: 0, ease: 'power1.in', duration: .16 }, .84)
+    .to('.hero-eyebrow',   { y: -20, opacity: 0, ease: 'power1.in', duration: .16 }, .84)
+    .to('.hero-hint',      { opacity: 0, ease: 'none', duration: .16 }, .84);
 
   /* ── CAÍDA DESDE LA ESTRATÓSFERA HASTA CASA VERDE ──
      Cuatro escenas (espacio → aéreo → agua cristalina → la casa) que se
