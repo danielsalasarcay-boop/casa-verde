@@ -180,39 +180,24 @@
       background: linear-gradient(to bottom,
         rgba(8,24,24,.42) 0%, rgba(8,24,24,.2) 46%, rgba(8,24,24,.62) 100%);
     }
-    .hero-content {
-      position: relative; z-index: 2; text-align: center;
-      padding: 0 24px; max-width: 1100px;
-      will-change: transform, opacity;
-    }
     .hero-eyebrow {
+      position: absolute; z-index: 2;
+      bottom: 50px; right: 106px;
       font-family: var(--f-label);
       font-size: 11px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase;
-      color: var(--verde); margin-bottom: 22px;
+      color: var(--verde);
+      text-shadow: 0 2px 14px rgba(0,0,0,.35);
+      will-change: transform, opacity;
     }
     .hero-title {
       position: absolute; z-index: 2;
-      top: calc(var(--nav-h) + 30px); left: 52px;
+      bottom: 40px; left: 52px;
       font-family: var(--f-disp);
-      font-size: clamp(28px, 3.2vw, 46px);
+      font-size: clamp(48px, 7.5vw, 104px);
       font-weight: 300; line-height: .9; letter-spacing: -.01em; color: #fff;
       text-shadow: 0 2px 18px rgba(0,0,0,.3);
       margin: 0;
       will-change: clip-path, transform;
-    }
-    .hero-sub {
-      font-family: var(--f-disp); font-size: clamp(18px, 3vw, 26px);
-      font-weight: 300; font-style: italic;
-      color: rgba(255,255,255,.85); letter-spacing: .03em; margin-bottom: 42px;
-    }
-    .hero-cta {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 16px 40px; border: 1px solid rgba(255,255,255,.55);
-      color: #fff; font-family: var(--f-label);
-      font-size: 11px; font-weight: 500; letter-spacing: .24em;
-      text-transform: uppercase; border-radius: 40px;
-      transition: background .35s, border-color .35s;
-      min-height: 52px;
     }
     .hero-hint {
       position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2;
@@ -574,7 +559,6 @@
     @media (hover: hover) and (pointer: fine) {
       .nav-links a:hover   { opacity: .5; }
       .nav-ig:hover        { opacity: .5; }
-      .hero-cta:hover      { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.75); }
       .i-card:hover {
         transform: translateY(-6px);
         box-shadow: 0 24px 55px rgba(26,74,74,.13);
@@ -634,8 +618,8 @@
       .nav-logo img { height: 48px; }
 
       .hero { min-height: 560px; }
-      .hero-title { top: calc(var(--nav-h) + 20px); left: 20px; font-size: clamp(24px, 6.5vw, 34px); }
-      .hero-eyebrow { font-size: 9.5px; letter-spacing: .3em; }
+      .hero-title { bottom: 26px; left: 20px; font-size: clamp(34px, 11vw, 60px); }
+      .hero-eyebrow { bottom: auto; top: calc(var(--nav-h) + 24px); left: 20px; right: 20px; font-size: 9.5px; letter-spacing: .3em; }
       .hero-hint { bottom: 26px; }
       .pre-stage { width: 76vw; }
 
@@ -692,13 +676,13 @@
       section { padding: 56px 16px; }
       .nav { padding: 0 16px; }
       .hero-title { left: 16px; }
-      .hero-cta   { padding: 14px 28px; letter-spacing: .14em; font-size: 10px; }
+      .hero-eyebrow { left: 16px; right: 16px; }
       .intro-quote  { font-size: 19px; }
     }
 
     /* ── TINY PHONE (360px — many Androids) ─────────────────── */
     @media (max-width: 360px) {
-      .hero-title { font-size: clamp(22px, 6vw, 28px); }
+      .hero-title { font-size: clamp(30px, 10vw, 40px); }
     }
   </style>
 </head>
@@ -793,18 +777,16 @@ setTimeout(function(){
     <img src="img/portada.jpeg" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
     <svg class="hero-trace" viewBox="0 0 2000 1116" preserveAspectRatio="none" aria-hidden="true">
       <path class="trace-base" vector-effect="non-scaling-stroke" d="M270,785 L1655,800"/>
-      <path class="trace-post-a" vector-effect="non-scaling-stroke" d="M790,345 L790,790"/>
-      <path class="trace-post-b" vector-effect="non-scaling-stroke" d="M1230,375 L1230,795"/>
+      <path class="trace-wall-left" vector-effect="non-scaling-stroke" d="M345,400 L345,786"/>
+      <path class="trace-wall-right" vector-effect="non-scaling-stroke" d="M1290,447 L1290,796"/>
+      <path class="trace-post-a" vector-effect="non-scaling-stroke" d="M795,336 L795,790"/>
+      <path class="trace-post-b" vector-effect="non-scaling-stroke" d="M1230,433 L1230,795"/>
       <path class="trace-roof" vector-effect="non-scaling-stroke" d="M345,400 L735,322 L1290,447"/>
     </svg>
   </div>
   <div class="hero-shade"></div>
   <h1 class="hero-title">Casa Verde</h1>
-  <div class="hero-content">
-    <p class="hero-eyebrow" data-t="hero_eye">Gran Roque · Los Roques · Venezuela</p>
-    <p class="hero-sub" data-t="hero_sub">Tu paraíso privado en Los Roques</p>
-    <a href="https://wa.me/584123030330" target="_blank" rel="noopener" class="hero-cta" data-t="hero_cta">Reservar estadía</a>
-  </div>
+  <p class="hero-eyebrow" data-t="hero_eye">Los Roques · Venezuela</p>
   <div class="hero-hint">
     <div class="scroll-hint">
       <span data-t="scroll">Descubrir</span>
@@ -957,10 +939,10 @@ setTimeout(function(){
 <!-- GALLERY TEASER: de la estratósfera a Casa Verde ───────── -->
 <section class="gal-teaser" id="gallery" aria-label="Galería">
   <div class="zoom-stage">
-    <div class="zoom-layer zoom-espacio" aria-hidden="true"><img src="img/estratosfera.jpeg" alt="" loading="lazy" decoding="async"></div>
-    <div class="zoom-layer zoom-aereo" aria-hidden="true"><img src="img/aerial-losroques.jpeg" alt="" loading="lazy" decoding="async"></div>
-    <div class="zoom-layer zoom-agua" aria-hidden="true"><img src="img/gal/agua-lejos.jpeg" alt="" loading="lazy" decoding="async"></div>
-    <div class="zoom-layer zoom-casa"><img src="img/gal/casa-cerca.jpeg" alt="Casa Verde vista desde el mar al anochecer" loading="lazy" decoding="async"></div>
+    <div class="zoom-layer zoom-espacio" aria-hidden="true"><img src="img/estratosfera.jpeg" alt="" loading="eager" decoding="async"></div>
+    <div class="zoom-layer zoom-aereo" aria-hidden="true"><img src="img/aerial-losroques.jpeg" alt="" loading="eager" decoding="async"></div>
+    <div class="zoom-layer zoom-agua" aria-hidden="true"><img src="img/gal/agua-lejos.jpeg" alt="" loading="eager" decoding="async"></div>
+    <div class="zoom-layer zoom-casa"><img src="img/gal/casa-cerca.jpeg" alt="Casa Verde vista desde el mar al anochecer" loading="eager" decoding="async"></div>
     <div class="gal-plaque">
       <span class="s-label" data-t="gal_lbl">Galería</span>
       <h2 class="s-title" data-t="gal_h">La casa en imágenes</h2>
@@ -1045,9 +1027,7 @@ const T = {
   nav_gal:   { es:'Galería',       en:'Gallery' },
   nav_loc:   { es:'Ubicación',     en:'Location' },
 
-  hero_eye:  { es:'Gran Roque · Los Roques · Venezuela', en:'Gran Roque · Los Roques · Venezuela' },
-  hero_sub:  { es:'Tu paraíso privado en Los Roques', en:'Your private paradise in Los Roques' },
-  hero_cta:  { es:'Reservar estadía',                    en:'Book your stay' },
+  hero_eye:  { es:'Los Roques · Venezuela', en:'Los Roques · Venezuela' },
   scroll:    { es:'Descubrir',                           en:'Discover' },
 
   st1: { es:'Habitaciones de lujo', en:'Luxury Bedrooms' },
@@ -1229,7 +1209,6 @@ document.addEventListener('click', e => {
       { clipPath: 'inset(100% 0 0 0)', y: 46 },
       { clipPath: 'inset(0% 0 0 0)', y: 0, duration: 1.2, ease: 'power3.out' });
     gsap.from('.hero-eyebrow', { opacity: 0, y: 16, duration: .9, ease: 'power2.out', delay: .3 });
-    gsap.from(['.hero-sub', '.hero-cta'], { opacity: 0, y: 24, stagger: .14, duration: .9, ease: 'power2.out', delay: .45 });
     gsap.from('.hero-hint', { opacity: 0, duration: .8, delay: 1 });
   }
 
@@ -1279,10 +1258,12 @@ document.addEventListener('click', e => {
         if (lenis) lenis.start();
       }
     })
-      .to('.trace-base',   { opacity: .95, strokeDashoffset: 0, ease: 'power1.inOut', duration: .45 }, 0)
-      .to('.trace-post-a', { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .28 }, .32)
-      .to('.trace-post-b', { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .28 }, .44)
-      .to('.trace-roof',   { opacity: .95, strokeDashoffset: 0, ease: 'power1.inOut', duration: .5  }, .62);
+      .to('.trace-base',       { opacity: .95, strokeDashoffset: 0, ease: 'power1.inOut', duration: .4  }, 0)
+      .to('.trace-wall-left',  { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .22 }, .28)
+      .to('.trace-wall-right', { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .22 }, .36)
+      .to('.trace-post-a',     { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .18 }, .5)
+      .to('.trace-post-b',     { opacity: .95, strokeDashoffset: 0, ease: 'power1.out',   duration: .18 }, .58)
+      .to('.trace-roof',       { opacity: .95, strokeDashoffset: 0, ease: 'power1.inOut', duration: .4  }, .74);
   }
   window.addEventListener('wheel', triggerHeroTrace, { passive: true, once: true });
   window.addEventListener('touchmove', triggerHeroTrace, { passive: true, once: true });
@@ -1296,7 +1277,7 @@ document.addEventListener('click', e => {
     .to('.hero-bg', { yPercent: 16, ease: 'none', duration: 1 }, 0)
     .to('.hero-bg img', { scale: 1.18, ease: 'none', duration: 1 }, 0)
     .to('.hero-title', { y: -20, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
-    .to('.hero-content', { y: -90, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
+    .to('.hero-eyebrow', { y: -20, opacity: 0, ease: 'power1.in', duration: 1 }, 0)
     .to('.hero-hint', { opacity: 0, ease: 'none', duration: 1 }, 0)
     .to('.hero-trace path', { opacity: 0, ease: 'none', duration: 1 }, 0);
 
