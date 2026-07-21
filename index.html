@@ -426,16 +426,20 @@
     .exp-title { font-family: var(--f-disp); font-size: 26px; font-weight: 400; color: #fff; line-height: 1.18; margin-bottom: 10px; }
     .exp-desc  { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.6); line-height: 1.65; }
 
-    /* ─── GALLERY TEASER: zoom desde la estratósfera ─────────── */
-    .gal-teaser { position: relative; height: 320vh; padding: 0 !important; background: #000; }
+    /* ─── GALLERY TEASER: caída desde la estratósfera hasta la casa ─── */
+    .gal-teaser { position: relative; height: 420vh; padding: 0 !important; background: #000; }
     .zoom-stage {
       position: sticky; top: 0; height: 100vh; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
     }
-    .zoom-layer { position: absolute; inset: 0; will-change: transform, opacity; }
+    .zoom-layer {
+      position: absolute; inset: 0;
+      will-change: transform, opacity, filter;
+      transform: translateZ(0);
+    }
     .zoom-layer img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .zoom-aereo, .zoom-casa { opacity: 0; }
-    .zoom-casa::after { content: ''; position: absolute; inset: 0; background: rgba(8,24,24,.3); }
+    .zoom-aereo, .zoom-agua, .zoom-casa { opacity: 0; }
+    .zoom-casa::after { content: ''; position: absolute; inset: 0; background: rgba(8,24,24,.32); }
     .gal-plaque {
       position: relative; z-index: 5; text-align: center;
       background: rgba(245,240,232,.95);
@@ -460,8 +464,8 @@
     }
     .no-gsap .gal-teaser { height: auto; min-height: 82vh; display: flex; }
     .no-gsap .zoom-stage { position: relative; width: 100%; }
-    .no-gsap .zoom-espacio, .no-gsap .zoom-aereo { display: none; }
-    .no-gsap .zoom-casa, .no-gsap .gal-plaque { opacity: 1; transform: none; }
+    .no-gsap .zoom-espacio, .no-gsap .zoom-aereo, .no-gsap .zoom-agua { display: none; }
+    .no-gsap .zoom-casa, .no-gsap .gal-plaque { opacity: 1; transform: none; filter: none; }
 
     /* ─── LOCATION ───────────────────────────────────────────── */
     .location { background: #fff; padding: 84px 52px 0; }
@@ -955,7 +959,8 @@ setTimeout(function(){
   <div class="zoom-stage">
     <div class="zoom-layer zoom-espacio" aria-hidden="true"><img src="img/estratosfera.jpeg" alt="" loading="lazy" decoding="async"></div>
     <div class="zoom-layer zoom-aereo" aria-hidden="true"><img src="img/aerial-losroques.jpeg" alt="" loading="lazy" decoding="async"></div>
-    <div class="zoom-layer zoom-casa"><img src="img/gal/casa-anochecer.jpeg" alt="Casa Verde iluminada al anochecer" loading="lazy" decoding="async"></div>
+    <div class="zoom-layer zoom-agua" aria-hidden="true"><img src="img/gal/agua-lejos.jpeg" alt="" loading="lazy" decoding="async"></div>
+    <div class="zoom-layer zoom-casa"><img src="img/gal/casa-cerca.jpeg" alt="Casa Verde vista desde el mar al anochecer" loading="lazy" decoding="async"></div>
     <div class="gal-plaque">
       <span class="s-label" data-t="gal_lbl">Galería</span>
       <h2 class="s-title" data-t="gal_h">La casa en imágenes</h2>
@@ -1295,20 +1300,34 @@ document.addEventListener('click', e => {
     .to('.hero-hint', { opacity: 0, ease: 'none', duration: 1 }, 0)
     .to('.hero-trace path', { opacity: 0, ease: 'none', duration: 1 }, 0);
 
-  /* ── ZOOM ESPACIAL: de la estratósfera a Casa Verde ── */
+  /* ── CAÍDA DESDE LA ESTRATÓSFERA HASTA CASA VERDE ──
+     Cuatro escenas (espacio → aéreo → agua cristalina → la casa) que se
+     atraviesan como si cayeras a través de ellas: cada una se dispara hacia
+     la cámara con desenfoque de movimiento mientras la siguiente entra
+     enfocándose, como una cámara de dron descendiendo sin cortes. ── */
   gsap.timeline({
     scrollTrigger: {
       trigger: '.gal-teaser', start: 'top top', end: 'bottom bottom',
       scrub: isTouch ? 0.5 : 1,
     }
   })
-    .fromTo('.zoom-espacio', { scale: 1 }, { scale: 3.2, ease: 'power1.in', duration: .42 }, 0)
-    .to('.zoom-espacio', { opacity: 0, duration: .12, ease: 'none' }, .32)
-    .fromTo('.zoom-aereo', { scale: .55, opacity: 0 }, { scale: 1, opacity: 1, duration: .2, ease: 'power1.out' }, .3)
-    .to('.zoom-aereo', { scale: 2.6, ease: 'power1.in', duration: .34 }, .5)
-    .to('.zoom-aereo', { opacity: 0, duration: .1, ease: 'none' }, .72)
-    .fromTo('.zoom-casa', { scale: 1.35, opacity: 0 }, { scale: 1, opacity: 1, duration: .28, ease: 'power2.out' }, .7)
-    .fromTo('.gal-plaque', { opacity: 0, scale: .9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: .14, ease: 'power2.out' }, .86);
+    // 1 · Estratósfera: el planeta se acerca y se disuelve en desenfoque
+    .fromTo('.zoom-espacio', { scale: 1, filter: 'blur(0px)' }, { scale: 3.4, filter: 'blur(22px)', ease: 'power1.in', duration: .22 }, 0)
+    .to('.zoom-espacio', { opacity: 0, duration: .06, ease: 'none' }, .18)
+    .fromTo('.zoom-aereo', { scale: .5, opacity: 0, filter: 'blur(26px)' }, { scale: 1, opacity: 1, filter: 'blur(0px)', duration: .16, ease: 'power2.out' }, .14)
+
+    // 2 · Aéreo: los cayos y arrecifes se alejan en picada
+    .to('.zoom-aereo', { scale: 2.5, filter: 'blur(18px)', ease: 'power1.in', duration: .22 }, .36)
+    .to('.zoom-aereo', { opacity: 0, duration: .06, ease: 'none' }, .52)
+    .fromTo('.zoom-agua', { scale: .55, opacity: 0, filter: 'blur(24px)' }, { scale: 1, opacity: 1, filter: 'blur(0px)', duration: .16, ease: 'power2.out' }, .48)
+
+    // 3 · Agua cristalina a ras del mar: Gran Roque a lo lejos
+    .to('.zoom-agua', { scale: 2.1, filter: 'blur(16px)', ease: 'power1.in', duration: .2 }, .7)
+    .to('.zoom-agua', { opacity: 0, duration: .06, ease: 'none' }, .84)
+    .fromTo('.zoom-casa', { scale: 1.3, opacity: 0, filter: 'blur(20px)' }, { scale: 1, opacity: 1, filter: 'blur(0px)', duration: .16, ease: 'power2.out' }, .8)
+
+    // 4 · Llegada: Casa Verde, y la placa se posa
+    .fromTo('.gal-plaque', { opacity: 0, scale: .9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: .12, ease: 'power2.out' }, .92);
 
   /* ── Las imágenes se expanden suavemente al entrar (solo index) ── */
   gsap.utils.toArray('.villa-img-wrap img, .exp-ph img').forEach(img => {
