@@ -613,9 +613,9 @@
       .nav-logo img { height: 48px; }
 
       .hero-stage { min-height: 560px; }
-      .hero-title { bottom: 26px; left: 20px; font-size: clamp(34px, 11vw, 60px); }
+      .hero-title { bottom: calc(38px + env(safe-area-inset-bottom)); left: 20px; font-size: clamp(34px, 11vw, 56px); }
       .hero-eyebrow { bottom: auto; top: calc(var(--nav-h) + 24px); left: 20px; right: 20px; font-size: 9.5px; letter-spacing: .3em; }
-      .hero-hint { bottom: 26px; }
+      .hero-hint { bottom: calc(26px + env(safe-area-inset-bottom)); }
       .pre-stage { width: 76vw; }
 
       .gal-plaque { max-width: 260px; padding: 26px 24px 24px; }
@@ -664,6 +664,9 @@
       .i-card     { padding: 26px 22px; }
       .loc-map-wrap { height: 300px; }
       .exp-overlay  { padding: 40px 20px 22px; }
+
+      .wa-float { width: 46px; height: 46px; bottom: calc(18px + env(safe-area-inset-bottom)); right: calc(18px + env(safe-area-inset-right)); }
+      .ig-float { width: 46px; height: 46px; bottom: calc(76px + env(safe-area-inset-bottom)); right: calc(18px + env(safe-area-inset-right)); }
     }
 
     /* ── SMALL PHONE (390px — iPhone 14/15) ─────────────────── */
@@ -770,9 +773,9 @@ setTimeout(function(){
 <section class="hero" id="home">
   <div class="hero-stage">
     <div class="hero-bg">
-      <img class="hero-img-day" src="img/portada.jpeg" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
-      <img class="hero-img-dusk" src="img/portada-atardecer.jpeg" alt="" aria-hidden="true" loading="eager" decoding="async">
-      <img class="hero-img-night" src="img/portada-noche.jpeg" alt="" aria-hidden="true" loading="eager" decoding="async">
+      <img class="hero-img-day" src="img/portada.jpeg" srcset="img/portada-mobile.jpeg 1200w, img/portada.jpeg 2600w" sizes="100vw" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
+      <img class="hero-img-dusk" src="img/portada-atardecer.jpeg" srcset="img/portada-atardecer-mobile.jpeg 1200w, img/portada-atardecer.jpeg 2600w" sizes="100vw" alt="" aria-hidden="true" loading="eager" fetchpriority="low" decoding="async">
+      <img class="hero-img-night" src="img/portada-noche.jpeg" srcset="img/portada-noche-mobile.jpeg 1200w, img/portada-noche.jpeg 2600w" sizes="100vw" alt="" aria-hidden="true" loading="eager" fetchpriority="low" decoding="async">
     </div>
     <div class="hero-shade"></div>
     <h1 class="hero-title">Casa Verde</h1>
