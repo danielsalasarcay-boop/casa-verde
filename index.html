@@ -716,6 +716,13 @@
     @media (max-width: 360px) {
       .hero-title { font-size: clamp(30px, 10vw, 40px); }
     }
+    /* teléfono horizontal / pantallas bajas: la portada se ajusta a la altura real */
+    @media (max-height: 520px) and (orientation: landscape) {
+      .hero-stage, .no-gsap .hero { min-height: 0 !important; }
+      .hero-title { bottom: 22px; font-size: clamp(34px, 7vw, 56px); }
+      .hero-eyebrow { bottom: 28px; }
+      .hero-hint { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -1173,9 +1180,16 @@ applyLang(lang);
 
 /* ─── NAV SCROLL ───────────────────────────────────────────── */
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 50);
-}, { passive: true });
+/* El nav se mantiene transparente mientras la portada (pineada) está en
+   pantalla; se vuelve sólido cuando la portada termina de salir. */
+const heroSec = document.querySelector('.hero');
+function updateNav() {
+  const limit = heroSec ? heroSec.getBoundingClientRect().bottom - nav.offsetHeight : 50 - window.scrollY;
+  nav.classList.toggle('scrolled', limit <= 0);
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+window.addEventListener('resize', updateNav);
+updateNav();
 
 /* ─── SCROLL REVEAL ────────────────────────────────────────── */
 const ro = new IntersectionObserver(entries => {
@@ -1290,11 +1304,9 @@ document.addEventListener('click', e => {
       scrub: isTouch ? 0.5 : 1,
     }
   })
-    .to('.hero-img-day',   { opacity: 0, ease: 'power1.inOut', duration: .35 }, 0)
     .to('.hero-img-dusk',  { opacity: 1, ease: 'power1.inOut', duration: .35 }, 0)
-    .to('.hero-img-dusk',  { opacity: 0, ease: 'power1.inOut', duration: .34 }, .44)
     .to('.hero-img-night', { opacity: 1, ease: 'power1.inOut', duration: .34 }, .44)
-    .to('.hero-bg',        { yPercent: 16, ease: 'none', duration: .16 }, .84)
+    .to('.hero-bg',        { yPercent: 8, ease: 'none', duration: .16 }, .84)
     .to('.hero-bg img',    { scale: 1.18, ease: 'none', duration: .16 }, .84)
     .to('.hero-title',     { y: -20, opacity: 0, ease: 'power1.in', duration: .16 }, .84)
     .to('.hero-eyebrow',   { y: -20, opacity: 0, ease: 'power1.in', duration: .16 }, .84)
