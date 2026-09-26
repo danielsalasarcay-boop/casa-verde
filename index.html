@@ -378,7 +378,7 @@
     .comod-sub { max-width: 340px; font-size: 15px; line-height: 1.6; color: rgba(26,74,74,.7); padding-bottom: 10px; }
     .comod-grid {
       list-style: none; margin: 0; padding: 0;
-      display: grid; grid-template-columns: repeat(4, 1fr);
+      display: grid; grid-template-columns: repeat(3, 1fr);
       grid-auto-rows: 200px; gap: 16px;
     }
     .comod-card {
@@ -404,29 +404,6 @@
     .comod-card:hover .comod-ico { background: rgba(255,255,255,.2); color: #fff; transform: rotate(-8deg) scale(1.05); }
     .comod-card:hover .comod-txt, .comod-card:hover .comod-num { color: #fff; }
 
-    /* tarjetas grandes con foto */
-    .comod-card.big { grid-column: span 2; grid-row: span 2; border: 0; background: var(--teal); }
-    .comod-card.wide { grid-column: span 2; border: 0; background: var(--teal); }
-    .comod-card.big img, .comod-card.wide img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
-    }
-    .comod-card.big::after, .comod-card.wide::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(8,30,30,.85) 0%, rgba(8,30,30,.25) 55%, rgba(8,30,30,.05) 100%);
-    }
-    .comod-card.big > *:not(img), .comod-card.wide > *:not(img) { position: relative; z-index: 1; }
-    .comod-card.big .comod-ico, .comod-card.wide .comod-ico {
-      background: rgba(255,255,255,.16); color: #fff; box-shadow: none;
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.28);
-    }
-    .comod-card.big .comod-txt, .comod-card.wide .comod-txt { color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,.35); }
-    .comod-card.wide img { object-position: center 65%; }
-    .comod-card.wide::after { background: linear-gradient(to right, rgba(8,30,30,.8) 0%, rgba(8,30,30,.35) 55%, rgba(8,30,30,.1) 100%); }
-    .comod-card.big .comod-txt { font-size: clamp(30px, 3vw, 44px); max-width: 16ch; }
-    .comod-card.big .comod-num, .comod-card.wide .comod-num { color: rgba(255,255,255,.7); }
-    .comod-card.big:hover, .comod-card.wide:hover { background: var(--teal); box-shadow: 0 24px 50px -24px rgba(8,30,30,.6); }
-    .comod-card.big:hover img, .comod-card.wide:hover img { transform: scale(1.06); }
 
     /* ─── EXPERIENCE ─────────────────────────────────────────── */
     .experience { background: var(--teal); position: relative; overflow: hidden; }
@@ -683,11 +660,10 @@
       .comod-sub { padding-bottom: 0; }
       .comod-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; gap: 10px; }
       .comod-card { padding: 18px; border-radius: 18px; }
-      .comod-card.big { grid-row: span 2; }
+      .comod-card:first-child { grid-column: span 2; }
       .comod-ico { width: 42px; height: 42px; border-radius: 13px; }
       .comod-ico svg { width: 22px; height: 22px; }
       .comod-txt { font-size: 19px; }
-      .comod-card.big .comod-txt { font-size: 30px; }
 
       .exp-cards { grid-template-columns: 1fr; gap: 12px; }
       .exp-cards .exp-card:last-child { grid-column: span 1; aspect-ratio: 3/4; }
@@ -919,7 +895,7 @@ setTimeout(function(){
       <p class="comod-sub reveal" data-t="villa_sub">Todo lo que necesitas para desconectarte, frente al mar turquesa de Los Roques.</p>
     </div>
     <ul class="comod-grid">
-      <li class="comod-card big reveal"><img src="img/gal/casa-dia-mar.jpeg" alt="Casa Verde frente al mar en Gran Roque" loading="lazy" decoding="async">
+      <li class="comod-card reveal">
         <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M12 11v9"/><path d="M3 20h18"/><path d="M15 17h3"/></svg></span><span class="comod-num">01</span></div>
         <span class="comod-txt" data-t="cm1">Frente al mar en Gran Roque</span>
       </li>
@@ -932,24 +908,28 @@ setTimeout(function(){
         <span class="comod-txt" data-t="cm3">Hasta 10 huéspedes</span>
       </li>
       <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.8 12.5a9 9 0 0 1 12.4 0"/><path d="M9 16a4.5 4.5 0 0 1 6 0"/><circle cx="12" cy="19.3" r=".9" fill="currentColor"/></svg></span><span class="comod-num">04</span></div>
+        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16h18l-2.5 4h-13z"/><path d="M12 3v13"/><path d="M12 4l6 9h-6"/><path d="M12 7l-4 6h4"/></svg></span><span class="comod-num">04</span></div>
+        <span class="comod-txt" data-t="cm9">Bote privado</span>
+      </li>
+      <li class="comod-card reveal">
+        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.8 12.5a9 9 0 0 1 12.4 0"/><path d="M9 16a4.5 4.5 0 0 1 6 0"/><circle cx="12" cy="19.3" r=".9" fill="currentColor"/></svg></span><span class="comod-num">05</span></div>
         <span class="comod-txt" data-t="cm5">Internet satelital Starlink®</span>
       </li>
       <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M5 17v4M3 19h4"/><path d="M19 16v4M17 18h4"/></svg></span><span class="comod-num">05</span></div>
+        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M5 17v4M3 19h4"/><path d="M19 16v4M17 18h4"/></svg></span><span class="comod-num">06</span></div>
         <span class="comod-txt" data-t="cm4">Limpieza diaria</span>
       </li>
       <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 14.5l2 1.6 2-1.6"/></svg></span><span class="comod-num">06</span></div>
+        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 14.5l2 1.6 2-1.6"/></svg></span><span class="comod-num">07</span></div>
         <span class="comod-txt" data-t="cm6">Staff de servicio incluido</span>
       </li>
       <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V6a3 3 0 0 1 6 0"/><path d="M8.5 9h5"/><path d="M10 12v.01M12 12v.01M14 12v.01M11 14.5v.01M13 14.5v.01"/><path d="M16 15c-1 1.2 1 2.3 0 3.5M19 15c-1 1.2 1 2.3 0 3.5"/></svg></span><span class="comod-num">07</span></div>
+        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V6a3 3 0 0 1 6 0"/><path d="M8.5 9h5"/><path d="M10 12v.01M12 12v.01M14 12v.01M11 14.5v.01M13 14.5v.01"/><path d="M16 15c-1 1.2 1 2.3 0 3.5M19 15c-1 1.2 1 2.3 0 3.5"/></svg></span><span class="comod-num">08</span></div>
         <span class="comod-txt" data-t="cm7">Agua caliente</span>
       </li>
-      <li class="comod-card wide reveal"><img src="img/gal/interior-5601.jpeg" alt="Mesa servida en la terraza de Casa Verde" loading="lazy" decoding="async">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 2 2v9"/><path d="M11 3v7a2 2 0 0 1-2 2"/><path d="M9 3v6"/><path d="M17 21V3c-2 1-3 4-3 8h3"/></svg></span><span class="comod-num">08</span></div>
-        <span class="comod-txt" data-t="cm8">Gastronomía excelente</span>
+      <li class="comod-card reveal">
+        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 2 2v9"/><path d="M11 3v7a2 2 0 0 1-2 2"/><path d="M9 3v6"/><path d="M17 21V3c-2 1-3 4-3 8h3"/></svg></span><span class="comod-num">09</span></div>
+        <span class="comod-txt" data-t="cm8">Gastronomía gourmet</span>
       </li>
     </ul>
   </div>
@@ -1127,7 +1107,8 @@ const T = {
   cm5: { es:'Internet satelital Starlink®', en:'Starlink® satellite internet' },
   cm6: { es:'Staff de servicio incluido', en:'Service staff included' },
   cm7: { es:'Agua caliente', en:'Hot water' },
-  cm8: { es:'Gastronomía excelente', en:'Excellent cuisine' },
+  cm8: { es:'Gastronomía gourmet', en:'Gourmet cuisine' },
+  cm9: { es:'Bote privado', en:'Private boat' },
 
   exp_lbl: { es:'La Experiencia',   en:'The Experience' },
   exp_h:   { es:'Todo incluido. Nada improvisado.', en:'All-inclusive. Nothing left to chance.' },
