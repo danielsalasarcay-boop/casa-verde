@@ -429,7 +429,7 @@
       background: linear-gradient(to top,rgba(6,20,20,.94) 0%,transparent 100%);
       transition: transform .4s var(--ease);
     }
-    .exp-label { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; display: block; }
+    .exp-label { font-size: 10px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #F0D9A8; text-shadow: 0 1px 8px rgba(0,0,0,.55); margin-bottom: 8px; display: block; }
     .exp-title { font-family: var(--f-disp); font-size: 26px; font-weight: 400; color: #fff; line-height: 1.18; margin-bottom: 10px; }
     .exp-desc  { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.6); line-height: 1.65; }
 
@@ -475,10 +475,10 @@
     .no-gsap .zoom-casa, .no-gsap .gal-plaque { opacity: 1; transform: none; filter: none; }
 
     /* ─── LOCATION ───────────────────────────────────────────── */
-    .location { background: #fff; padding: 84px 52px 0; }
+    .location { background: #fff; padding-top: 84px; padding-bottom: 84px; }
     .loc-intro {
       display: grid; grid-template-columns: 1fr 1fr; gap: 52px;
-      align-items: center; margin-bottom: 40px;
+      align-items: center;
     }
     .loc-copy .s-title { margin-bottom: 22px; }
     .loc-copy .s-body  { margin-bottom: 32px; }
@@ -501,7 +501,7 @@
       filter: saturate(.88) contrast(1.04);
     }
     .loc-map-btn {
-      position: absolute; bottom: 20px; right: 20px;
+      position: absolute; top: 16px; left: 16px;
       display: flex; align-items: center; gap: 9px;
       padding: 12px 22px; background: var(--verde-dk); color: #fff;
       border-radius: 3px; font-size: 12px; font-weight: 500;
@@ -520,7 +520,7 @@
     .foot-in { max-width: 800px; margin: 0 auto; }
     .foot-logo { margin-bottom: 2px; }
     .foot-logo img { height: 80px; width: auto; display: block; filter: invert(1); margin: 0 auto; }
-    .foot-sub { font-size: 10px; letter-spacing: .32em; text-transform: uppercase; color: rgba(255,255,255,.35); font-weight: 300; margin-top: 12px; margin-bottom: 26px; }
+    .foot-sub { font-size: 10px; letter-spacing: .32em; text-transform: uppercase; color: rgba(255,255,255,.7); font-weight: 300; margin-top: 12px; margin-bottom: 26px; }
     .foot-div { width: 48px; height: 1px; background: var(--verde); opacity: .55; margin: 0 auto 28px; }
     .foot-links { display: flex; justify-content: center; gap: 28px; list-style: none; flex-wrap: wrap; margin-bottom: 28px; padding: 0; }
     .foot-links a { font-size: 12px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.55); transition: color .3s; }
@@ -676,7 +676,8 @@
       .loc-map-btn { font-size: 11px; padding: 11px 18px; }
 
 
-      footer { padding: 44px 24px 28px; }
+      footer { padding: 44px 24px 150px; }
+      .location { padding-top: 60px; padding-bottom: 60px; }
       .foot-links { gap: 18px; }
 
       .wa-float {
@@ -1001,7 +1002,7 @@ setTimeout(function(){
     <div class="gal-plaque">
       <span class="s-label" data-t="gal_lbl">Galería</span>
       <h2 class="s-title" data-t="gal_h">La casa en imágenes</h2>
-      <p class="gal-plaque-sub" data-t="gal_sub">20 fotografías de la casa, la terraza y los atardeceres de Los Roques.</p>
+      <p class="gal-plaque-sub" data-t="gal_sub">Fotografías de la casa, la terraza y los atardeceres de Los Roques.</p>
       <a href="galeria.html" class="gal-btn" data-t="gal_btn">Explorar la galería →</a>
     </div>
   </div>
@@ -1136,7 +1137,7 @@ const T = {
 
   gal_lbl: { es:'Galería',              en:'Gallery' },
   gal_h:   { es:'La casa en imágenes', en:'The home in images' },
-  gal_sub: { es:'20 fotografías de la casa, la terraza y los atardeceres de Los Roques.', en:'20 photographs of the home, the terrace and the sunsets of Los Roques.' },
+  gal_sub: { es:'Fotografías de la casa, la terraza y los atardeceres de Los Roques.', en:'Photographs of the home, the terrace and the sunsets of Los Roques.' },
   gal_btn: { es:'Explorar la galería →', en:'Explore the gallery →' },
 
   loc_lbl: { es:'Ubicación',            en:'Location' },
@@ -1147,7 +1148,6 @@ const T = {
   },
   loc_btn: { es:'Ver en Google Maps',   en:'View on Google Maps' },
 
-  foot_copy: { es:'© 2026 Casa Verde · Todos los derechos reservados', en:'© 2026 Casa Verde · All rights reserved' },
   foot_copy_rights: { es:'Todos los derechos reservados.', en:'All rights reserved.' },
 };
 

@@ -162,6 +162,7 @@
     }
     .gal-h-bar { height: 100%; width: 0%; background: var(--verde); box-shadow: 0 0 12px rgba(62,207,171,.6); }
     @media (max-width: 768px) {
+      body footer { padding-bottom: 150px; } /* que los botones flotantes no tapen 'Volver' */
       .gal-h-section { height: 1150vh; } /* paseo más lento y sereno en móvil */
       .gal-h-item img { width: 74vw !important; height: 48vh !important; }
       .gal-h-quote { max-width: 78vw; }
@@ -319,21 +320,8 @@ const T = {
   hint:      { es:'Desliza para explorar', en:'Scroll to explore' },
   back_home: { es:'← Volver a la página principal', en:'← Back to the main page' },
   q1:  { es:'Blanco como la arena,<br><em>verde como el mar</em>', en:'White as the sand,<br><em>green as the sea</em>' },
-  q2:  { es:'Y al final del día,<br><em>el cielo hace el resto</em>', en:'And at the end of the day,<br><em>the sky does the rest</em>' },
-  c1:  { es:'La casa desde el mar',      en:'The home from the sea' },
-  c2:  { es:'Anochecer frente al mar',   en:'Dusk by the sea' },
-  c3:  { es:'Frente de mar',             en:'Seafront' },
   c_pergola: { es:'El camino al mar', en:'The path to the sea' },
   c_vista: { es:'Vista al arrecife', en:'Reef view' },
-  c4:  { es:'Sala de estar',             en:'Living room' },
-  c5:  { es:'La casa por dentro',        en:'Inside the home' },
-  c6:  { es:'Habitación',                en:'Bedroom' },
-  c7:  { es:'Baño',                      en:'Bathroom' },
-  c8:  { es:'Terraza sobre el mar',      en:'Terrace over the sea' },
-  c9:  { es:'Atardecer desde la terraza',en:'Sunset from the terrace' },
-  c10: { es:'Tu bote, tu atardecer',     en:'Your boat, your sunset' },
-  c11: { es:'Vecinos de Los Roques',     en:'Los Roques neighbours' },
-  c12: { es:'La casa de noche',          en:'The home at night' },
 };
 
 let lang = localStorage.getItem('cv-lang') || 'es';
@@ -348,6 +336,7 @@ function applyLang(l) {
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lc === l);
   });
+  document.title = l === 'en' ? 'Gallery — Casa Verde, Los Roques' : 'Galería — Casa Verde, Los Roques';
   document.documentElement.lang = l;
 }
 function setLang(l) {
