@@ -6,6 +6,18 @@
   <meta name="description" content="Casa Verde — Casa privada de lujo en Gran Roque, Archipiélago Los Roques, Venezuela. Hasta 10 huéspedes, chef privado, bote privado 24/7.">
   <meta name="theme-color" content="#1A4A4A">
   <title>Casa Verde — Gran Roque, Los Roques</title>
+  <link rel="canonical" href="https://danielsalasarcay-boop.github.io/casa-verde/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Casa Verde">
+  <meta property="og:title" content="Casa Verde — Gran Roque, Los Roques">
+  <meta property="og:description" content="Casa privada de lujo en Gran Roque, Archipiélago Los Roques. Hasta 10 huéspedes, chef privado y bote privado 24/7.">
+  <meta property="og:url" content="https://danielsalasarcay-boop.github.io/casa-verde/">
+  <meta property="og:image" content="https://danielsalasarcay-boop.github.io/casa-verde/img/og-casa-verde.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="es_VE">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -180,8 +192,9 @@
       bottom: 50px; right: 106px;
       font-family: var(--f-label);
       font-size: 11px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase;
-      color: var(--verde);
-      text-shadow: 0 2px 14px rgba(0,0,0,.35);
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0,0,0,.55), 0 2px 16px rgba(0,0,0,.45);
       will-change: transform, opacity;
     }
     .hero-title {
@@ -202,11 +215,12 @@
     }
     .scroll-hint span {
       font-family: var(--f-label);
-      font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
-      color: rgba(255,255,255,.5);
+      font-size: 10px; font-weight: 500; letter-spacing: .3em; text-transform: uppercase;
+      color: rgba(255,255,255,.9);
+      text-shadow: 0 1px 3px rgba(0,0,0,.55), 0 2px 12px rgba(0,0,0,.4);
     }
     .scroll-line {
-      width: 1px; height: 44px; background: rgba(255,255,255,.22); overflow: hidden; position: relative;
+      width: 1px; height: 44px; background: rgba(255,255,255,.45); overflow: hidden; position: relative;
     }
     .scroll-line::after {
       content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
@@ -615,7 +629,7 @@
       .hero-stage { min-height: 560px; }
       .hero-title { bottom: calc(38px + env(safe-area-inset-bottom)); left: 20px; font-size: clamp(34px, 11vw, 56px); }
       .hero-eyebrow { bottom: auto; top: calc(var(--nav-h) + 24px); left: 20px; right: 20px; font-size: 9.5px; letter-spacing: .3em; }
-      .hero-hint { bottom: calc(26px + env(safe-area-inset-bottom)); }
+      .hero-hint { display: none; }
       .pre-stage { width: 76vw; }
 
       .gal-plaque { max-width: 260px; padding: 26px 24px 24px; }
@@ -875,7 +889,7 @@ setTimeout(function(){
         </div>
       </div>
       <div class="villa-img-wrap reveal fx-clip">
-        <img src="OBW_5601.JPG" alt="Casa Verde" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <img src="img/gal/interior-5601.jpeg" alt="Casa Verde" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
         <div class="villa-accent"></div>
       </div>
     </div>
@@ -999,7 +1013,7 @@ setTimeout(function(){
       </a>
     </div>
     <p class="foot-phone"><a href="https://wa.me/584123030330">+58 412-303-0330</a></p>
-    <p class="foot-copy">© 2025 Casa Verde. <span data-t="foot_copy_rights">Todos los derechos reservados.</span></p>
+    <p class="foot-copy">© <span class="foot-year">2026</span> Casa Verde. <span data-t="foot_copy_rights">Todos los derechos reservados.</span></p>
   </div>
 </footer>
 
@@ -1088,7 +1102,7 @@ const T = {
   },
   loc_btn: { es:'Ver en Google Maps',   en:'View on Google Maps' },
 
-  foot_copy: { es:'© 2025 Casa Verde · Todos los derechos reservados', en:'© 2025 Casa Verde · All rights reserved' },
+  foot_copy: { es:'© 2026 Casa Verde · Todos los derechos reservados', en:'© 2026 Casa Verde · All rights reserved' },
   foot_copy_rights: { es:'Todos los derechos reservados.', en:'All rights reserved.' },
 };
 
