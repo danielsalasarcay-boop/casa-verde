@@ -142,10 +142,11 @@
     }
     .gal-h-item:nth-child(3n) img { width: 26vw; height: 68vh; }   /* alta */
     .gal-h-item:nth-child(4n) img { width: 44vw; height: 46vh; }   /* ancha */
+    .gal-h-item.gal-h-pano img { width: 78vw !important; height: 40vh !important; } /* panorámica */
     .gal-h-item figcaption {
       display: flex; gap: 14px; align-items: baseline; margin-top: 14px;
     }
-    .gal-h-num { font-family: var(--f-disp); font-size: 13px; color: var(--verde); }
+    .gal-h-num { font-family: var(--f-body); font-size: 12px; font-weight: 500; letter-spacing: .08em; color: var(--verde); }
     .gal-h-cap {
       font-size: 11px; letter-spacing: .22em;
       text-transform: uppercase; color: rgba(255,255,255,.55);
@@ -162,6 +163,7 @@
     }
     .gal-h-bar { height: 100%; width: 0%; background: var(--verde); box-shadow: 0 0 12px rgba(62,207,171,.6); }
     @media (max-width: 768px) {
+      .gal-h-item.gal-h-pano img { width: 172vw !important; height: 50vw !important; } /* panorámica completa, se recorre deslizando */
       body footer { padding-bottom: 150px; } /* que los botones flotantes no tapen 'Volver' */
       .gal-h-section { height: 1150vh; } /* paseo más lento y sereno en móvil */
       .gal-h-item img { width: 74vw !important; height: 48vh !important; }
@@ -284,8 +286,181 @@
         <figcaption><span class="gal-h-num">02</span><span class="gal-h-cap" data-t="c_vista">Vista al arrecife</span></figcaption>
       </figure>
 
-      <blockquote class="gal-h-quote" data-t="q1" data-html="true">Blanco como la arena,<br><em>verde como el mar</em></blockquote>
 
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-01.jpeg" alt="Terraza desde la playa — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">03</span><span class="gal-h-cap" data-t="n01">Terraza desde la playa</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-02.jpeg" alt="Camino al muelle — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">04</span><span class="gal-h-cap" data-t="n02">Camino al muelle</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-03.jpeg" alt="Sala frente al mar — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">05</span><span class="gal-h-cap" data-t="n03">Sala frente al mar</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-04.jpeg" alt="Sala de estar — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">06</span><span class="gal-h-cap" data-t="n04">Sala de estar</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-05.jpeg" alt="Sala principal — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">07</span><span class="gal-h-cap" data-t="n05">Sala principal</span></figcaption>
+      </figure>
+      <blockquote class="gal-h-quote" data-t="q1" data-html="true">Blanco como la arena,<br><em>verde como el mar</em></blockquote>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-06.jpeg" alt="Habitación con litera — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">08</span><span class="gal-h-cap" data-t="n06">Habitación con litera</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-07.jpeg" alt="Habitación azul — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">09</span><span class="gal-h-cap" data-t="n07">Habitación azul</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-08.jpeg" alt="Baño — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">10</span><span class="gal-h-cap" data-t="n08">Baño</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-09.jpeg" alt="Baño — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">11</span><span class="gal-h-cap" data-t="n09">Baño</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-10.jpeg" alt="Ducha — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">12</span><span class="gal-h-cap" data-t="n10">Ducha</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-11.jpeg" alt="Habitación verde — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">13</span><span class="gal-h-cap" data-t="n11">Habitación verde</span></figcaption>
+      </figure>
+      <blockquote class="gal-h-quote" data-t="q2" data-html="true">Y al final del día,<br><em>el cielo hace el resto</em></blockquote>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-12.jpeg" alt="Bote privado al atardecer — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">14</span><span class="gal-h-cap" data-t="n12">Bote privado al atardecer</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-13.jpeg" alt="Bote privado — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">15</span><span class="gal-h-cap" data-t="n13">Bote privado</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-14.jpeg" alt="Bote al atardecer — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">16</span><span class="gal-h-cap" data-t="n14">Bote al atardecer</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-15.jpeg" alt="Bote privado — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">17</span><span class="gal-h-cap" data-t="n15">Bote privado</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-16.jpeg" alt="Atardecer desde el bote — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">18</span><span class="gal-h-cap" data-t="n16">Atardecer desde el bote</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-17.jpeg" alt="Bote y horizonte — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">19</span><span class="gal-h-cap" data-t="n17">Bote y horizonte</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-18.jpeg" alt="Atardecer en Los Roques — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">20</span><span class="gal-h-cap" data-t="n18">Atardecer en Los Roques</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-19.jpeg" alt="Bote al atardecer — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">21</span><span class="gal-h-cap" data-t="n19">Bote al atardecer</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-20.jpeg" alt="Proa al atardecer — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">22</span><span class="gal-h-cap" data-t="n20">Proa al atardecer</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-21.jpeg" alt="Mesa frente al mar — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">23</span><span class="gal-h-cap" data-t="n21">Mesa frente al mar</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-22.jpeg" alt="Mesa servida — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">24</span><span class="gal-h-cap" data-t="n22">Mesa servida</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-23.jpeg" alt="Comedor de la terraza — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">25</span><span class="gal-h-cap" data-t="n23">Comedor de la terraza</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-24.jpeg" alt="Vista al cerro de Gran Roque — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">26</span><span class="gal-h-cap" data-t="n24">Vista al cerro de Gran Roque</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-25.jpeg" alt="Bienvenidos — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">27</span><span class="gal-h-cap" data-t="n25">Bienvenidos</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-26.jpeg" alt="Detalle de la entrada — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">28</span><span class="gal-h-cap" data-t="n26">Detalle de la entrada</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-27.jpeg" alt="Flores frente al mar — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">29</span><span class="gal-h-cap" data-t="n27">Flores frente al mar</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-28.jpeg" alt="Sala con vista al mar — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">30</span><span class="gal-h-cap" data-t="n28">Sala con vista al mar</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-29.jpeg" alt="Sala y ventanales — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">31</span><span class="gal-h-cap" data-t="n29">Sala y ventanales</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-30.jpeg" alt="Detalle floral — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">32</span><span class="gal-h-cap" data-t="n30">Detalle floral</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-31.jpeg" alt="Termos Casa Verde — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">33</span><span class="gal-h-cap" data-t="n31">Termos Casa Verde</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-32.jpeg" alt="Detalle de la sala — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">34</span><span class="gal-h-cap" data-t="n32">Detalle de la sala</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-33.jpeg" alt="Habitación verde — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">35</span><span class="gal-h-cap" data-t="n33">Habitación verde</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-34.jpeg" alt="Detalle de la habitación — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">36</span><span class="gal-h-cap" data-t="n34">Detalle de la habitación</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-35.jpeg" alt="Detalle de la habitación — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">37</span><span class="gal-h-cap" data-t="n35">Detalle de la habitación</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-36.jpeg" alt="Cabecera azul — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">38</span><span class="gal-h-cap" data-t="n36">Cabecera azul</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-37.jpeg" alt="Detalle de la habitación — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">39</span><span class="gal-h-cap" data-t="n37">Detalle de la habitación</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-38.jpeg" alt="Habitación azul — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">40</span><span class="gal-h-cap" data-t="n38">Habitación azul</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-39.jpeg" alt="Habitación azul — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">41</span><span class="gal-h-cap" data-t="n39">Habitación azul</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-40.jpeg" alt="Entrada con vista al mar — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">42</span><span class="gal-h-cap" data-t="n40">Entrada con vista al mar</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-41.jpeg" alt="Vista desde la sala — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">43</span><span class="gal-h-cap" data-t="n41">Vista desde la sala</span></figcaption>
+      </figure>
+      <figure class="gal-h-item">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-42.jpeg" alt="Entrada lateral — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">44</span><span class="gal-h-cap" data-t="n42">Entrada lateral</span></figcaption>
+      </figure>
+      <figure class="gal-h-item gal-h-pano">
+        <div class="gal-h-imgwrap"><img src="img/gal/nuevas/cv-43.jpeg" alt="Panorámica de la casa — Casa Verde, Los Roques" loading="lazy" decoding="async"></div>
+        <figcaption><span class="gal-h-num">45</span><span class="gal-h-cap" data-t="n43">Panorámica de la casa</span></figcaption>
+      </figure>
     </div>
     <div class="gal-h-progress"><div class="gal-h-bar"></div></div>
   </div>
@@ -320,6 +495,50 @@ const T = {
   hint:      { es:'Desliza para explorar', en:'Scroll to explore' },
   back_home: { es:'← Volver a la página principal', en:'← Back to the main page' },
   q1:  { es:'Blanco como la arena,<br><em>verde como el mar</em>', en:'White as the sand,<br><em>green as the sea</em>' },
+  q2:  { es:'Y al final del día,<br><em>el cielo hace el resto</em>', en:'And at the end of the day,<br><em>the sky does the rest</em>' },
+  n01: { es:'Terraza desde la playa', en:'Terrace from the beach' },
+  n02: { es:'Camino al muelle', en:'Path to the dock' },
+  n03: { es:'Sala frente al mar', en:'Seaside living room' },
+  n04: { es:'Sala de estar', en:'Living room' },
+  n05: { es:'Sala principal', en:'Main lounge' },
+  n06: { es:'Habitación con litera', en:'Bunk bedroom' },
+  n07: { es:'Habitación azul', en:'Blue bedroom' },
+  n08: { es:'Baño', en:'Bathroom' },
+  n09: { es:'Baño', en:'Bathroom' },
+  n10: { es:'Ducha', en:'Shower' },
+  n11: { es:'Habitación verde', en:'Green bedroom' },
+  n12: { es:'Bote privado al atardecer', en:'Private boat at sunset' },
+  n13: { es:'Bote privado', en:'Private boat' },
+  n14: { es:'Bote al atardecer', en:'Boat at sunset' },
+  n15: { es:'Bote privado', en:'Private boat' },
+  n16: { es:'Atardecer desde el bote', en:'Sunset from the boat' },
+  n17: { es:'Bote y horizonte', en:'Boat and horizon' },
+  n18: { es:'Atardecer en Los Roques', en:'Sunset in Los Roques' },
+  n19: { es:'Bote al atardecer', en:'Boat at sunset' },
+  n20: { es:'Proa al atardecer', en:'Bow at sunset' },
+  n21: { es:'Mesa frente al mar', en:'Table by the sea' },
+  n22: { es:'Mesa servida', en:'Table setting' },
+  n23: { es:'Comedor de la terraza', en:'Terrace dining' },
+  n24: { es:'Vista al cerro de Gran Roque', en:'View of Gran Roque hill' },
+  n25: { es:'Bienvenidos', en:'Welcome' },
+  n26: { es:'Detalle de la entrada', en:'Entrance detail' },
+  n27: { es:'Flores frente al mar', en:'Flowers by the sea' },
+  n28: { es:'Sala con vista al mar', en:'Lounge with sea view' },
+  n29: { es:'Sala y ventanales', en:'Lounge and windows' },
+  n30: { es:'Detalle floral', en:'Floral detail' },
+  n31: { es:'Termos Casa Verde', en:'Casa Verde tumblers' },
+  n32: { es:'Detalle de la sala', en:'Living room detail' },
+  n33: { es:'Habitación verde', en:'Green bedroom' },
+  n34: { es:'Detalle de la habitación', en:'Bedroom detail' },
+  n35: { es:'Detalle de la habitación', en:'Bedroom detail' },
+  n36: { es:'Cabecera azul', en:'Blue headboard' },
+  n37: { es:'Detalle de la habitación', en:'Bedroom detail' },
+  n38: { es:'Habitación azul', en:'Blue bedroom' },
+  n39: { es:'Habitación azul', en:'Blue bedroom' },
+  n40: { es:'Entrada con vista al mar', en:'Entrance with sea view' },
+  n41: { es:'Vista desde la sala', en:'View from the lounge' },
+  n42: { es:'Entrada lateral', en:'Side entrance' },
+  n43: { es:'Panorámica de la casa', en:'Panoramic view of the house' },
   c_pergola: { es:'El camino al mar', en:'The path to the sea' },
   c_vista: { es:'Vista al arrecife', en:'Reef view' },
 };
