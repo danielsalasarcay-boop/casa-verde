@@ -299,13 +299,32 @@
       max-width: 900px;
     }
     .atmosphere-quote .s-label { color: var(--verde); }
+    .atmosphere::after { background: linear-gradient(to bottom, rgba(8,24,24,.55), rgba(8,24,24,.72)); }
+    .book-sub { font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,.82); max-width: 460px; margin: 18px auto 36px; }
+    .book-btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+    .book-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-width: 190px; padding: 15px 26px; border-radius: 999px;
+      font-family: var(--f-label); font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+      color: #fff; border: 1px solid rgba(255,255,255,.45);
+      background: rgba(255,255,255,.08); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      transition: background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease;
+    }
+    .book-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .book-btn.main { background: #fff; color: var(--teal); border-color: #fff; }
+    .book-btn[hidden] { display: none; }
+    .book-note { margin-top: 22px; font-size: 12px; letter-spacing: .08em; color: rgba(255,255,255,.6); }
+    @media (hover: hover) {
+      .book-btn:hover { background: #fff; color: var(--teal); border-color: #fff; transform: translateY(-2px); }
+      .book-btn.main:hover { background: var(--verde); color: #fff; border-color: var(--verde); }
+    }
+    @media (max-width: 560px) { .book-btn { width: 100%; } .book-btns { max-width: 320px; margin: 0 auto; } }
     .atmosphere-quote h2 {
       font-family: var(--f-disp); font-style: italic; font-weight: 300;
       font-size: clamp(30px, 5.4vw, 62px); line-height: 1.25; color: #fff;
     }
 
     /* ─── TILT 3D (tarjetas experiencia) ─────────────────────── */
-    .exp-card { transform-style: preserve-3d; }
 
     /* ─── CLIP REVEAL (imágenes) ─────────────────────────────── */
     .fx-clip { clip-path: inset(100% 0 0 0); }
@@ -405,33 +424,43 @@
     .comod-card:hover .comod-ico { background: rgba(255,255,255,.2); color: #fff; transform: rotate(-8deg); }
     .comod-card:hover .comod-txt, .comod-card:hover .comod-num { color: #fff; }
 
-    /* ─── EXPERIENCE ─────────────────────────────────────────── */
-    .experience { background: var(--teal); position: relative; overflow: hidden; }
-    .experience::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(ellipse at 78% 40%, rgba(201,169,110,.07) 0%, transparent 58%);
+    /* ─── EXPERIENCE (editorial) ─────────────────────────────── */
+    .experience { background: var(--sand); position: relative; }
+    .exp-head {
+      display: grid; grid-template-columns: 1.15fr 1fr; gap: 64px; align-items: end;
+      padding-bottom: 44px; margin-bottom: 72px; border-bottom: 1px solid rgba(26,74,74,.15);
     }
-    .experience .s-label { color: rgba(201,169,110,.75); }
-    .experience .s-title { color: #fff; margin-bottom: 22px; }
-    .exp-intro {
-      font-size: 17px; font-weight: 300; line-height: 1.78;
-      color: rgba(255,255,255,.58); max-width: 520px; margin-bottom: 72px;
+    .exp-head .s-label { color: var(--verde-dk); }
+    .exp-head .s-title { margin: 0; color: var(--teal); }
+    .exp-intro { font-size: 17px; font-weight: 300; line-height: 1.75; color: rgba(26,74,74,.75); margin: 0; max-width: 460px; }
+    .exp-team { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+    .exp-team span {
+      font-family: var(--f-label); font-size: 10.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--teal); border: 1px solid rgba(26,74,74,.2); border-radius: 999px; padding: 8px 14px;
     }
-    .exp-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-    .exp-card { position: relative; overflow: hidden; border-radius: 3px; aspect-ratio: 3/4; }
-    .exp-ph { position: absolute; inset: 0; transition: transform .7s var(--ease); }
-    .exp-ph-1 { background: linear-gradient(155deg,#0a3030 0%,#1a6a60 58%,#c9a96e 100%); }
-    .exp-ph-2 { background: linear-gradient(155deg,#0d2a40 0%,#1a5570 58%,#3a8a96 100%); }
-    .exp-ph-3 { background: linear-gradient(155deg,#1a1a0a 0%,#3a5a1a 55%,#7aaa44 100%); }
-    .exp-overlay {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 90px 28px 30px;
-      background: linear-gradient(to top,rgba(6,20,20,.95) 0%,rgba(6,20,20,.82) 45%,rgba(6,20,20,.4) 78%,transparent 100%);
-      transition: transform .4s var(--ease);
+    .exp-rows { display: flex; flex-direction: column; gap: 96px; }
+    .exp-row { display: grid; grid-template-columns: 7fr 5fr; gap: 72px; align-items: center; }
+    .exp-row.rev { grid-template-columns: 5fr 7fr; }
+    .exp-row.rev .exp-media { order: 2; }
+    .exp-media { position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 4/3; background: var(--sand-dark); }
+    .exp-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s var(--ease); }
+    .exp-row:hover .exp-media img { transform: scale(1.04); }
+    .exp-body { max-width: 440px; }
+    .exp-num {
+      display: block; font-family: var(--f-disp); font-size: 88px; font-weight: 300; line-height: .8;
+      color: transparent; -webkit-text-stroke: 1px rgba(43,168,140,.55); margin-bottom: 22px;
+      font-family: var(--f-label); font-weight: 300; font-size: 72px; letter-spacing: -.02em;
     }
-    .exp-label { font-size: 10px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #F0D9A8; text-shadow: 0 1px 8px rgba(0,0,0,.55); margin-bottom: 8px; display: block; }
-    .exp-title { font-family: var(--f-disp); font-size: 26px; font-weight: 400; color: #fff; line-height: 1.18; margin-bottom: 10px; }
-    .exp-desc  { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.6); line-height: 1.65; }
+    .exp-label { display: block; font-family: var(--f-label); font-size: 11px; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; color: var(--verde-dk); margin-bottom: 14px; }
+    .exp-title { font-family: var(--f-disp); font-size: clamp(32px, 3.4vw, 46px); font-weight: 400; line-height: 1.08; color: var(--teal); margin: 0 0 18px; }
+    .exp-desc  { font-size: 16px; font-weight: 300; line-height: 1.75; color: rgba(26,74,74,.78); margin: 0 0 26px; }
+    .exp-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(26,74,74,.14); }
+    .exp-list li {
+      display: flex; align-items: center; gap: 14px; padding: 13px 0;
+      border-bottom: 1px solid rgba(26,74,74,.14);
+      font-size: 14px; color: var(--teal); letter-spacing: .01em;
+    }
+    .exp-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--verde); flex-shrink: 0; }
 
     /* ─── GALLERY TEASER: caída desde la estratósfera hasta la casa ─── */
     .gal-teaser { position: relative; height: 420vh; padding: 0 !important; background: #000; }
@@ -586,8 +615,6 @@
         box-shadow: 0 24px 55px rgba(26,74,74,.13);
         border-color: rgba(62,207,171,.5);
       }
-      .exp-card:hover .exp-ph      { transform: scale(1.04); }
-      .exp-card:hover .exp-overlay { transform: translateY(-5px); }
       .gal-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
       .foot-links a:hover   { color: var(--verde); }
       .foot-phone a:hover   { color: var(--verde) !important; }
@@ -621,8 +648,8 @@
       section { padding: 88px 40px; }
       .nav { padding: 0 36px; }
 
-      .exp-cards { grid-template-columns: 1fr 1fr; }
-      .exp-cards .exp-card:last-child { grid-column: span 2; aspect-ratio: 16/7; }
+      .exp-row, .exp-row.rev { gap: 44px; }
+      .exp-head { gap: 40px; }
 
 
       .loc-intro { grid-template-columns: 1fr; gap: 48px; }
@@ -666,9 +693,13 @@
       .comod-num { display: none; }
       .comod-card:first-child { grid-column: span 2; }
 
-      .exp-cards { grid-template-columns: 1fr; gap: 12px; }
-      .exp-cards .exp-card:last-child { grid-column: span 1; aspect-ratio: 3/4; }
-      .exp-intro { max-width: 100%; margin-bottom: 48px; }
+      .exp-head { grid-template-columns: 1fr; gap: 18px; padding-bottom: 30px; margin-bottom: 44px; }
+      .exp-intro { max-width: 100%; font-size: 16px; }
+      .exp-rows { gap: 60px; }
+      .exp-row, .exp-row.rev { grid-template-columns: 1fr; gap: 26px; }
+      .exp-row.rev .exp-media { order: 0; }
+      .exp-num { font-size: 60px; margin-bottom: 14px; }
+      .exp-body { max-width: 100%; }
 
 
       .loc-intro { grid-template-columns: 1fr; gap: 40px; }
@@ -698,7 +729,6 @@
       .s-title    { font-size: clamp(34px, 9vw, 58px); }
       .i-card     { padding: 26px 22px; }
       .loc-map-wrap { height: 300px; }
-      .exp-overlay  { padding: 70px 20px 22px; }
 
       .wa-float { width: 46px; height: 46px; bottom: calc(18px + env(safe-area-inset-bottom)); right: calc(18px + env(safe-area-inset-right)); }
       .ig-float { width: 46px; height: 46px; bottom: calc(76px + env(safe-area-inset-bottom)); right: calc(18px + env(safe-area-inset-right)); }
@@ -947,50 +977,52 @@ setTimeout(function(){
 <!-- EXPERIENCE ────────────────────────────────────────────── -->
 <section class="experience" id="experience">
   <div class="wrap">
-    <span class="s-label reveal" data-t="exp_lbl">La Experiencia</span>
-    <h2 class="s-title reveal" data-t="exp_h">Todo incluido. Nada improvisado.</h2>
-    <p class="exp-intro reveal" data-t="exp_p">
-      Cada estadía en Casa Verde es gestionada por un equipo dedicado: chef, asistentes y tripulación. No hay detalles que atender — solo disfrutar.
-    </p>
-    <div class="exp-cards">
-      <div class="exp-card reveal d1">
-        <div class="exp-ph exp-ph-1"><img src="img/gal/nuevas/cv-05.jpeg" alt="Sala principal de Casa Verde" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
-        <div class="exp-overlay">
+    <div class="exp-head">
+      <div>
+        <span class="s-label reveal" data-t="exp_lbl">La Experiencia</span>
+        <h2 class="s-title reveal" data-t="exp_h">Todo incluido. Nada improvisado.</h2>
+      </div>
+      <div class="reveal">
+        <p class="exp-intro" data-t="exp_p">Cada estadía en Casa Verde es gestionada por un equipo dedicado: chef, asistentes y tripulación. No hay detalles que atender — solo disfrutar.</p>
+        <div class="exp-team"><span data-t="team1">Chef</span><span data-t="team2">Asistentes</span><span data-t="team3">Tripulación</span></div>
+      </div>
+    </div>
+    <div class="exp-rows">
+      <article class="exp-row reveal">
+        <div class="exp-media"><img src="img/gal/nuevas/cv-05.jpeg" alt="Sala principal de Casa Verde" loading="lazy" decoding="async"></div>
+        <div class="exp-body">
+          <span class="exp-num">01</span>
           <span class="exp-label" data-t="ec1_lbl">Gastronomía</span>
           <h3 class="exp-title" data-t="ec1_h">Tu chef, tu menú</h3>
           <p class="exp-desc" data-t="ec1_p">El chef de casa diseña el menú según tus preferencias. Pescados frescos del día, frutas tropicales y cocina internacional de primer nivel.</p>
+          <ul class="exp-list"><li data-t="ec1_i1">Menú a tu medida</li><li data-t="ec1_i2">Pesca fresca del día</li><li data-t="ec1_i3">Desayuno, almuerzo y cena</li></ul>
         </div>
-      </div>
-      <div class="exp-card reveal d2">
-        <div class="exp-ph exp-ph-2"><img src="img/gal/nuevas/cv-19.jpeg" alt="El bote privado de Casa Verde al atardecer" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
-        <div class="exp-overlay">
+      </article>
+      <article class="exp-row rev reveal">
+        <div class="exp-media"><img src="img/gal/nuevas/cv-19.jpeg" alt="El bote privado de Casa Verde al atardecer" loading="lazy" decoding="async"></div>
+        <div class="exp-body">
+          <span class="exp-num">02</span>
           <span class="exp-label" data-t="ec2_lbl">Mar & Cayos</span>
           <h3 class="exp-title" data-t="ec2_h">Los Roques a tu ritmo</h3>
           <p class="exp-desc" data-t="ec2_p">Con tu bote y tripulación disponibles las 24 horas, cada cayo, playa virgen y spot de snorkel del archipiélago está a tu alcance.</p>
+          <ul class="exp-list"><li data-t="ec2_i1">Bote y tripulación 24/7</li><li data-t="ec2_i2">Cayos y playas vírgenes</li><li data-t="ec2_i3">Snorkel en el arrecife</li></ul>
         </div>
-      </div>
-      <div class="exp-card reveal d3">
-        <div class="exp-ph exp-ph-3"><img src="img/gal/nuevas/cv-11.jpeg" alt="Habitación verde de Casa Verde" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
-        <div class="exp-overlay">
+      </article>
+      <article class="exp-row reveal">
+        <div class="exp-media"><img src="img/gal/nuevas/cv-11.jpeg" alt="Habitación verde de Casa Verde" loading="lazy" decoding="async"></div>
+        <div class="exp-body">
+          <span class="exp-num">03</span>
           <span class="exp-label" data-t="ec3_lbl">Descanso</span>
           <h3 class="exp-title" data-t="ec3_h">Silencio y horizonte</h3>
           <p class="exp-desc" data-t="ec3_p">La terraza rooftop te regala atardeceres únicos sobre el Caribe. Un lugar donde el tiempo se detiene y el mundo se simplifica.</p>
+          <ul class="exp-list"><li data-t="ec3_i1">Terraza rooftop</li><li data-t="ec3_i2">Atardeceres sobre el Caribe</li><li data-t="ec3_i3">Habitaciones con aire acondicionado</li></ul>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </section>
 
 <!-- ATMÓSFERA ─────────────────────────────────────────────── -->
-<section class="atmosphere" aria-label="Los Roques desde el aire">
-  <div class="atmosphere-bg" data-parallax="0.35">
-    <img src="img/IMG_0861.JPG" alt="Vista aérea de Gran Roque, Los Roques" loading="lazy" decoding="async">
-  </div>
-  <div class="atmosphere-quote">
-    <span class="s-label reveal" data-t="atm_lbl">Desde el aire</span>
-    <h2 class="reveal d1" data-t="atm_q" data-html="true">El mar por delante.<br>El silencio por dentro.</h2>
-  </div>
-</section>
 
 <!-- GALLERY TEASER: de la estratósfera a Casa Verde ───────── -->
 <section class="gal-teaser" id="gallery" aria-label="Galería">
@@ -1035,6 +1067,25 @@ setTimeout(function(){
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- RESERVAS ──────────────────────────────────────────────── -->
+<section class="atmosphere" id="reservas" aria-label="Reservas">
+  <div class="atmosphere-bg" data-parallax="0.35">
+    <img src="img/portada-noche.jpeg" alt="Casa Verde iluminada de noche" loading="lazy" decoding="async">
+  </div>
+  <div class="atmosphere-quote">
+    <span class="s-label reveal" data-t="book_lbl">Reservas</span>
+    <h2 class="reveal d1" data-t="book_h">Reserva tu estadía</h2>
+    <p class="book-sub reveal d1" data-t="book_p">Escríbenos por el canal que prefieras y te respondemos personalmente con disponibilidad y tarifas.</p>
+    <div class="book-btns reveal d2">
+      <a class="book-btn main" href="https://wa.me/584123030330?text=Hola%2C%20quisiera%20reservar%20en%20Casa%20Verde" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c.6.3 1.1.4 1.5.5a3.6 3.6 0 0 0 1.7.1 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>WhatsApp</span></a>
+      <a class="book-btn" href="https://www.instagram.com/casaverdelosroques" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
+      <!-- Correo: poner la dirección en href y quitar "hidden" -->
+      <a class="book-btn" href="mailto:" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-t="book_mail">Correo</span></a>
+    </div>
+    <p class="book-note reveal d2" data-t="book_note">Respuesta el mismo día · Gran Roque, Los Roques</p>
   </div>
 </section>
 
@@ -1091,8 +1142,11 @@ const T = {
   st3: { es:'Cayos por explorar',   en:'Cayes to explore' },
   st4: { es:'Bote & tripulación',   en:'Boat & crew' },
 
-  atm_lbl: { es:'Desde el aire', en:'From above' },
-  atm_q:   { es:'El mar por delante.<br>El silencio por dentro.', en:'The sea ahead.<br>Stillness within.' },
+  book_lbl: { es:'Reservas', en:'Reservations' },
+  book_h: { es:'Reserva tu estadía', en:'Book your stay' },
+  book_p: { es:'Escríbenos por el canal que prefieras y te respondemos personalmente con disponibilidad y tarifas.', en:'Reach us on the channel you prefer and we will reply personally with availability and rates.' },
+  book_mail: { es:'Correo', en:'Email' },
+  book_note: { es:'Respuesta el mismo día · Gran Roque, Los Roques', en:'Same-day reply · Gran Roque, Los Roques' },
 
   intro_q: {
     es:'Casa Verde es una casa de lujo en Gran Roque, el corazón del Archipiélago Los Roques. Sus tres habitaciones premium, terraza rooftop con vistas panorámicas y cocina gourmet crean un espacio donde cada detalle ha sido concebido para el descanso absoluto y una atención sin igual.',
@@ -1125,6 +1179,18 @@ const T = {
     es:'Cada estadía en Casa Verde es gestionada por un equipo dedicado: chef, asistentes y tripulación. No hay detalles que atender — solo disfrutar.',
     en:'Every stay at Casa Verde is managed by a dedicated team: chef, assistants, and boat crew. There are no details to attend to — only to enjoy.'
   },
+  team1: { es:'Chef', en:'Chef' },
+  team2: { es:'Asistentes', en:'Assistants' },
+  team3: { es:'Tripulación', en:'Boat crew' },
+  ec1_i1: { es:'Menú a tu medida', en:'A menu made for you' },
+  ec1_i2: { es:'Pesca fresca del día', en:'Fresh catch of the day' },
+  ec1_i3: { es:'Desayuno, almuerzo y cena', en:'Breakfast, lunch and dinner' },
+  ec2_i1: { es:'Bote y tripulación 24/7', en:'Boat and crew 24/7' },
+  ec2_i2: { es:'Cayos y playas vírgenes', en:'Cayes and pristine beaches' },
+  ec2_i3: { es:'Snorkel en el arrecife', en:'Reef snorkeling' },
+  ec3_i1: { es:'Terraza rooftop', en:'Rooftop terrace' },
+  ec3_i2: { es:'Atardeceres sobre el Caribe', en:'Sunsets over the Caribbean' },
+  ec3_i3: { es:'Habitaciones con aire acondicionado', en:'Air-conditioned bedrooms' },
   ec1_lbl: { es:'Gastronomía',          en:'Gastronomy' },
   ec1_h:   { es:'Tu chef, tu menú',     en:'Your chef, your menu' },
   ec1_p:   { es:'El chef de casa diseña el menú según tus preferencias. Pescados frescos del día, frutas tropicales y cocina internacional de primer nivel.', en:'The house chef designs the menu to your preferences. Fresh catch of the day, tropical fruits, and world-class international cuisine.' },
@@ -1342,11 +1408,11 @@ document.addEventListener('click', e => {
     .fromTo('.gal-plaque', { opacity: 0, scale: .9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: .12, ease: 'power2.out' }, .92);
 
   /* ── Las imágenes se expanden suavemente al entrar (solo index) ── */
-  gsap.utils.toArray('.villa-img-wrap img, .exp-ph img').forEach(img => {
+  gsap.utils.toArray('.villa-img-wrap img, .exp-media img').forEach(img => {
     gsap.fromTo(img, { scale: 1.18 }, {
       scale: 1, ease: 'none',
       scrollTrigger: {
-        trigger: img.closest('.villa-img-wrap, .exp-card') || img,
+        trigger: img.closest('.villa-img-wrap, .exp-row') || img,
         start: 'top 95%', end: 'top 30%', scrub: true
       }
     });
@@ -1370,27 +1436,6 @@ document.addEventListener('click', e => {
       scrollTrigger: { trigger: el, start: 'top 74%' }
     });
   });
-
-  /* ── Tilt 3D en tarjetas de experiencia (solo cursor) ── */
-  if (!isTouch) {
-    document.querySelectorAll('.exp-card').forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transition = 'transform 0.15s ease-out, box-shadow 0.35s cubic-bezier(0.25,0.1,0.25,1)';
-      });
-      card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = 'perspective(900px) rotateY(' + (x*7) + 'deg) rotateX(' + (-y*7) + 'deg) translateY(-5px)';
-        card.style.boxShadow = '0 24px 60px rgba(6,20,20,.45)';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        card.style.boxShadow = '';
-        setTimeout(() => { card.style.transition = ''; }, 200);
-      });
-    });
-  }
 
   /* ── Contadores animados ── */
   let counted = false;
