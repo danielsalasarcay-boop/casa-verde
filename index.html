@@ -1016,10 +1016,7 @@ setTimeout(function(){
         </div>
         <div class="bk-pop bk-guests" id="bkGuestsPop" role="dialog" aria-label="Huéspedes">
           <div class="bk-sheet-head" style="padding-left:0;padding-right:0"><span data-t="bk_guests">Huéspedes</span><button type="button" class="bk-link" data-close data-t="bk_close">Cerrar</button></div>
-          <div class="gs-row"><div><b data-t="bk_ad">Adultos</b><small data-t="bk_ad_s">13 años o más</small></div><div class="gs-step"><button type="button" class="gs-btn" data-k="a" data-d="-1" aria-label="Menos adultos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button><span class="gs-n" id="gsA">2</span><button type="button" class="gs-btn" data-k="a" data-d="1" aria-label="Más adultos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
-          <div class="gs-row"><div><b data-t="bk_ch">Niños</b><small data-t="bk_ch_s">De 2 a 12 años</small></div><div class="gs-step"><button type="button" class="gs-btn" data-k="c" data-d="-1" aria-label="Menos niños"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button><span class="gs-n" id="gsC">0</span><button type="button" class="gs-btn" data-k="c" data-d="1" aria-label="Más niños"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
-          <div class="gs-row" style="border-bottom:0"><div><b data-t="bk_in2">Bebés</b><small data-t="bk_in2_s">Menores de 2 años</small></div><div class="gs-step"><button type="button" class="gs-btn" data-k="b" data-d="-1" aria-label="Menos bebés"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button><span class="gs-n" id="gsB">0</span><button type="button" class="gs-btn" data-k="b" data-d="1" aria-label="Más bebés"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
-          <p class="gs-note" data-t="bk_cap_note">Capacidad máxima: 10 huéspedes. Los bebés no cuentan.</p>
+          <div class="gs-row" style="border-bottom:0"><div><b data-t="bk_ppl">Personas</b><small data-t="bk_ppl_s">Hasta 10 huéspedes</small></div><div class="gs-step"><button type="button" class="gs-btn" data-k="a" data-d="-1" aria-label="Menos personas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button><span class="gs-n" id="gsA">2</span><button type="button" class="gs-btn" data-k="a" data-d="1" aria-label="Más personas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
           <div class="cal-foot" style="justify-content:flex-end"><button type="button" class="bk-ok" data-close data-t="bk_done">Listo</button></div>
         </div>
         <button class="bk-send" type="submit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c.6.3 1.1.4 1.5.5a3.6 3.6 0 0 0 1.7.1 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span data-t="bk_send">Consultar por WhatsApp</span></button>
@@ -1141,13 +1138,8 @@ const T = {
   bk_close: { es:'Cerrar', en:'Close' },
   bk_clear: { es:'Borrar fechas', en:'Clear dates' },
   bk_done: { es:'Listo', en:'Done' },
-  bk_ad: { es:'Adultos', en:'Adults' },
-  bk_ad_s: { es:'13 años o más', en:'Ages 13 or above' },
-  bk_ch: { es:'Niños', en:'Children' },
-  bk_ch_s: { es:'De 2 a 12 años', en:'Ages 2–12' },
-  bk_in2: { es:'Bebés', en:'Infants' },
-  bk_in2_s: { es:'Menores de 2 años', en:'Under 2' },
-  bk_cap_note: { es:'Capacidad máxima: 10 huéspedes. Los bebés no cuentan.', en:'Maximum 10 guests. Infants don’t count.' },
+  bk_ppl: { es:'Personas', en:'Guests' },
+  bk_ppl_s: { es:'Hasta 10 huéspedes', en:'Up to 10 guests' },
   bk_send: { es:'Consultar por WhatsApp', en:'Ask on WhatsApp' },
   sp1_h: { es:'La Sala', en:'The Living Room' },
   sp2_h: { es:'Las Habitaciones', en:'The Bedrooms' },
@@ -1428,7 +1420,7 @@ document.addEventListener('click', e => {
     const loc = () => isEn() ? 'en-US' : 'es-VE';
     const today = new Date(); today.setHours(0,0,0,0);
     let start = null, end = null, hover = null, view = new Date(today.getFullYear(), today.getMonth(), 1);
-    const g = { a: 2, c: 0, b: 0 }, MAX = 10;
+    const g = { a: 2 }, MAX = 10;
     const key = d => d.getFullYear()*10000 + d.getMonth()*100 + d.getDate();
     const same = (a,b) => a && b && key(a) === key(b);
     const nights = () => (start && end) ? Math.round((end - start) / 864e5) : 0;
@@ -1511,16 +1503,11 @@ document.addEventListener('click', e => {
       const setV = (el, d) => { el.classList.toggle('ph', !d); el.textContent = d ? fmtShort(d) : (isEn() ? 'Add date' : 'Elegir fecha'); };
       setV($('bkInV'), start); setV($('bkOutV'), end);
       const n = nights(); $('bkNights').textContent = n ? (n + (isEn() ? (n === 1 ? ' night' : ' nights') : (n === 1 ? ' noche' : ' noches'))) : '';
-      $('gsA').textContent = g.a; $('gsC').textContent = g.c; $('gsB').textContent = g.b;
-      const tot = g.a + g.c;
+      $('gsA').textContent = g.a;
+      const tot = g.a;
       gp.querySelector('[data-k="a"][data-d="-1"]').disabled = g.a <= 1;
-      gp.querySelector('[data-k="c"][data-d="-1"]').disabled = g.c <= 0;
-      gp.querySelector('[data-k="b"][data-d="-1"]').disabled = g.b <= 0;
       gp.querySelector('[data-k="a"][data-d="1"]').disabled = tot >= MAX;
-      gp.querySelector('[data-k="c"][data-d="1"]').disabled = tot >= MAX;
-      gp.querySelector('[data-k="b"][data-d="1"]').disabled = g.b >= 4;
       let txt = isEn() ? `${tot} guest${tot === 1 ? '' : 's'}` : `${tot} huésped${tot === 1 ? '' : 'es'}`;
-      if (g.b) txt += isEn() ? `, ${g.b} infant${g.b === 1 ? '' : 's'}` : `, ${g.b} bebé${g.b === 1 ? '' : 's'}`;
       $('bkGV').textContent = txt;
     }
     window.cvBookRefresh = () => { update(); if (openPop === cal) render(); };
@@ -1531,10 +1518,8 @@ document.addEventListener('click', e => {
       const en = isEn();
       if (!start || !end) { err.textContent = en ? 'Choose your arrival and departure dates.' : 'Elige tus fechas de llegada y salida.'; open(cal, start ? outBtn : inBtn); return; }
       const n = nights();
-      let msg = en ? `Hello! I would like to book Casa Verde from ${fmtNum(start)} to ${fmtNum(end)} (${n} night${n === 1 ? '' : 's'}) for ${g.a} adult${g.a === 1 ? '' : 's'}`
-                   : `¡Hola! Quisiera reservar en Casa Verde del ${fmtNum(start)} al ${fmtNum(end)} (${n} noche${n === 1 ? '' : 's'}) para ${g.a} adulto${g.a === 1 ? '' : 's'}`;
-      if (g.c) msg += en ? `, ${g.c} child${g.c === 1 ? '' : 'ren'}` : `, ${g.c} niño${g.c === 1 ? '' : 's'}`;
-      if (g.b) msg += en ? `, ${g.b} infant${g.b === 1 ? '' : 's'}` : `, ${g.b} bebé${g.b === 1 ? '' : 's'}`;
+      let msg = en ? `Hello! I would like to book Casa Verde from ${fmtNum(start)} to ${fmtNum(end)} (${n} night${n === 1 ? '' : 's'}) for ${g.a} guest${g.a === 1 ? '' : 's'}`
+                   : `¡Hola! Quisiera reservar en Casa Verde del ${fmtNum(start)} al ${fmtNum(end)} (${n} noche${n === 1 ? '' : 's'}) para ${g.a} huésped${g.a === 1 ? '' : 'es'}`;
       msg += '.';
       window.open('https://wa.me/584123030330?text=' + encodeURIComponent(msg), '_blank', 'noopener');
     });
