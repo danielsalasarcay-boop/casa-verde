@@ -492,40 +492,29 @@
     .no-gsap .zoom-espacio, .no-gsap .zoom-aereo, .no-gsap .zoom-agua { display: none; }
     .no-gsap .zoom-casa, .no-gsap .gal-plaque { opacity: 1; transform: none; filter: none; }
 
-    /* ─── LOCATION ───────────────────────────────────────────── */
-    .location { background: #fff; padding-top: 84px; padding-bottom: 84px; }
-    .loc-intro {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 52px;
-      align-items: center;
-    }
-    .loc-copy .s-title { margin-bottom: 22px; }
-    .loc-copy .s-body  { margin-bottom: 32px; }
-    .loc-facts { display: flex; flex-direction: column; gap: 16px; }
-    .loc-fact {
-      display: flex; align-items: flex-start; gap: 14px;
-      font-size: 14px; color: var(--charcoal); line-height: 1.55;
-    }
-    .loc-fact-icon {
-      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-      background: rgba(62,207,171,.13); display: flex; align-items: center; justify-content: center;
-      color: var(--verde-dk); margin-top: 1px;
-    }
-    .loc-map-wrap {
-      position: relative; width: 100%; height: 480px; overflow: hidden;
-      border-radius: 3px; background: var(--sand-dark);
-    }
-    .loc-map-wrap iframe {
-      width: 100%; height: 100%; border: 0; display: block;
-      filter: saturate(.88) contrast(1.04);
-    }
+    /* ─── LOCATION (igual a Casa Panza: header corto + mapa a todo el ancho) ─── */
+    .location { background: var(--sand); padding: 32px 0 0 !important; }
+    .loc-head { text-align: center; padding: 0 24px 26px; }
+    .loc-head .s-label { color: var(--verde-dk); margin-bottom: 8px; }
+    .loc-head .s-title { margin: 0; color: var(--teal); font-size: clamp(30px, 4vw, 58px); }
+    .loc-map-wrap { position: relative; width: 100%; height: 460px; overflow: hidden; background: var(--sand-dark); }
+    .loc-map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
     .loc-map-btn {
       position: absolute; top: 16px; left: 16px;
       display: flex; align-items: center; gap: 9px;
-      padding: 12px 22px; background: var(--verde-dk); color: #fff;
-      border-radius: 3px; font-size: 12px; font-weight: 500;
-      letter-spacing: .08em; text-transform: uppercase;
-      box-shadow: 0 4px 20px rgba(0,0,0,.3);
-      transition: filter .3s, transform .3s;
+      padding: 11px 20px; background: #fff; color: var(--teal);
+      border-radius: 999px; font-size: 11px; font-weight: 500;
+      letter-spacing: .14em; text-transform: uppercase;
+      box-shadow: 0 6px 20px rgba(0,0,0,.18);
+      transition: background .3s, color .3s;
+    }
+    @media (hover: hover) { .loc-map-btn:hover { background: var(--verde); color: #fff; } }
+    @media (max-width: 768px) {
+      .location { padding-top: 16px !important; }
+      .loc-head { padding-bottom: 14px; }
+      .loc-head .s-title { font-size: 30px; }
+      .loc-map-wrap { height: 260px; }
+      .loc-map-btn { top: 10px; left: 10px; padding: 9px 14px; font-size: 10px; }
     }
 
     /* ─── FOOTER ─────────────────────────────────────────────── */
@@ -610,7 +599,6 @@
       .foot-socials a:hover { background: var(--verde); border-color: var(--verde); color: #fff; transform: translateY(-2px); }
       .wa-float:hover     { transform: scale(1.09); box-shadow: 0 6px 30px rgba(37,211,102,.52); }
       .ig-float:hover     { transform: scale(1.09); box-shadow: 0 6px 30px rgba(225,48,108,.52); }
-      .loc-map-btn:hover  { filter: brightness(1.12); transform: translateY(-1px); }
     }
 
     /* ─── REDUCE MOTION ──────────────────────────────────────── */
@@ -628,7 +616,6 @@
     @media (max-width: 1100px) {
       section { padding: 100px 44px; }
       .comod-txt { font-size: 18px; }
-      .loc-intro    { gap: 56px; }
     }
 
     /* ── TABLET PORTRAIT + LANDSCAPE (1024px) ───────────────── */
@@ -640,9 +627,6 @@
       .exp-body { padding: 40px 40px; }
 
 
-      .loc-intro { grid-template-columns: 1fr; gap: 48px; }
-      .loc-copy .s-body { max-width: 100%; }
-      .loc-map-wrap { height: 420px; }
     }
 
     /* ── TABLET PORTRAIT (768px) ────────────────────────────── */
@@ -689,13 +673,9 @@
       .exp-body { padding: 28px 24px 32px; }
 
 
-      .loc-intro { grid-template-columns: 1fr; gap: 40px; }
-      .loc-map-wrap { height: 340px; }
-      .loc-map-btn { font-size: 11px; padding: 11px 18px; }
 
 
       footer { padding: 44px 24px 150px; }
-      .location { padding-top: 60px; padding-bottom: 60px; }
       .foot-links { gap: 18px; }
 
       .wa-float {
@@ -715,7 +695,6 @@
       section { padding: 64px 18px; }
       .s-title    { font-size: clamp(34px, 9vw, 58px); }
       .i-card     { padding: 26px 22px; }
-      .loc-map-wrap { height: 300px; }
 
       .wa-float { width: 46px; height: 46px; bottom: calc(18px + env(safe-area-inset-bottom)); right: calc(18px + env(safe-area-inset-right)); }
       .ig-float { width: 46px; height: 46px; bottom: calc(76px + env(safe-area-inset-bottom)); right: calc(18px + env(safe-area-inset-right)); }
@@ -1026,31 +1005,22 @@ setTimeout(function(){
 
 <!-- LOCATION ──────────────────────────────────────────────── -->
 <section class="location" id="location">
-  <div class="wrap">
-    <div class="loc-intro">
-      <div class="loc-copy">
-        <span class="s-label reveal" data-t="loc_lbl">Ubicación</span>
-        <h2 class="s-title reveal" data-t="loc_h">Gran Roque, Los Roques</h2>
-        <p class="s-body reveal" data-t="loc_p">
-          Casa Verde se encuentra en una de las posiciones más codiciadas de Gran Roque: con frente directo al mar, una rareza en el archipiélago.
-        </p>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:16px;">
-        <div class="loc-map-wrap reveal">
-          <iframe
+  <div class="loc-head">
+    <span class="s-label reveal" data-t="loc_lbl">Ubicación</span>
+    <h2 class="s-title reveal" data-t="loc_h">Gran Roque, Los Roques</h2>
+  </div>
+  <div class="loc-map-wrap">
+    <iframe
             src="https://maps.google.com/maps?q=11.945813,-66.676766&z=18&output=embed&hl=es"
             loading="lazy"
             allowfullscreen
             referrerpolicy="no-referrer-when-downgrade"
             title="Casa Verde — Gran Roque, Los Roques">
           </iframe>
-          <a href="https://maps.app.goo.gl/oZi7Z5DEkzjafH2z6" target="_blank" rel="noopener" class="loc-map-btn">
+    <a href="https://maps.app.goo.gl/oZi7Z5DEkzjafH2z6" target="_blank" rel="noopener" class="loc-map-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <span data-t="loc_btn">Ver en Google Maps</span>
           </a>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1180,10 +1150,6 @@ const T = {
 
   loc_lbl: { es:'Ubicación',            en:'Location' },
   loc_h:   { es:'Gran Roque, Los Roques', en:'Gran Roque, Los Roques' },
-  loc_p:   {
-    es:'Casa Verde se encuentra en una de las posiciones más codiciadas de Gran Roque: con frente directo al mar, una rareza en el archipiélago.',
-    en:'Casa Verde sits in one of the most sought-after positions in Gran Roque: directly facing the sea — a true rarity in the archipelago.'
-  },
   loc_btn: { es:'Ver en Google Maps',   en:'View on Google Maps' },
 
   foot_copy_rights: { es:'Todos los derechos reservados.', en:'All rights reserved.' },
