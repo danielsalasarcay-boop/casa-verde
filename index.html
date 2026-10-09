@@ -359,21 +359,6 @@
     .amen-svc b { display: block; font-size: 15px; font-weight: 500; color: var(--teal); margin-bottom: 6px; }
     .amen-svc span { font-size: 14px; font-weight: 300; color: rgba(26,74,74,.7); }
 
-    /* Gastronomía: carrusel */
-    .food { background: #fff; padding: 88px 0 72px; }
-    .food-head { text-align: center; max-width: 620px; margin: 0 auto 40px; padding: 0 24px; }
-    .food-head .s-label { color: var(--verde-dk); }
-    .food-head .s-title { margin: 0 0 16px; font-size: clamp(34px, 4.2vw, 56px); }
-    .food-head .s-title em { font-style: italic; color: var(--verde-dk); }
-    .food-head p { margin: 0; font-size: 15.5px; font-weight: 300; line-height: 1.8; color: rgba(26,74,74,.7); }
-    .food-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 56px; padding: 0 56px 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-    .food-track::-webkit-scrollbar { display: none; }
-    .food-track figure { margin: 0; flex: 0 0 auto; width: clamp(220px, 22vw, 300px); aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; scroll-snap-align: start; background: var(--sand-dark); }
-    .food-track img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1s var(--ease); }
-    .food-nav { display: flex; justify-content: center; gap: 12px; margin-top: 26px; }
-    .food-nav button { all: unset; cursor: pointer; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(43,168,140,.45); color: var(--verde-dk); display: grid; place-items: center; transition: background .3s, color .3s; }
-    .food-nav svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
-
     /* Datos de contacto bajo la reserva */
     .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; margin-top: 30px; max-width: 480px; }
     .ct-item { display: flex; gap: 14px; align-items: flex-start; }
@@ -385,8 +370,6 @@
     .nav-book { padding: 9px 18px; border-radius: 999px; background: var(--verde-dk); color: #fff !important; font-family: var(--f-label); font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; transition: background .3s; }
     @media (max-width: 900px) { .nav-book { display: none; } }
     @media (hover: hover) {
-      .food-nav button:hover { background: var(--verde-dk); color: #fff; }
-      .food-track figure:hover img { transform: scale(1.05); }
       .nav-book:hover { background: var(--teal); }
     }
 
@@ -467,10 +450,6 @@
       .amen-list { grid-template-columns: 1fr 1fr; column-gap: 16px; }
       .amen-list li { font-size: 13.5px; gap: 10px; padding: 13px 0; }
       .amen-svc div { grid-template-columns: 44px 1fr; padding: 18px 0; }
-      .food { padding: 56px 0 48px; }
-      .food-head { margin-bottom: 26px; }
-      .food-track { padding: 0 20px 4px; gap: 10px; scroll-padding-inline: 20px; }
-      .food-track figure { width: 66vw; }
       .ct-grid { grid-template-columns: 1fr; max-width: none; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -729,7 +708,6 @@
     <li><a href="#casa"      data-t="nav_villa">La Casa</a></li>
     <li><a href="#espacios" data-t="nav_exp">Espacios</a></li>
     <li><a href="galeria.html" data-t="nav_gal">Galería</a></li>
-    <li><a href="#gastronomia" data-t="nav_food">Gastronomía</a></li>
     <li><a href="#location"   data-t="nav_loc">Ubicación</a></li>
   </ul>
 
@@ -752,7 +730,6 @@
   <a href="#casa"      onclick="toggleMenu()" data-t="nav_villa">La Casa</a>
   <a href="#espacios" onclick="toggleMenu()" data-t="nav_exp">Espacios</a>
   <a href="galeria.html" onclick="toggleMenu()" data-t="nav_gal">Galería</a>
-  <a href="#gastronomia" onclick="toggleMenu()" data-t="nav_food">Gastronomía</a>
   <a href="#location"   onclick="toggleMenu()" data-t="nav_loc">Ubicación</a>
   <a href="#reservas"   onclick="toggleMenu()" data-t="nav_book">Reservar</a>
   <div class="mobile-menu-lang">
@@ -924,29 +901,6 @@ setTimeout(function(){
   </div>
 </section>
 
-<!-- GASTRONOMÍA ───────────────────────────────────────────── -->
-<section class="food" id="gastronomia">
-  <div class="food-head">
-    <span class="s-label reveal" data-t="food_lbl">Gastronomía</span>
-    <h2 class="s-title reveal" data-t="food_h" data-html="true">La mesa <em>frente al mar</em></h2>
-    <p class="reveal" data-t="food_p">Desayunos con vista al arrecife y cenas al atardecer, preparados por nuestro chef privado con la pesca del día.</p>
-  </div>
-  <div class="food-track" id="foodTrack">
-    <figure><img src="img/gal/nuevas/cv-22.jpeg" alt="Mesa servida frente al mar — Casa Verde" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/gal/nuevas/cv-21.jpeg" alt="Mesa con vista al mar turquesa — Casa Verde" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/gal/nuevas/cv-23.jpeg" alt="Comedor de la terraza — Casa Verde" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/gal/nuevas/cv-31.jpeg" alt="Termos Casa Verde — Casa Verde" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/gal/nuevas/cv-24.jpeg" alt="Mesa con vista al cerro de Gran Roque — Casa Verde" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/gal/nuevas/cv-27.jpeg" alt="Flores frente al mar — Casa Verde" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/gal/nuevas/cv-18.jpeg" alt="Atardecer en Los Roques — Casa Verde" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/gal/nuevas/cv-16.jpeg" alt="Atardecer desde el bote — Casa Verde" loading="lazy" decoding="async"></figure>
-  </div>
-  <div class="food-nav">
-    <button type="button" data-dir="-1" aria-label="Anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <button type="button" data-dir="1" aria-label="Siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-  </div>
-</section>
-
 <!-- LOCATION ──────────────────────────────────────────────── -->
 <section class="location" id="location">
   <div class="loc-head">
@@ -1070,7 +1024,6 @@ const T = {
   ab_f3: { es:'Staff incluido', en:'Staff included' },
   ab_f4: { es:'Internet Starlink®', en:'Starlink® internet' },
   nav_book: { es:'Reservar', en:'Book' },
-  nav_food: { es:'Gastronomía', en:'Dining' },
   amen_h: { es:'Comodidades', en:'Amenities' },
   amen_lbl: { es:'Incluido en tu estadía', en:'Included in your stay' },
   am_1: { es:'Frente al mar', en:'Beachfront' },
@@ -1087,9 +1040,6 @@ const T = {
   sv2_p: { es:'Habitaciones y áreas comunes incluidas.', en:'Bedrooms and common areas included.' },
   sv3_h: { es:'Chef privado', en:'Private chef' },
   sv3_p: { es:'Desayuno, almuerzo y cena con la pesca del día.', en:'Breakfast, lunch and dinner with the catch of the day.' },
-  food_lbl: { es:'Gastronomía', en:'Dining' },
-  food_h: { es:'La mesa <em>frente al mar</em>', en:'The table <em>by the sea</em>' },
-  food_p: { es:'Desayunos con vista al arrecife y cenas al atardecer, preparados por nuestro chef privado con la pesca del día.', en:'Breakfasts overlooking the reef and sunset dinners, prepared by our private chef with the catch of the day.' },
   ct1_h: { es:'Ubicación', en:'Location' },
   ct1_p: { es:'Gran Roque, Los Roques, Venezuela', en:'Gran Roque, Los Roques, Venezuela' },
   ct2_h: { es:'Incluye staff', en:'Staff included' },
@@ -1397,14 +1347,6 @@ document.addEventListener('click', e => {
 
 })();
 
-/* Gastronomía: flechas del carrusel */
-(function(){
-  const t = document.getElementById('foodTrack'); if (!t) return;
-  document.querySelectorAll('.food-nav button').forEach(b => b.addEventListener('click', () => {
-    const f = t.querySelector('figure'); const step = f ? f.getBoundingClientRect().width + 14 : 300;
-    t.scrollBy({ left: step * (+b.dataset.dir), behavior: 'smooth' });
-  }));
-})();
 </script>
 </body>
 </html>
