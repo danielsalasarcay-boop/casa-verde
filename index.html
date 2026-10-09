@@ -259,73 +259,6 @@
     @keyframes fadeIn  { to { opacity: 1; } }
     @keyframes lineDrop { 0% { top: -100%; } 100% { top: 110%; } }
 
-    /* ─── STATS STRIP ────────────────────────────────────────── */
-    .stats { background: var(--sand); border-top: 1px solid rgba(26,74,74,.12); border-bottom: 1px solid rgba(26,74,74,.12); padding: 56px 52px; }
-    .stats-row {
-      display: grid; grid-template-columns: repeat(4,1fr);
-      gap: 32px; max-width: 1200px; margin: 0 auto;
-    }
-    .stat { text-align: center; }
-    .stat-num {
-      font-family: var(--f-disp); font-weight: 300;
-      font-size: clamp(38px, 4.6vw, 60px); line-height: 1; color: var(--teal);
-    }
-    .stat-num small { font-size: .5em; color: var(--verde-dk); font-style: italic; }
-    .stat-label {
-      display: block; margin-top: 10px;
-      font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: #8a8578;
-    }
-
-    /* ─── ATMÓSFERA (full-bleed parallax + quote) ────────────── */
-    .atmosphere {
-      position: relative; overflow: hidden;
-      min-height: 82vh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 0;
-    }
-    .atmosphere-bg {
-      position: absolute; inset: -18% 0;
-      will-change: transform;
-    }
-    .atmosphere-bg img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-    }
-    .atmosphere::after {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(8,24,24,.34);
-    }
-    .atmosphere-quote {
-      position: relative; z-index: 2; text-align: center; padding: 120px 24px;
-      max-width: 900px;
-    }
-    .atmosphere-quote .s-label { color: var(--verde); }
-    .atmosphere::after { background: linear-gradient(to bottom, rgba(8,24,24,.55), rgba(8,24,24,.72)); }
-    .book-sub { font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,.82); max-width: 460px; margin: 18px auto 36px; }
-    .book-btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
-    .book-btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      min-width: 190px; padding: 15px 26px; border-radius: 999px;
-      font-family: var(--f-label); font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
-      color: #fff; border: 1px solid rgba(255,255,255,.45);
-      background: rgba(255,255,255,.08); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      transition: background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease;
-    }
-    .book-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
-    .book-btn.main { background: #fff; color: var(--teal); border-color: #fff; }
-    .book-btn[hidden] { display: none; }
-    .book-note { margin-top: 22px; font-size: 12px; letter-spacing: .08em; color: rgba(255,255,255,.6); }
-    @media (hover: hover) {
-      .book-btn:hover { background: #fff; color: var(--teal); border-color: #fff; transform: translateY(-2px); }
-      .book-btn.main:hover { background: var(--verde); color: #fff; border-color: var(--verde); }
-    }
-    @media (max-width: 560px) { .book-btn { width: 100%; } .book-btns { max-width: 320px; margin: 0 auto; } }
-    .atmosphere-quote h2 {
-      font-family: var(--f-disp); font-style: italic; font-weight: 300;
-      font-size: clamp(30px, 5.4vw, 62px); line-height: 1.25; color: #fff;
-    }
-
-    /* ─── TILT 3D (tarjetas experiencia) ─────────────────────── */
-
     /* ─── CLIP REVEAL (imágenes) ─────────────────────────────── */
     .fx-clip { clip-path: inset(100% 0 0 0); }
     .no-gsap .fx-clip { clip-path: inset(0 0 0 0); }
@@ -356,100 +289,146 @@
       font-size: 17px; font-weight: 300; line-height: 1.78; color: #4e4e4e; max-width: 560px;
     }
 
-    /* ─── INTRO ──────────────────────────────────────────────── */
-    .intro { background: var(--sand); text-align: center; }
-    .intro-quote {
-      font-family: var(--f-disp); font-style: italic; font-weight: 300;
-      font-size: clamp(21px, 3.6vw, 38px); line-height: 1.52;
-      color: var(--charcoal); max-width: 740px; margin: 0 auto 80px;
-    }
-    .intro-cards {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 18px; max-width: 1060px; margin: 0 auto;
-    }
-    .i-card {
-      background: #fff; border: 1px solid rgba(26,74,74,.1); border-radius: 16px;
-      padding: 34px 30px; text-align: left;
-      display: flex; flex-direction: column; align-items: flex-start; gap: 16px;
-      transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s;
-    }
-    .i-chip {
-      width: 54px; height: 54px; border-radius: 15px; flex-shrink: 0;
-      background: linear-gradient(135deg, rgba(62,207,171,.18), rgba(26,74,74,.07));
-      border: 1px solid rgba(62,207,171,.3);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--verde-dk);
-    }
-    .i-card-title {
-      font-family: var(--f-disp); font-size: 24px; font-weight: 400; color: var(--teal);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .i-card-title::before {
-      content: ''; width: 7px; height: 7px; border-radius: 50%;
-      background: var(--verde); box-shadow: 0 0 10px rgba(62,207,171,.7);
-    }
-    .i-card-desc  { font-size: 14px; font-weight: 300; color: #6a6558; line-height: 1.7; }
+    /* ═══ MAIN v2 — manifiesto · espacios · incluido · reserva ═══ */
+    :root { --paper: #FBF9F5; --ink-soft: rgba(26,74,74,.62); --hair: rgba(26,74,74,.14); }
 
-    /* ─── VILLA ──────────────────────────────────────────────── */
-    .villa { background: #fff; }
-    .villa { padding-top: 64px; padding-bottom: 64px; }
-    .villa .s-label { margin-bottom: 8px; }
-    .comod-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 24px; }
-    .comod-head .s-title { margin: 0; font-size: clamp(30px, 3.2vw, 44px); line-height: 1; }
-    .comod-sub { max-width: 360px; font-size: 14px; line-height: 1.55; color: rgba(26,74,74,.7); margin: 0; }
-    .comod-grid {
-      list-style: none; margin: 0; padding: 0;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-    }
-    .comod-card {
-      display: flex; align-items: center; gap: 14px;
-      padding: 10px 18px 10px 10px; border-radius: 16px;
-      background: #F3F8F6; border: 1px solid rgba(62,207,171,.18);
-      transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, background .35s ease, border-color .35s ease;
-    }
-    .comod-card:hover {
-      transform: translateY(-2px); background: var(--verde); border-color: var(--verde);
-      box-shadow: 0 12px 28px -14px rgba(43,168,140,.55);
-    }
-    .comod-top { display: contents; }
-    .comod-ico {
-      flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
-      background: #fff; color: var(--verde-dk);
-      box-shadow: 0 4px 12px -6px rgba(26,74,74,.25);
-      transition: background .35s ease, color .35s ease, transform .35s ease;
-    }
-    .comod-ico svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .comod-txt { flex: 1; font-family: var(--f-disp); font-size: 20px; font-weight: 400; line-height: 1.15; color: var(--teal); transition: color .35s ease; }
-    .comod-num { order: 3; font-family: var(--f-label); font-size: 10px; letter-spacing: .2em; color: rgba(26,74,74,.4); transition: color .35s ease; }
-    .comod-card:hover .comod-ico { background: rgba(255,255,255,.2); color: #fff; transform: rotate(-8deg); }
-    .comod-card:hover .comod-txt, .comod-card:hover .comod-num { color: #fff; }
+    /* Manifiesto */
+    .manifest { background: var(--paper); padding: 104px 52px 88px; }
+    .mf-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 44px;
+      font-family: var(--f-label); font-size: 10.5px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--verde-dk); }
+    .mf-top span:last-child { color: var(--ink-soft); }
+    .mf-text { font-family: var(--f-disp); font-weight: 300; color: var(--teal);
+      font-size: clamp(32px, 5.1vw, 74px); line-height: 1.14; letter-spacing: -.012em; max-width: 1180px; margin: 0; }
+    .mf-text em { font-style: italic; color: var(--verde-dk); }
+    .mf-pill { display: inline-block; width: 2.05em; height: .92em; border-radius: 999px; overflow: hidden;
+      vertical-align: -.08em; margin: 0 .08em; background: var(--sand-dark); }
+    .mf-pill img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .mf-w { display: inline; }
+    .mf-facts { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 64px; border-top: 1px solid var(--hair); }
+    .mf-fact { padding: 22px 24px 0 0; }
+    .mf-fact + .mf-fact { padding-left: 24px; border-left: 1px solid var(--hair); }
+    .mf-fact b { font-variant-numeric: lining-nums; font-feature-settings: 'lnum' 1; display: block; font-family: var(--f-disp); font-weight: 300; font-size: clamp(30px, 3vw, 42px); line-height: 1; color: var(--teal); margin-bottom: 8px; }
+    .mf-fact span { font-family: var(--f-label); font-size: 10.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); }
 
-    /* ─── EXPERIENCE (espacios, estilo Casa Panza) ───────────── */
-    .experience { background: var(--sand); }
-    .exp-head { text-align: center; max-width: 640px; margin: 0 auto 64px; }
-    .exp-head .s-label { color: var(--verde-dk); }
-    .exp-head .s-title { color: var(--teal); margin-bottom: 20px; }
-    .exp-intro { font-size: 16px; font-weight: 300; line-height: 1.85; color: rgba(26,74,74,.72); margin: 0; }
-    .exp-rows { display: flex; flex-direction: column; gap: 28px; max-width: 1190px; margin: 0 auto; }
-    .exp-row {
-      display: grid; grid-template-columns: 55% 45%; min-height: 380px;
-      background: #fff; border-radius: 6px; overflow: hidden;
-      box-shadow: 0 24px 60px -30px rgba(26,74,74,.22);
+    /* Espacios: índice interactivo */
+    .spaces { background: #0C2424; color: #fff; padding: 96px 52px; }
+    .sp-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: stretch; max-width: 1280px; margin: 0 auto; }
+    .sp-side { display: flex; flex-direction: column; }
+    .sp-side .s-label { color: var(--verde); }
+    .sp-list { list-style: none; margin: 18px 0 0; padding: 0; border-top: 1px solid rgba(255,255,255,.12); }
+    .sp-item { border-bottom: 1px solid rgba(255,255,255,.12); }
+    .sp-btn { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; display: flex; align-items: baseline; gap: 18px; padding: 18px 0 16px; }
+    .sp-btn:focus-visible { outline: 1px solid var(--verde); outline-offset: 4px; }
+    .sp-idx { font-family: var(--f-label); font-size: 11px; letter-spacing: .14em; color: rgba(255,255,255,.35); width: 22px; flex-shrink: 0; transition: color .4s; }
+    .sp-name { font-family: var(--f-disp); font-weight: 300; font-size: clamp(30px, 3.3vw, 48px); line-height: 1.05; color: rgba(255,255,255,.34); transition: color .45s var(--ease), transform .45s var(--ease); }
+    .sp-item.on .sp-name { color: #fff; transform: translateX(6px); }
+    .sp-item.on .sp-idx { color: var(--verde); }
+    .sp-desc { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
+    .sp-desc > div { overflow: hidden; }
+    .sp-desc p { margin: 0; padding: 0 0 20px 40px; max-width: 420px; font-size: 15px; font-weight: 300; line-height: 1.75; color: rgba(255,255,255,.7); }
+    .sp-item.on .sp-desc { grid-template-rows: 1fr; }
+    .sp-bar { height: 1px; background: rgba(255,255,255,.08); margin: 0 0 -1px 40px; overflow: hidden; }
+    .sp-bar i { display: block; height: 100%; width: 100%; background: var(--verde); transform: scaleX(0); transform-origin: left; }
+    .sp-item.on.run .sp-bar i { animation: spBar var(--sp-dur, 6s) linear forwards; }
+    @keyframes spBar { to { transform: scaleX(1); } }
+    .sp-more { margin-top: auto; padding-top: 28px; align-self: flex-start; font-family: var(--f-label); font-size: 11px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: #fff; display: inline-flex; gap: 12px; align-items: center; transition: gap .3s, color .3s; }
+    .sp-media { position: relative; border-radius: 6px; overflow: hidden; min-height: 560px; background: #123232; }
+    .sp-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      clip-path: inset(0 0 0 100%); transform: scale(1.08); transition: clip-path 1s cubic-bezier(.77,0,.18,1), transform 1.6s cubic-bezier(.2,.7,.2,1); }
+    .sp-media img.on { clip-path: inset(0 0 0 0); transform: scale(1); z-index: 1; }
+    .sp-media img.was { clip-path: inset(0 0 0 0); transform: scale(1); }
+    .sp-cap { position: absolute; left: 20px; bottom: 18px; z-index: 2; font-family: var(--f-label); font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: #fff;
+      background: rgba(12,36,36,.45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 8px 14px; border-radius: 999px; }
+
+    /* Incluido: cinta continua */
+    .incl { background: var(--paper); padding: 0 !important; border-bottom: 1px solid var(--hair); display: flex; align-items: stretch; overflow: hidden; }
+    .incl-lbl { flex-shrink: 0; display: flex; align-items: center; padding: 0 28px 0 52px; position: relative; z-index: 2; background: var(--paper);
+      font-family: var(--f-label); font-size: 10.5px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--verde-dk); }
+    .incl-lbl::after { content: ''; position: absolute; right: -48px; top: 0; bottom: 0; width: 48px; background: linear-gradient(to right, var(--paper), transparent); }
+    .incl-track { display: flex; width: max-content; animation: inclMove 46s linear infinite; }
+    .incl:hover .incl-track { animation-play-state: paused; }
+    .incl-row { display: flex; align-items: center; }
+    .incl-it { display: inline-flex; align-items: center; gap: 12px; padding: 26px 34px; white-space: nowrap;
+      font-family: var(--f-disp); font-size: 22px; font-weight: 400; color: var(--teal); position: relative; }
+    .incl-it::after { content: ''; position: absolute; right: 0; top: 50%; width: 4px; height: 4px; border-radius: 50%; background: var(--verde); transform: translate(50%,-50%); }
+    .incl-it svg { width: 22px; height: 22px; fill: none; stroke: var(--verde-dk); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    @keyframes inclMove { to { transform: translateX(-50%); } }
+
+    /* Reserva */
+    .bk { background: var(--paper); padding: 0 !important; }
+    .bk-grid { display: grid; grid-template-columns: 1.1fr 1fr; min-height: 620px; }
+    .bk-media { position: relative; overflow: hidden; }
+    .bk-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .bk-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,24,24,.45), transparent 45%); }
+    .bk-media figcaption { position: absolute; left: 28px; bottom: 24px; z-index: 1; color: #fff; font-family: var(--f-disp); font-style: italic; font-size: 22px; }
+    .bk-panel { display: flex; flex-direction: column; justify-content: center; padding: 72px clamp(28px, 6vw, 96px); }
+    .bk-panel .s-label { color: var(--verde-dk); }
+    .bk-title { font-family: var(--f-disp); font-weight: 300; font-size: clamp(36px, 4vw, 58px); line-height: 1.04; color: var(--teal); margin: 0 0 14px; }
+    .bk-sub { font-size: 15px; font-weight: 300; line-height: 1.75; color: var(--ink-soft); margin: 0 0 32px; max-width: 420px; }
+    .bk-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--hair); border-radius: 8px; background: #fff; overflow: hidden; max-width: 480px; }
+    .bk-field { display: flex; flex-direction: column; gap: 6px; padding: 14px 18px; border-bottom: 1px solid var(--hair); min-width: 0; }
+    .bk-field:nth-child(odd) { border-right: 1px solid var(--hair); }
+    .bk-field.full { grid-column: span 2; border-right: 0; }
+    .bk-field label { font-family: var(--f-label); font-size: 9.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-soft); }
+    .bk-field input, .bk-field select { all: unset; box-sizing: border-box; width: 100%; font-family: var(--f-body); font-size: 16px; color: var(--teal); min-height: 24px; cursor: pointer; }
+    .bk-field select { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%232BA88C' stroke-width='1.4'/%3E%3C/svg%3E") right center no-repeat; padding-right: 18px; }
+    .bk-send { grid-column: span 2; all: unset; box-sizing: border-box; grid-column: span 2; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 18px; cursor: pointer;
+      background: var(--teal); color: #fff; font-family: var(--f-label); font-size: 11.5px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; transition: background .3s; }
+    .bk-send svg { width: 18px; height: 18px; }
+    .bk-alt { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 22px; font-size: 13px; color: var(--ink-soft); }
+    .bk-alt a { color: var(--teal); border-bottom: 1px solid var(--hair); padding-bottom: 2px; transition: border-color .3s, color .3s; }
+    .bk-err:empty { display: none; }
+    .bk-err { margin-top: 10px; font-size: 12.5px; color: #B4533A; }
+    @media (hover: hover) {
+      .bk-send:hover { background: var(--verde-dk); }
+      .bk-alt a:hover { color: var(--verde-dk); border-color: var(--verde-dk); }
+      .sp-btn:hover .sp-name { color: rgba(255,255,255,.75); }
+      .sp-item.on .sp-btn:hover .sp-name { color: #fff; }
+      .sp-more:hover { gap: 18px; color: var(--verde); }
     }
-    .exp-row.rev { grid-template-columns: 45% 55%; }
-    .exp-row.rev .exp-media { order: 2; }
-    .exp-media { position: relative; overflow: hidden; background: var(--sand-dark); }
-    .exp-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
-    .exp-row:hover .exp-media img { transform: scale(1.03); }
-    .exp-body { display: flex; flex-direction: column; justify-content: center; padding: 48px 56px; }
-    .exp-title { font-family: var(--f-disp); font-size: clamp(26px, 2.4vw, 32px); font-weight: 400; line-height: 1.2; color: var(--teal); margin: 0 0 16px; }
-    .exp-desc { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(26,74,74,.72); margin: 0 0 26px; max-width: 440px; }
-    .exp-more {
-      align-self: flex-start; display: inline-flex; align-items: center; gap: 12px;
-      font-family: var(--f-label); font-size: 11px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase;
-      color: var(--verde-dk); transition: gap .3s ease, color .3s ease;
+
+    /* Tablet */
+    @media (max-width: 1024px) {
+      .manifest { padding: 88px 40px 72px; }
+      .spaces { padding: 80px 40px; }
+      .sp-grid { gap: 40px; }
+      .sp-media { min-height: 480px; }
+      .incl-lbl { padding-left: 40px; }
+      .bk-grid { grid-template-columns: 1fr 1fr; min-height: 560px; }
+      .bk-panel { padding: 56px 40px; }
     }
-    .exp-more:hover { gap: 18px; color: var(--teal); }
+    /* Teléfono */
+    @media (max-width: 768px) {
+      .manifest { padding: 64px 20px 56px; }
+      .mf-top { margin-bottom: 28px; font-size: 9.5px; }
+      .mf-top span:last-child { display: none; }
+      .mf-text { font-size: clamp(27px, 7.6vw, 38px); line-height: 1.2; }
+      .mf-facts { grid-template-columns: 1fr 1fr; margin-top: 40px; }
+      .mf-fact, .mf-fact + .mf-fact { padding: 18px 12px 18px 0; border-left: 0; }
+      .mf-fact:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--hair); }
+      .mf-fact:nth-child(n+3) { border-top: 1px solid var(--hair); }
+      .spaces { padding: 56px 20px 48px; }
+      .sp-grid { grid-template-columns: 1fr; gap: 24px; }
+      .sp-media { order: -1; min-height: 0; aspect-ratio: 4/3; width: 100%; }
+      .sp-grid { gap: 18px; }
+      .sp-list { margin-top: 12px; }
+      .sp-name { font-size: 26px; }
+      .sp-btn { padding: 12px 0 10px; }
+      .sp-desc p { padding-left: 40px; font-size: 14.5px; }
+      .sp-more { padding-top: 22px; }
+      .incl-lbl { padding: 0 18px 0 20px; font-size: 9.5px; }
+      .incl-it { padding: 20px 24px; font-size: 19px; }
+      .incl-track { animation-duration: 36s; }
+      .bk-grid { grid-template-columns: 1fr; min-height: 0; }
+      .bk-media { aspect-ratio: 16/11; }
+      .bk-panel { padding: 44px 20px 56px; }
+      .bk-form { max-width: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .incl-track { animation: none; flex-wrap: wrap; width: auto; }
+      .incl-row + .incl-row { display: none; }
+      .sp-media img { transition: none; }
+    }
 
     /* ─── GALLERY TEASER: caída desde la estratósfera hasta la casa ─── */
     .gal-teaser { position: relative; height: 420vh; padding: 0 !important; background: #000; }
@@ -588,11 +567,6 @@
     @media (hover: hover) and (pointer: fine) {
       .nav-links a:hover   { opacity: .5; }
       .nav-ig:hover        { opacity: .5; }
-      .i-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 24px 55px rgba(26,74,74,.13);
-        border-color: rgba(62,207,171,.5);
-      }
       .gal-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
       .foot-links a:hover   { color: var(--verde); }
       .foot-phone a:hover   { color: var(--verde) !important; }
@@ -615,7 +589,6 @@
     /* ── TABLET LANDSCAPE / SMALL DESKTOP (1100px) ─────────── */
     @media (max-width: 1100px) {
       section { padding: 100px 44px; }
-      .comod-txt { font-size: 18px; }
     }
 
     /* ── TABLET PORTRAIT + LANDSCAPE (1024px) ───────────────── */
@@ -624,7 +597,6 @@
       section { padding: 88px 40px; }
       .nav { padding: 0 36px; }
 
-      .exp-body { padding: 40px 40px; }
 
 
     }
@@ -646,31 +618,9 @@
 
       .gal-plaque { max-width: 260px; padding: 26px 24px 24px; }
 
-      .stats { padding: 44px 20px; }
-      .stats-row { grid-template-columns: repeat(2,1fr); gap: 28px 16px; }
-      .atmosphere { min-height: 64vh; }
 
-      .intro-quote { margin-bottom: 60px; font-size: clamp(20px, 5vw, 32px); }
-      .intro-cards { grid-template-columns: 1fr; gap: 14px; }
-      .i-card { padding: 28px 24px; }
 
-      .villa { padding-top: 40px; padding-bottom: 40px; }
-      .comod-head { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 18px; }
-      .comod-sub { font-size: 13px; }
-      .comod-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .comod-card { padding: 7px 10px 7px 7px; gap: 10px; border-radius: 13px; }
-      .comod-ico { width: 34px; height: 34px; border-radius: 10px; }
-      .comod-ico svg { width: 18px; height: 18px; }
-      .comod-txt { font-size: 15px; }
-      .comod-num { display: none; }
-      .comod-card:first-child { grid-column: span 2; }
 
-      .exp-head { margin-bottom: 40px; }
-      .exp-rows { gap: 20px; }
-      .exp-row, .exp-row.rev { grid-template-columns: 1fr; min-height: 0; }
-      .exp-row.rev .exp-media { order: 0; }
-      .exp-media { aspect-ratio: 4/3; }
-      .exp-body { padding: 28px 24px 32px; }
 
 
 
@@ -694,7 +644,6 @@
     @media (max-width: 480px) {
       section { padding: 64px 18px; }
       .s-title    { font-size: clamp(34px, 9vw, 58px); }
-      .i-card     { padding: 26px 22px; }
 
       .wa-float { width: 46px; height: 46px; bottom: calc(18px + env(safe-area-inset-bottom)); right: calc(18px + env(safe-area-inset-right)); }
       .ig-float { width: 46px; height: 46px; bottom: calc(76px + env(safe-area-inset-bottom)); right: calc(18px + env(safe-area-inset-right)); }
@@ -706,7 +655,6 @@
       .nav { padding: 0 16px; }
       .hero-title { left: 16px; }
       .hero-eyebrow { left: 16px; right: 16px; }
-      .intro-quote  { font-size: 19px; }
     }
 
     /* ── TINY PHONE (360px — many Androids) ─────────────────── */
@@ -731,8 +679,8 @@
   </a>
 
   <ul class="nav-links">
-    <li><a href="#villa"      data-t="nav_villa">Comodidades</a></li>
-    <li><a href="#experience" data-t="nav_exp">Experiencia</a></li>
+    <li><a href="#casa"      data-t="nav_villa">La Casa</a></li>
+    <li><a href="#espacios" data-t="nav_exp">Espacios</a></li>
     <li><a href="galeria.html" data-t="nav_gal">Galería</a></li>
     <li><a href="#location"   data-t="nav_loc">Ubicación</a></li>
   </ul>
@@ -752,8 +700,8 @@
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#villa"      onclick="toggleMenu()" data-t="nav_villa">Comodidades</a>
-  <a href="#experience" onclick="toggleMenu()" data-t="nav_exp">Experiencia</a>
+  <a href="#casa"      onclick="toggleMenu()" data-t="nav_villa">La Casa</a>
+  <a href="#espacios" onclick="toggleMenu()" data-t="nav_exp">Espacios</a>
   <a href="galeria.html" onclick="toggleMenu()" data-t="nav_gal">Galería</a>
   <a href="#location"   onclick="toggleMenu()" data-t="nav_loc">Ubicación</a>
   <div class="mobile-menu-lang">
@@ -827,165 +775,70 @@ setTimeout(function(){
   </div>
 </section>
 
-<!-- INTRO ─────────────────────────────────────────────────── -->
-<section class="intro" id="intro">
-  <div class="wrap">
-    <p class="intro-quote reveal" data-t="intro_q">
-      Casa Verde es una casa de lujo en Gran Roque, el corazón del Archipiélago Los Roques. Sus tres habitaciones premium, terraza rooftop con vistas panorámicas y cocina gourmet crean un espacio donde cada detalle ha sido concebido para el descanso absoluto y una atención sin igual.
-    </p>
-    <div class="intro-cards">
-      <div class="i-card reveal d1">
-        <div class="i-chip"><svg width="26" height="26" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 7c-3 0-5.5 2.5-5.5 5.5 0 1.7.8 3.2 2 4.2V32h7V16.7c1.2-1 2-2.5 2-4.2C27.5 9.5 25 7 22 7z"/>
-          <path d="M11 20h22M11 20c-1 0-2 .9-2 2v2c0 1 .9 2 2 2h22c1 0 2-.9 2-2v-2c0-1-.9-2-2-2"/>
-          <path d="M14 24v10M30 24v10M17 34h10"/>
-        </svg></div>
-        <span class="i-card-title" data-t="c1_title">Chef Privado</span>
-        <span class="i-card-desc"  data-t="c1_desc">Gastronomía de autor preparada especialmente para ti. Desayuno, almuerzo y cena incluidos.</span>
-      </div>
-      <div class="i-card reveal d2">
-        <div class="i-chip"><svg width="26" height="26" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M7 29l3.5-14h23L37 29"/>
-          <path d="M5 35c2.8-1.8 4.6-1.8 7.4 0 2.8 1.8 4.6 1.8 7.4 0 2.8-1.8 4.6-1.8 7.4 0 2.8 1.8 4.6 1.8 7.4 0"/>
-          <path d="M22 15V8M17 11l5-3 5 3"/>
-          <path d="M10 29h24"/>
-        </svg></div>
-        <span class="i-card-title" data-t="c2_title">Bote Privado 24/7</span>
-        <span class="i-card-desc"  data-t="c2_desc">Tu bote y tripulación disponibles en todo momento. Explora cada cayo del archipiélago a tu ritmo.</span>
-      </div>
-      <div class="i-card reveal d3">
-        <div class="i-chip"><svg width="26" height="26" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="15" cy="13" r="4.5"/>
-          <circle cx="29" cy="13" r="4.5"/>
-          <path d="M5 36c0-6 4-11 10-11"/>
-          <path d="M29 25c6 0 10 5 10 11"/>
-          <circle cx="22" cy="17" r="4.5"/>
-          <path d="M12 36c0-5.5 4.5-9.5 10-9.5s10 4 10 9.5"/>
-        </svg></div>
-        <span class="i-card-title" data-t="c3_title">Hasta 10 Huéspedes</span>
-        <span class="i-card-desc"  data-t="c3_desc">Espacio generoso para grupos, familias y celebraciones íntimas en un entorno de lujo absoluto.</span>
-      </div>
+<!-- MANIFIESTO ─────────────────────────────────────────────── -->
+<section class="manifest" id="casa">
+  <div class="wrap" style="max-width:1280px">
+    <div class="mf-top"><span data-t="mf_lbl">Casa Verde · Gran Roque</span><span>11°56′ N · 66°40′ O</span></div>
+    <p class="mf-text" data-t="mf_text" data-html="true">Una casa frente al mar <span class="mf-pill"><img src="img/gal/nuevas/cv-03.jpeg" alt="Sala frente al mar" loading="lazy" decoding="async"></span> en Gran Roque, con chef <span class="mf-pill"><img src="img/gal/nuevas/cv-21.jpeg" alt="Mesa servida frente al mar" loading="lazy" decoding="async"></span>, bote <span class="mf-pill"><img src="img/gal/nuevas/cv-19.jpeg" alt="Bote al atardecer" loading="lazy" decoding="async"></span> y tripulación propios. <em>Nada que planear: solo llegar.</em></p>
+    <div class="mf-facts">
+      <div class="mf-fact reveal"><b>3</b><span data-t="mf_f1">Habitaciones</span></div>
+      <div class="mf-fact reveal d1"><b>10</b><span data-t="mf_f2">Huéspedes</span></div>
+      <div class="mf-fact reveal d2"><b>24/7</b><span data-t="mf_f3">Bote y tripulación</span></div>
+      <div class="mf-fact reveal d3"><b>1</b><span data-t="mf_f4">Chef privado</span></div>
     </div>
   </div>
 </section>
 
-<!-- STATS ─────────────────────────────────────────────────── -->
-<section class="stats" aria-label="Casa Verde en números">
-  <div class="stats-row">
-    <div class="stat reveal">
-      <span class="stat-num"><span class="stat-count" data-target="3">0</span></span>
-      <span class="stat-label" data-t="st1">Habitaciones de lujo</span>
+<!-- ESPACIOS: índice interactivo ──────────────────────────── -->
+<section class="spaces" id="espacios" aria-label="Espacios de la casa">
+  <div class="sp-grid">
+    <div class="sp-side">
+      <span class="s-label" data-t="sp_lbl">La casa por dentro</span>
+      <ul class="sp-list">
+        <li class="sp-item on" data-i="0">
+          <button class="sp-btn" type="button" aria-controls="sp-media"><span class="sp-idx">01</span><span class="sp-name" data-t="sp1_h">La Sala</span></button>
+          <div class="sp-desc"><div><p data-t="sp1_p">Techos de madera, sofás turquesa y ventanales abiertos al Caribe. El corazón de la casa.</p></div></div>
+          <div class="sp-bar"><i></i></div>
+        </li>
+        <li class="sp-item" data-i="1">
+          <button class="sp-btn" type="button" aria-controls="sp-media"><span class="sp-idx">02</span><span class="sp-name" data-t="sp2_h">Las Habitaciones</span></button>
+          <div class="sp-desc"><div><p data-t="sp2_p">Tres habitaciones en blanco y tonos de mar, con aire acondicionado. Silencio para dormir, luz para despertar.</p></div></div>
+          <div class="sp-bar"><i></i></div>
+        </li>
+        <li class="sp-item" data-i="2">
+          <button class="sp-btn" type="button" aria-controls="sp-media"><span class="sp-idx">03</span><span class="sp-name" data-t="sp3_h">El Comedor</span></button>
+          <div class="sp-desc"><div><p data-t="sp3_p">La mesa frente al mar donde el chef sirve desayuno, almuerzo y cena con la pesca del día.</p></div></div>
+          <div class="sp-bar"><i></i></div>
+        </li>
+        <li class="sp-item" data-i="3">
+          <button class="sp-btn" type="button" aria-controls="sp-media"><span class="sp-idx">04</span><span class="sp-name" data-t="sp4_h">El Bote</span></button>
+          <div class="sp-desc"><div><p data-t="sp4_p">Bote privado con tripulación para recorrer cayos, playas vírgenes y arrecifes a tu ritmo.</p></div></div>
+          <div class="sp-bar"><i></i></div>
+        </li>
+        <li class="sp-item" data-i="4">
+          <button class="sp-btn" type="button" aria-controls="sp-media"><span class="sp-idx">05</span><span class="sp-name" data-t="sp5_h">El Camino al Mar</span></button>
+          <div class="sp-desc"><div><p data-t="sp5_p">Una pérgola de buganvillas que termina en el agua turquesa, a pasos de la puerta.</p></div></div>
+          <div class="sp-bar"><i></i></div>
+        </li>
+      </ul>
+      <a class="sp-more" href="galeria.html"><span data-t="sp_more">Ver las 43 fotos</span><span aria-hidden="true">→</span></a>
     </div>
-    <div class="stat reveal d1">
-      <span class="stat-num"><span class="stat-count" data-target="10">0</span></span>
-      <span class="stat-label" data-t="st2">Huéspedes</span>
-    </div>
-    <div class="stat reveal d2">
-      <span class="stat-num"><span class="stat-count" data-target="350">0</span><small>+</small></span>
-      <span class="stat-label" data-t="st3">Cayos por explorar</span>
-    </div>
-    <div class="stat reveal d3">
-      <span class="stat-num">24<small>/7</small></span>
-      <span class="stat-label" data-t="st4">Bote & tripulación</span>
-    </div>
-  </div>
-</section>
-
-<!-- VILLA ─────────────────────────────────────────────────── -->
-<section class="villa" id="villa">
-  <div class="wrap">
-    <span class="s-label reveal" data-t="villa_lbl">La Casa</span>
-    <div class="comod-head">
-      <h2 class="s-title reveal" data-t="villa_h">Comodidades</h2>
-      <p class="comod-sub reveal" data-t="villa_sub">Todo lo que necesitas para desconectarte, frente al mar turquesa de Los Roques.</p>
-    </div>
-    <ul class="comod-grid">
-      <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M12 11v9"/><path d="M3 20h18"/><path d="M15 17h3"/></svg></span><span class="comod-num">01</span></div>
-        <span class="comod-txt" data-t="cm1">Frente al mar en Gran Roque</span>
-      </li>
-      <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V7"/><path d="M21 19v-5"/><path d="M3 14h18v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg></span><span class="comod-num">02</span></div>
-        <span class="comod-txt" data-t="cm2">3 habitaciones</span>
-      </li>
-      <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 19a6 6 0 0 1 12 0"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg></span><span class="comod-num">03</span></div>
-        <span class="comod-txt" data-t="cm3">Hasta 10 huéspedes</span>
-      </li>
-      <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16h18l-2.5 4h-13z"/><path d="M12 3v13"/><path d="M12 4l6 9h-6"/><path d="M12 7l-4 6h4"/></svg></span><span class="comod-num">04</span></div>
-        <span class="comod-txt" data-t="cm9">Bote privado</span>
-      </li>
-      <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.8 12.5a9 9 0 0 1 12.4 0"/><path d="M9 16a4.5 4.5 0 0 1 6 0"/><circle cx="12" cy="19.3" r=".9" fill="currentColor"/></svg></span><span class="comod-num">05</span></div>
-        <span class="comod-txt" data-t="cm5">Internet satelital Starlink®</span>
-      </li>
-      <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M5 17v4M3 19h4"/><path d="M19 16v4M17 18h4"/></svg></span><span class="comod-num">06</span></div>
-        <span class="comod-txt" data-t="cm4">Limpieza diaria</span>
-      </li>
-      <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 14.5l2 1.6 2-1.6"/></svg></span><span class="comod-num">07</span></div>
-        <span class="comod-txt" data-t="cm6">Staff de servicio incluido</span>
-      </li>
-      <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V6a3 3 0 0 1 6 0"/><path d="M8.5 9h5"/><path d="M10 12v.01M12 12v.01M14 12v.01M11 14.5v.01M13 14.5v.01"/><path d="M16 15c-1 1.2 1 2.3 0 3.5M19 15c-1 1.2 1 2.3 0 3.5"/></svg></span><span class="comod-num">08</span></div>
-        <span class="comod-txt" data-t="cm7">Agua caliente</span>
-      </li>
-      <li class="comod-card reveal">
-        <div class="comod-top"><span class="comod-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 2 2v9"/><path d="M11 3v7a2 2 0 0 1-2 2"/><path d="M9 3v6"/><path d="M17 21V3c-2 1-3 4-3 8h3"/></svg></span><span class="comod-num">09</span></div>
-        <span class="comod-txt" data-t="cm8">Gastronomía gourmet</span>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- EXPERIENCE ────────────────────────────────────────────── -->
-<section class="experience" id="experience">
-  <div class="wrap">
-    <div class="exp-head">
-      <span class="s-label reveal" data-t="exp_lbl">La Experiencia</span>
-      <h2 class="s-title reveal" data-t="exp_h">Todo incluido. Nada improvisado.</h2>
-      <p class="exp-intro reveal" data-t="exp_p">Cada estadía en Casa Verde es gestionada por un equipo dedicado: chef, asistentes y tripulación. No hay detalles que atender — solo disfrutar.</p>
-    </div>
-    <div class="exp-rows">
-      <article class="exp-row reveal">
-        <div class="exp-media"><img src="img/gal/nuevas/cv-05.jpeg" alt="Sala principal de Casa Verde con sofás turquesa" loading="lazy" decoding="async"></div>
-        <div class="exp-body">
-          <h3 class="exp-title" data-t="sp1_h">La Sala</h3>
-          <p class="exp-desc" data-t="sp1_p">Techos altos de madera, sofás turquesa frente al ventanal y la brisa del Caribe entrando por cada rincón. El corazón de la casa.</p>
-          <a class="exp-more" href="galeria.html"><span data-t="exp_more">Ver fotos</span> <span aria-hidden="true">→</span></a>
-        </div>
-      </article>
-      <article class="exp-row rev reveal">
-        <div class="exp-media"><img src="img/gal/nuevas/cv-11.jpeg" alt="Habitación de Casa Verde en blanco y verde" loading="lazy" decoding="async"></div>
-        <div class="exp-body">
-          <h3 class="exp-title" data-t="sp2_h">Las Habitaciones</h3>
-          <p class="exp-desc" data-t="sp2_p">Tres habitaciones en blanco y tonos de mar, camas amplias y aire acondicionado. Pensadas para dormir en silencio y despertar en calma.</p>
-          <a class="exp-more" href="galeria.html"><span data-t="exp_more">Ver fotos</span> <span aria-hidden="true">→</span></a>
-        </div>
-      </article>
-      <article class="exp-row reveal">
-        <div class="exp-media"><img src="img/gal/nuevas/cv-23.jpeg" alt="Comedor de la terraza frente al mar" loading="lazy" decoding="async"></div>
-        <div class="exp-body">
-          <h3 class="exp-title" data-t="sp3_h">La Terraza</h3>
-          <p class="exp-desc" data-t="sp3_p">La mesa frente al mar donde el chef sirve desayuno, almuerzo y cena. Pescado fresco del día, con el Caribe de fondo.</p>
-          <a class="exp-more" href="galeria.html"><span data-t="exp_more">Ver fotos</span> <span aria-hidden="true">→</span></a>
-        </div>
-      </article>
-      <article class="exp-row rev reveal">
-        <div class="exp-media"><img src="img/gal/nuevas/cv-19.jpeg" alt="Bote privado de Casa Verde al atardecer" loading="lazy" decoding="async"></div>
-        <div class="exp-body">
-          <h3 class="exp-title" data-t="sp4_h">El Bote</h3>
-          <p class="exp-desc" data-t="sp4_p">Bote privado con tripulación, listo para llevarte a los cayos, las playas vírgenes y los arrecifes del archipiélago.</p>
-          <a class="exp-more" href="galeria.html"><span data-t="exp_more">Ver fotos</span> <span aria-hidden="true">→</span></a>
-        </div>
-      </article>
+    <div class="sp-media" id="sp-media">
+      <img src="img/gal/nuevas/cv-03.jpeg" alt="Sala frente al mar — Casa Verde" class="on" loading="eager" decoding="async">
+      <img src="img/gal/nuevas/cv-11.jpeg" alt="Habitación verde — Casa Verde" class="" loading="eager" decoding="async">
+      <img src="img/gal/nuevas/cv-23.jpeg" alt="Comedor de la terraza — Casa Verde" class="" loading="lazy" decoding="async">
+      <img src="img/gal/nuevas/cv-19.jpeg" alt="Bote privado al atardecer — Casa Verde" class="" loading="lazy" decoding="async">
+      <img src="img/gal/pasillo-pergola.jpeg" alt="Pasillo con pérgola — Casa Verde" class="" loading="lazy" decoding="async">
+      <span class="sp-cap" aria-hidden="true">01 / 05</span>
     </div>
   </div>
 </section>
 
-<!-- ATMÓSFERA ─────────────────────────────────────────────── -->
+<!-- INCLUIDO: cinta continua ──────────────────────────────── -->
+<section class="incl" aria-label="Incluido en tu estadía">
+  <div class="incl-lbl" data-t="in_lbl">Incluido</div>
+  <div class="incl-track"><div class="incl-row"><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M12 11v9"/><path d="M3 20h18"/><path d="M15 17h3"/></svg><span data-t="in_cm1">Frente al mar</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16h18l-2.5 4h-13z"/><path d="M12 3v13"/><path d="M12 4l6 9h-6"/><path d="M12 7l-4 6h4"/></svg><span data-t="in_cm9">Bote privado 24/7</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 2 2v9"/><path d="M11 3v7a2 2 0 0 1-2 2"/><path d="M9 3v6"/><path d="M17 21V3c-2 1-3 4-3 8h3"/></svg><span data-t="in_cm8">Chef y gastronomía gourmet</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 14.5l2 1.6 2-1.6"/></svg><span data-t="in_cm6">Staff de servicio</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M5 17v4M3 19h4"/><path d="M19 16v4M17 18h4"/></svg><span data-t="in_cm4">Limpieza diaria</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.8 12.5a9 9 0 0 1 12.4 0"/><path d="M9 16a4.5 4.5 0 0 1 6 0"/><circle cx="12" cy="19.3" r=".9" fill="currentColor"/></svg><span data-t="in_cm5">Internet Starlink®</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V7"/><path d="M21 19v-5"/><path d="M3 14h18v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg><span data-t="in_cm2">3 habitaciones con A/C</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 19a6 6 0 0 1 12 0"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg><span data-t="in_cm3">Hasta 10 huéspedes</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V6a3 3 0 0 1 6 0"/><path d="M8.5 9h5"/><path d="M10 12v.01M12 12v.01M14 12v.01M11 14.5v.01M13 14.5v.01"/><path d="M16 15c-1 1.2 1 2.3 0 3.5M19 15c-1 1.2 1 2.3 0 3.5"/></svg><span data-t="in_cm7">Agua caliente</span></span></div><div class="incl-row" aria-hidden="true"><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M12 11v9"/><path d="M3 20h18"/><path d="M15 17h3"/></svg><span data-t="in_cm1">Frente al mar</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16h18l-2.5 4h-13z"/><path d="M12 3v13"/><path d="M12 4l6 9h-6"/><path d="M12 7l-4 6h4"/></svg><span data-t="in_cm9">Bote privado 24/7</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 2 2v9"/><path d="M11 3v7a2 2 0 0 1-2 2"/><path d="M9 3v6"/><path d="M17 21V3c-2 1-3 4-3 8h3"/></svg><span data-t="in_cm8">Chef y gastronomía gourmet</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 14.5l2 1.6 2-1.6"/></svg><span data-t="in_cm6">Staff de servicio</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M5 17v4M3 19h4"/><path d="M19 16v4M17 18h4"/></svg><span data-t="in_cm4">Limpieza diaria</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.8 12.5a9 9 0 0 1 12.4 0"/><path d="M9 16a4.5 4.5 0 0 1 6 0"/><circle cx="12" cy="19.3" r=".9" fill="currentColor"/></svg><span data-t="in_cm5">Internet Starlink®</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V7"/><path d="M21 19v-5"/><path d="M3 14h18v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg><span data-t="in_cm2">3 habitaciones con A/C</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 19a6 6 0 0 1 12 0"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg><span data-t="in_cm3">Hasta 10 huéspedes</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V6a3 3 0 0 1 6 0"/><path d="M8.5 9h5"/><path d="M10 12v.01M12 12v.01M14 12v.01M11 14.5v.01M13 14.5v.01"/><path d="M16 15c-1 1.2 1 2.3 0 3.5M19 15c-1 1.2 1 2.3 0 3.5"/></svg><span data-t="in_cm7">Agua caliente</span></span></div></div>
+</section>
 
 <!-- GALLERY TEASER: de la estratósfera a Casa Verde ───────── -->
 <section class="gal-teaser" id="gallery" aria-label="Galería">
@@ -1024,22 +877,30 @@ setTimeout(function(){
   </div>
 </section>
 
-<!-- RESERVAS ──────────────────────────────────────────────── -->
-<section class="atmosphere" id="reservas" aria-label="Reservas">
-  <div class="atmosphere-bg" data-parallax="0.35">
-    <img src="img/portada-noche.jpeg" alt="Casa Verde iluminada de noche" loading="lazy" decoding="async">
-  </div>
-  <div class="atmosphere-quote">
-    <span class="s-label reveal" data-t="book_lbl">Reservas</span>
-    <h2 class="reveal d1" data-t="book_h">Reserva tu estadía</h2>
-    <p class="book-sub reveal d1" data-t="book_p">Escríbenos por el canal que prefieras y te respondemos personalmente con disponibilidad y tarifas.</p>
-    <div class="book-btns reveal d2">
-      <a class="book-btn main" href="https://wa.me/584123030330?text=Hola%2C%20quisiera%20reservar%20en%20Casa%20Verde" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c.6.3 1.1.4 1.5.5a3.6 3.6 0 0 0 1.7.1 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>WhatsApp</span></a>
-      <a class="book-btn" href="https://www.instagram.com/casaverdelosroques" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
-      <!-- Correo: poner la dirección en href y quitar "hidden" -->
-      <a class="book-btn" href="mailto:" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-t="book_mail">Correo</span></a>
+<!-- RESERVA ───────────────────────────────────────────────── -->
+<section class="bk" id="reservas" aria-label="Reservas">
+  <div class="bk-grid">
+    <figure class="bk-media" style="margin:0">
+      <img src="img/gal/nuevas/cv-02.jpeg" alt="Camino al muelle de Casa Verde frente al mar" loading="lazy" decoding="async">
+      <figcaption data-t="bk_cap">Te esperamos en Gran Roque</figcaption>
+    </figure>
+    <div class="bk-panel">
+      <span class="s-label reveal" data-t="book_lbl">Reservas</span>
+      <h2 class="bk-title reveal" data-t="book_h">Reserva tu estadía</h2>
+      <p class="bk-sub reveal" data-t="book_p">Elige tus fechas y te respondemos por WhatsApp con disponibilidad y tarifas.</p>
+      <form class="bk-form reveal d1" id="bkForm" novalidate>
+        <div class="bk-field"><label for="bkIn" data-t="bk_in">Llegada</label><input type="date" id="bkIn" name="in"></div>
+        <div class="bk-field"><label for="bkOut" data-t="bk_out">Salida</label><input type="date" id="bkOut" name="out"></div>
+        <div class="bk-field full"><label for="bkGuests" data-t="bk_guests">Huéspedes</label><select id="bkGuests" name="guests"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div>
+        <button class="bk-send" type="submit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c.6.3 1.1.4 1.5.5a3.6 3.6 0 0 0 1.7.1 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span data-t="bk_send">Consultar por WhatsApp</span></button>
+      </form>
+      <p class="bk-err" id="bkErr" role="status" aria-live="polite"></p>
+      <div class="bk-alt reveal d2">
+        <a href="https://www.instagram.com/casaverdelosroques" target="_blank" rel="noopener" data-t="bk_ig">Escríbenos por Instagram</a>
+        <!-- Correo: poner la dirección en href y quitar "hidden" -->
+        <a href="mailto:" hidden data-t="book_mail">Correo</a>
+      </div>
     </div>
-    <p class="book-note reveal d2" data-t="book_note">Respuesta el mismo día · Gran Roque, Los Roques</p>
   </div>
 </section>
 
@@ -1052,8 +913,8 @@ setTimeout(function(){
     <p class="foot-sub">Gran Roque · Los Roques · Venezuela</p>
     <div class="foot-div" aria-hidden="true"></div>
     <ul class="foot-links">
-      <li><a href="#villa"       data-t="nav_villa">Comodidades</a></li>
-      <li><a href="#experience"  data-t="nav_exp">Experiencia</a></li>
+      <li><a href="#casa"       data-t="nav_villa">La Casa</a></li>
+      <li><a href="#espacios"  data-t="nav_exp">Espacios</a></li>
       <li><a href="galeria.html" data-t="nav_gal">Galería</a></li>
       <li><a href="#location"    data-t="nav_loc">Ubicación</a></li>
     </ul>
@@ -1083,65 +944,58 @@ setTimeout(function(){
 <script>
 /* ─── CONTENT ──────────────────────────────────────────────── */
 const T = {
-  nav_villa: { es:'Comodidades',  en:'Amenities' },
-  nav_exp:   { es:'Experiencia',   en:'Experience' },
+  nav_villa: { es:'La Casa', en:'The Home' },
+  nav_exp: { es:'Espacios', en:'Spaces' },
   nav_gal:   { es:'Galería',       en:'Gallery' },
   nav_loc:   { es:'Ubicación',     en:'Location' },
 
   hero_eye:  { es:'Los Roques · Venezuela', en:'Los Roques · Venezuela' },
   scroll:    { es:'Descubrir',                           en:'Discover' },
 
-  st1: { es:'Habitaciones de lujo', en:'Luxury Bedrooms' },
-  st2: { es:'Huéspedes',            en:'Guests' },
-  st3: { es:'Cayos por explorar',   en:'Cayes to explore' },
-  st4: { es:'Bote & tripulación',   en:'Boat & crew' },
 
   book_lbl: { es:'Reservas', en:'Reservations' },
   book_h: { es:'Reserva tu estadía', en:'Book your stay' },
-  book_p: { es:'Escríbenos por el canal que prefieras y te respondemos personalmente con disponibilidad y tarifas.', en:'Reach us on the channel you prefer and we will reply personally with availability and rates.' },
   book_mail: { es:'Correo', en:'Email' },
-  book_note: { es:'Respuesta el mismo día · Gran Roque, Los Roques', en:'Same-day reply · Gran Roque, Los Roques' },
 
-  intro_q: {
-    es:'Casa Verde es una casa de lujo en Gran Roque, el corazón del Archipiélago Los Roques. Sus tres habitaciones premium, terraza rooftop con vistas panorámicas y cocina gourmet crean un espacio donde cada detalle ha sido concebido para el descanso absoluto y una atención sin igual.',
-    en:'Casa Verde is a luxury home in Gran Roque, the heart of Los Roques Archipelago. Its three premium bedrooms, rooftop terrace with panoramic views and gourmet kitchen create a space where every detail has been conceived for absolute rest and unrivaled service.'
-  },
 
-  c1_title: { es:'Chef Privado',       en:'Private Chef' },
-  c1_desc:  { es:'Gastronomía de autor preparada especialmente para ti. Desayuno, almuerzo y cena incluidos.', en:'Signature cuisine prepared exclusively for you. Breakfast, lunch, and dinner included.' },
-  c2_title: { es:'Bote Privado 24/7',  en:'Private Boat 24/7' },
-  c2_desc:  { es:'Tu bote y tripulación disponibles en todo momento. Explora cada cayo del archipiélago a tu ritmo.', en:'Your boat and crew available at all hours. Explore every caye of the archipelago at your pace.' },
-  c3_title: { es:'Hasta 10 Huéspedes', en:'Up to 10 Guests' },
-  c3_desc:  { es:'Espacio generoso para grupos, familias y celebraciones íntimas en un entorno de lujo absoluto.', en:'Generous space for groups, families, and intimate celebrations in absolute luxury.' },
 
-  villa_lbl: { es:'La Casa', en:'The Home' },
-  villa_h:   { es:'Comodidades', en:'Amenities' },
-  villa_sub: { es:'Todo lo que necesitas para desconectarte, frente al mar turquesa de Los Roques.', en:'Everything you need to unwind, right on the turquoise sea of Los Roques.' },
-  cm1: { es:'Frente al mar en Gran Roque', en:'Beachfront in Gran Roque' },
-  cm2: { es:'3 habitaciones', en:'3 bedrooms' },
-  cm3: { es:'Hasta 10 huéspedes', en:'Up to 10 guests' },
-  cm4: { es:'Limpieza diaria', en:'Daily housekeeping' },
-  cm5: { es:'Internet satelital Starlink®', en:'Starlink® satellite internet' },
-  cm6: { es:'Staff de servicio incluido', en:'Service staff included' },
-  cm7: { es:'Agua caliente', en:'Hot water' },
-  cm8: { es:'Gastronomía gourmet', en:'Gourmet cuisine' },
-  cm9: { es:'Bote privado', en:'Private boat' },
 
+
+  mf_lbl: { es:'Casa Verde · Gran Roque', en:'Casa Verde · Gran Roque' },
+  mf_text: { es:'Una casa frente al mar <span class="mf-pill"><img src="img/gal/nuevas/cv-03.jpeg" alt="Sala frente al mar" loading="lazy" decoding="async"></span> en Gran Roque, con chef <span class="mf-pill"><img src="img/gal/nuevas/cv-21.jpeg" alt="Mesa servida frente al mar" loading="lazy" decoding="async"></span>, bote <span class="mf-pill"><img src="img/gal/nuevas/cv-19.jpeg" alt="Bote al atardecer" loading="lazy" decoding="async"></span> y tripulación propios. <em>Nada que planear: solo llegar.</em>', en:'A home on the sea <span class="mf-pill"><img src="img/gal/nuevas/cv-03.jpeg" alt="Seaside living room" loading="lazy" decoding="async"></span> in Gran Roque, with its own chef <span class="mf-pill"><img src="img/gal/nuevas/cv-21.jpeg" alt="Table set by the sea" loading="lazy" decoding="async"></span>, boat <span class="mf-pill"><img src="img/gal/nuevas/cv-19.jpeg" alt="Boat at sunset" loading="lazy" decoding="async"></span> and crew. <em>Nothing to plan: just arrive.</em>' },
+  mf_f1: { es:'Habitaciones', en:'Bedrooms' },
+  mf_f2: { es:'Huéspedes', en:'Guests' },
+  mf_f3: { es:'Bote y tripulación', en:'Boat & crew' },
+  mf_f4: { es:'Chef privado', en:'Private chef' },
+  sp_lbl: { es:'La casa por dentro', en:'Inside the home' },
+  sp_more: { es:'Ver las 43 fotos', en:'See all 43 photos' },
+  in_lbl: { es:'Incluido', en:'Included' },
+  book_p: { es:'Elige tus fechas y te respondemos por WhatsApp con disponibilidad y tarifas.', en:'Choose your dates and we will reply on WhatsApp with availability and rates.' },
+  bk_cap: { es:'Te esperamos en Gran Roque', en:'We look forward to welcoming you' },
+  bk_in: { es:'Llegada', en:'Arrival' },
+  bk_out: { es:'Salida', en:'Departure' },
+  bk_guests: { es:'Huéspedes', en:'Guests' },
+  bk_send: { es:'Consultar por WhatsApp', en:'Ask on WhatsApp' },
+  bk_ig: { es:'Escríbenos por Instagram', en:'Message us on Instagram' },
   sp1_h: { es:'La Sala', en:'The Living Room' },
-  sp1_p: { es:'Techos altos de madera, sofás turquesa frente al ventanal y la brisa del Caribe entrando por cada rincón. El corazón de la casa.', en:'High wooden ceilings, turquoise sofas facing the windows and the Caribbean breeze in every corner. The heart of the home.' },
   sp2_h: { es:'Las Habitaciones', en:'The Bedrooms' },
-  sp2_p: { es:'Tres habitaciones en blanco y tonos de mar, camas amplias y aire acondicionado. Pensadas para dormir en silencio y despertar en calma.', en:'Three bedrooms in white and sea tones, generous beds and air conditioning. Made for sleeping in silence and waking in calm.' },
-  sp3_h: { es:'La Terraza', en:'The Terrace' },
-  sp3_p: { es:'La mesa frente al mar donde el chef sirve desayuno, almuerzo y cena. Pescado fresco del día, con el Caribe de fondo.', en:'The table by the sea where the chef serves breakfast, lunch and dinner. Fresh catch of the day, with the Caribbean as backdrop.' },
+  sp3_h: { es:'El Comedor', en:'The Dining Terrace' },
   sp4_h: { es:'El Bote', en:'The Boat' },
-  sp4_p: { es:'Bote privado con tripulación, listo para llevarte a los cayos, las playas vírgenes y los arrecifes del archipiélago.', en:'Private boat with crew, ready to take you to the cayes, pristine beaches and reefs of the archipelago.' },
-  exp_more: { es:'Ver fotos', en:'View photos' },
-  exp_lbl: { es:'La Experiencia',   en:'The Experience' },
-  exp_h:   { es:'Todo incluido. Nada improvisado.', en:'All-inclusive. Nothing left to chance.' },
-  exp_p:   {
-    es:'Cada estadía en Casa Verde es gestionada por un equipo dedicado: chef, asistentes y tripulación. No hay detalles que atender — solo disfrutar.',
-    en:'Every stay at Casa Verde is managed by a dedicated team: chef, assistants, and boat crew. There are no details to attend to — only to enjoy.'
-  },
+  sp5_h: { es:'El Camino al Mar', en:'The Path to the Sea' },
+  sp1_p: { es:'Techos de madera, sofás turquesa y ventanales abiertos al Caribe. El corazón de la casa.', en:'Wooden ceilings, turquoise sofas and windows open to the Caribbean. The heart of the home.' },
+  sp2_p: { es:'Tres habitaciones en blanco y tonos de mar, con aire acondicionado. Silencio para dormir, luz para despertar.', en:'Three bedrooms in white and sea tones, air-conditioned. Silence to sleep, light to wake.' },
+  sp3_p: { es:'La mesa frente al mar donde el chef sirve desayuno, almuerzo y cena con la pesca del día.', en:'The table by the sea where the chef serves breakfast, lunch and dinner with the catch of the day.' },
+  sp4_p: { es:'Bote privado con tripulación para recorrer cayos, playas vírgenes y arrecifes a tu ritmo.', en:'Private boat with crew to explore cayes, pristine beaches and reefs at your pace.' },
+  sp5_p: { es:'Una pérgola de buganvillas que termina en el agua turquesa, a pasos de la puerta.', en:'A bougainvillea pergola that ends in turquoise water, steps from the door.' },
+  in_cm1: { es:'Frente al mar', en:'Beachfront' },
+  in_cm9: { es:'Bote privado 24/7', en:'Private boat 24/7' },
+  in_cm8: { es:'Chef y gastronomía gourmet', en:'Chef & gourmet cuisine' },
+  in_cm6: { es:'Staff de servicio', en:'Service staff' },
+  in_cm4: { es:'Limpieza diaria', en:'Daily housekeeping' },
+  in_cm5: { es:'Internet Starlink®', en:'Starlink® internet' },
+  in_cm2: { es:'3 habitaciones con A/C', en:'3 bedrooms with A/C' },
+  in_cm3: { es:'Hasta 10 huéspedes', en:'Up to 10 guests' },
+  in_cm7: { es:'Agua caliente', en:'Hot water' },
 
   gal_lbl: { es:'Galería',              en:'Gallery' },
   gal_h:   { es:'La casa en imágenes', en:'The home in images' },
@@ -1170,6 +1024,7 @@ function applyLang(l) {
     btn.classList.toggle('active', btn.dataset.lc === l);
   });
   document.documentElement.lang = l;
+  if (window.cvMainSplit) window.cvMainSplit();
 }
 
 function setLang(l) {
@@ -1345,17 +1200,6 @@ document.addEventListener('click', e => {
     // 4 · Llegada: Casa Verde, y la placa se posa
     .fromTo('.gal-plaque', { opacity: 0, scale: .9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: .12, ease: 'power2.out' }, .92);
 
-  /* ── Las imágenes se expanden suavemente al entrar (solo index) ── */
-  gsap.utils.toArray('.villa-img-wrap img, .exp-media img').forEach(img => {
-    gsap.fromTo(img, { scale: 1.18 }, {
-      scale: 1, ease: 'none',
-      scrollTrigger: {
-        trigger: img.closest('.villa-img-wrap, .exp-row') || img,
-        start: 'top 95%', end: 'top 30%', scrub: true
-      }
-    });
-  });
-
   /* ── Parallax full-bleed ── */
   gsap.utils.toArray('[data-parallax]').forEach(el => {
     const speed = parseFloat(el.getAttribute('data-parallax')) || 0.35;
@@ -1375,24 +1219,95 @@ document.addEventListener('click', e => {
     });
   });
 
-  /* ── Contadores animados ── */
-  let counted = false;
-  ScrollTrigger.create({
-    trigger: '.stats-row',
-    start: 'top 82%',
-    onEnter: () => {
-      if (counted) return;
-      counted = true;
-      document.querySelectorAll('.stat-count').forEach(el => {
-        const target = +el.dataset.target;
-        const obj = { v: 0 };
-        gsap.to(obj, {
-          v: target, duration: 1.6, ease: 'power2.out',
-          onUpdate: () => { el.textContent = Math.round(obj.v); }
-        });
+})();
+
+/* ═══ MAIN v2: espacios, manifiesto, reserva ═══ */
+(function(){
+  /* Espacios: índice interactivo con autoavance */
+  const list = document.querySelectorAll('.sp-item');
+  const imgs = document.querySelectorAll('.sp-media img');
+  const cap  = document.querySelector('.sp-cap');
+  const sec  = document.querySelector('.spaces');
+  if (list.length && imgs.length) {
+    const DUR = 6000; let cur = 0, timer = null, visible = false, paused = false;
+    document.documentElement.style.setProperty('--sp-dur', DUR/1000 + 's');
+    const show = (n, user) => {
+      if (n === cur && !user) return;
+      imgs.forEach((im, k) => { im.classList.toggle('was', k === cur && k !== n); im.classList.toggle('on', k === n); if (k !== n && k !== cur) im.classList.remove('was'); });
+      list.forEach((li, k) => { li.classList.toggle('on', k === n); li.classList.remove('run'); });
+      cur = n; if (cap) cap.textContent = '0' + (n+1) + ' / 0' + list.length;
+      restart();
+    };
+    const restart = () => {
+      clearTimeout(timer);
+      const li = list[cur];
+      if (!visible || paused) return;
+      void li.offsetWidth; li.classList.add('run');
+      timer = setTimeout(() => show((cur + 1) % list.length), DUR);
+    };
+    list.forEach((li, k) => {
+      const b = li.querySelector('.sp-btn');
+      b.addEventListener('click', () => { show(k, true); });
+      if (window.matchMedia('(hover: hover)').matches) b.addEventListener('mouseenter', () => { if (k !== cur) show(k, true); });
+    });
+    sec.addEventListener('mouseenter', () => { paused = true; list[cur].classList.remove('run'); clearTimeout(timer); });
+    sec.addEventListener('mouseleave', () => { paused = false; restart(); });
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; visible ? restart() : clearTimeout(timer); }, { threshold: .35 }).observe(sec);
+  }
+
+  /* Reserva: arma el mensaje de WhatsApp */
+  const f = document.getElementById('bkForm');
+  if (f) {
+    const inp = f.querySelector('#bkIn'), out = f.querySelector('#bkOut'), err = document.getElementById('bkErr');
+    const today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+    inp.min = today.toISOString().slice(0,10);
+    inp.addEventListener('change', () => { out.min = inp.value || inp.min; if (out.value && out.value <= inp.value) out.value = ''; });
+    const fmt = v => { if (!v) return ''; const [y,m,d] = v.split('-'); return d + '/' + m + '/' + y; };
+    f.addEventListener('submit', e => {
+      e.preventDefault(); err.textContent = '';
+      if (inp.value && out.value && out.value <= inp.value) { err.textContent = (document.documentElement.lang === 'en') ? 'Departure must be after arrival.' : 'La salida debe ser después de la llegada.'; return; }
+      const en = document.documentElement.lang === 'en';
+      const g = f.querySelector('#bkGuests').value;
+      let msg = en ? 'Hello! I would like to book Casa Verde' : '¡Hola! Quisiera reservar en Casa Verde';
+      if (inp.value && out.value) msg += en ? ` from ${fmt(inp.value)} to ${fmt(out.value)}` : ` del ${fmt(inp.value)} al ${fmt(out.value)}`;
+      else if (inp.value) msg += en ? ` arriving ${fmt(inp.value)}` : ` con llegada el ${fmt(inp.value)}`;
+      msg += en ? ` for ${g} guest${g === '1' ? '' : 's'}.` : ` para ${g} huésped${g === '1' ? '' : 'es'}.`;
+      window.open('https://wa.me/584123030330?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    });
+  }
+
+  /* Manifiesto: palabras que se encienden al hacer scroll */
+  const mf = document.querySelector('.mf-text');
+  function splitWords() {
+    if (!mf) return;
+    const walk = node => {
+      [...node.childNodes].forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(t => {
+            if (!t) return;
+            if (/^\s+$/.test(t)) frag.appendChild(document.createTextNode(t));
+            else { const sp = document.createElement('span'); sp.className = 'mf-w'; sp.textContent = t; frag.appendChild(sp); }
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && !n.classList.contains('mf-pill') && !n.classList.contains('mf-w')) walk(n);
       });
-    }
-  });
+    };
+    walk(mf);
+  }
+  window.cvMainSplit = function(){
+    if (!mf || !window.gsap || !window.ScrollTrigger || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    splitWords();
+    if (window.__mfTween) { window.__mfTween.scrollTrigger && window.__mfTween.scrollTrigger.kill(); window.__mfTween.kill(); }
+    const parts = mf.querySelectorAll('.mf-w, .mf-pill');
+    window.__mfTween = gsap.fromTo(parts, { opacity: .14 }, {
+      opacity: 1, stagger: .08, ease: 'none',
+      scrollTrigger: { trigger: mf, start: 'top 82%', end: 'bottom 45%', scrub: true }
+    });
+    gsap.utils.toArray('.mf-pill').forEach(p => gsap.fromTo(p, { width: 0, marginLeft: 0, marginRight: 0 }, { width: '2.05em', marginLeft: '.08em', marginRight: '.08em', ease: 'power2.out',
+      scrollTrigger: { trigger: p, start: 'top 85%', end: 'top 55%', scrub: true } }));
+  };
+  if (document.readyState === 'complete') window.cvMainSplit(); else window.addEventListener('load', () => window.cvMainSplit());
 })();
 </script>
 </body>
