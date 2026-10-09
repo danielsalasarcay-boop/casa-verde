@@ -384,14 +384,85 @@
     .bk-panel .s-label { color: var(--verde-dk); }
     .bk-title { font-family: var(--f-disp); font-weight: 300; font-size: clamp(36px, 4vw, 58px); line-height: 1.04; color: var(--teal); margin: 0 0 14px; }
     .bk-sub { font-size: 15px; font-weight: 300; line-height: 1.75; color: var(--ink-soft); margin: 0 0 32px; max-width: 420px; }
-    .bk-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--hair); border-radius: 8px; background: #fff; overflow: hidden; max-width: 480px; }
-    .bk-field { display: flex; flex-direction: column; gap: 6px; padding: 14px 18px; border-bottom: 1px solid var(--hair); min-width: 0; }
-    .bk-field:nth-child(odd) { border-right: 1px solid var(--hair); }
-    .bk-field.full { grid-column: span 2; border-right: 0; }
-    .bk-field label { font-family: var(--f-label); font-size: 9.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-soft); }
-    .bk-field input, .bk-field select { all: unset; box-sizing: border-box; width: 100%; font-family: var(--f-body); font-size: 16px; color: var(--teal); min-height: 24px; cursor: pointer; }
-    .bk-field select { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%232BA88C' stroke-width='1.4'/%3E%3C/svg%3E") right center no-repeat; padding-right: 18px; }
-    .bk-send { grid-column: span 2; all: unset; box-sizing: border-box; grid-column: span 2; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 18px; cursor: pointer;
+    .bk-form { position: relative; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--hair); border-radius: 10px; background: #fff; max-width: 480px;
+      box-shadow: 0 18px 40px -28px rgba(26,74,74,.35); }
+    .bk-field { all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 15px 18px; border-bottom: 1px solid var(--hair); min-width: 0; position: relative; transition: background .25s; }
+    .bk-field:first-child { border-radius: 10px 0 0 0; }
+    .bk-field:nth-child(2) { border-left: 1px solid var(--hair); border-radius: 0 10px 0 0; }
+    .bk-field.full { grid-column: span 2; flex-direction: row; align-items: center; justify-content: space-between; }
+    .bk-field.active { background: rgba(62,207,171,.08); box-shadow: inset 0 -2px 0 var(--verde-dk); }
+    .bk-field:focus-visible { outline: 2px solid var(--verde); outline-offset: -2px; }
+    .bk-k { font-family: var(--f-label); font-size: 9.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-soft); }
+    .bk-v { font-family: var(--f-disp); font-size: 21px; line-height: 1.1; color: var(--teal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bk-v.ph { color: rgba(26,74,74,.38); }
+    .bk-nights { position: absolute; right: 14px; top: 13px; font-family: var(--f-label); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--verde-dk); }
+    .bk-chev { width: 12px; height: 8px; fill: none; stroke: var(--verde-dk); stroke-width: 1.5; transition: transform .3s; }
+    .bk-field.active .bk-chev { transform: rotate(180deg); }
+
+    /* Popovers */
+    .bk-pop { position: absolute; left: 0; top: calc(100% + 10px); z-index: 30; background: #fff; border-radius: 14px;
+      box-shadow: 0 30px 70px -20px rgba(12,36,36,.35), 0 0 0 1px rgba(26,74,74,.08);
+      opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity .25s, transform .3s cubic-bezier(.2,.7,.2,1); }
+    .bk-pop.open { opacity: 1; transform: none; pointer-events: auto; }
+    .bk-sheet-head { display: none; }
+    .bk-cal { width: 660px; padding: 22px 24px 18px; left: auto; right: 0; }
+    body.bk-open .wa-float, body.bk-open .ig-float { opacity: 0; pointer-events: none; }
+    .cal-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .cal-nav { all: unset; cursor: pointer; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: var(--teal); transition: background .2s; }
+    .cal-nav:disabled { opacity: .25; cursor: default; }
+    .cal-nav svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+    .cal-months { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .cal-m h4 { margin: 0 0 12px; text-align: center; font-family: var(--f-disp); font-weight: 400; font-size: 20px; color: var(--teal); }
+    .cal-g { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 2px; }
+    .cal-dow { text-align: center; font-family: var(--f-label); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: rgba(26,74,74,.45); padding: 6px 0 8px; }
+    .cal-d { all: unset; box-sizing: border-box; height: 42px; display: grid; place-items: center; position: relative; cursor: pointer; font-family: var(--f-body); font-size: 14px; color: var(--teal); }
+    .cal-d span { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; position: relative; z-index: 1; transition: background .15s, color .15s; }
+    .cal-d.empty { cursor: default; }
+    .cal-d.past { color: rgba(26,74,74,.22); cursor: default; text-decoration: line-through; }
+    .cal-d.today span { box-shadow: inset 0 0 0 1px rgba(43,168,140,.5); }
+    .cal-d.in::before { content: ''; position: absolute; inset: 1px 0; background: rgba(62,207,171,.14); }
+    .cal-d.start::before { content: ''; position: absolute; inset: 1px 0 1px 50%; background: rgba(62,207,171,.14); }
+    .cal-d.end::before { content: ''; position: absolute; inset: 1px 50% 1px 0; background: rgba(62,207,171,.14); }
+    .cal-d.start.end::before { display: none; }
+    .cal-d.start span, .cal-d.end span { background: var(--teal); color: #fff; }
+    .cal-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--hair); }
+    .cal-sum { font-size: 13px; color: var(--ink-soft); }
+    .cal-sum b { font-weight: 500; color: var(--teal); }
+    .bk-link { all: unset; cursor: pointer; font-size: 12.5px; color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+    .bk-ok { all: unset; cursor: pointer; padding: 10px 22px; border-radius: 999px; background: var(--teal); color: #fff; font-family: var(--f-label); font-size: 10.5px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; transition: background .25s; }
+    .bk-guests { width: 100%; padding: 8px 22px 16px; }
+    .gs-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--hair); }
+    .gs-row b { display: block; font-size: 14.5px; font-weight: 500; color: var(--teal); }
+    .gs-row small { font-size: 12.5px; color: var(--ink-soft); }
+    .gs-step { display: flex; align-items: center; gap: 14px; }
+    .gs-btn { all: unset; cursor: pointer; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(26,74,74,.25); display: grid; place-items: center; color: var(--teal); transition: border-color .2s, background .2s; }
+    .gs-btn:disabled { opacity: .25; cursor: default; }
+    .gs-btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; }
+    .gs-n { min-width: 18px; text-align: center; font-family: var(--f-disp); font-size: 22px; color: var(--teal); font-variant-numeric: lining-nums; }
+    .gs-note { margin: 12px 0 0; font-size: 12px; color: var(--ink-soft); }
+    .bk-scrim { display: none; }
+    @media (hover: hover) {
+      .bk-field:hover { background: rgba(62,207,171,.05); }
+      .cal-nav:not(:disabled):hover { background: var(--sand); }
+      .cal-d:not(.past):not(.empty):hover span { box-shadow: inset 0 0 0 1px var(--teal); }
+      .gs-btn:not(:disabled):hover { border-color: var(--teal); background: var(--sand); }
+      .bk-ok:hover { background: var(--verde-dk); }
+    }
+    @media (max-width: 1180px) { .bk-cal { width: min(660px, calc(100vw - 80px)); } }
+    @media (max-width: 760px) {
+      .bk-pop, .bk-cal { position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 2001; border-radius: 18px 18px 0 0; transform: translateY(100%); max-height: 88vh; overflow: auto; padding-bottom: env(safe-area-inset-bottom); }
+      .bk-pop.open { transform: none; }
+      .bk-sheet-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px 4px; font-family: var(--f-disp); font-size: 22px; color: var(--teal); }
+      .bk-cal { width: auto; padding: 8px 16px 16px; }
+      .cal-months { grid-template-columns: 1fr; }
+      .cal-m + .cal-m { display: none; }
+      .cal-d { height: 46px; }
+      .bk-guests { padding: 4px 20px 20px; }
+      .bk-scrim { display: block; position: fixed; inset: 0; z-index: 2000; background: rgba(12,36,36,.45); opacity: 0; pointer-events: none; transition: opacity .25s; }
+      .bk-scrim.open { opacity: 1; pointer-events: auto; }
+      .bk-v { font-size: 19px; }
+    }
+    .bk-send { all: unset; box-sizing: border-box; grid-column: span 2; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 18px; border-radius: 0 0 10px 10px; cursor: pointer;
       background: var(--teal); color: #fff; font-family: var(--f-label); font-size: 11.5px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; transition: background .3s; }
     .bk-send svg { width: 18px; height: 18px; }
     .bk-alt { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 22px; font-size: 13px; color: var(--ink-soft); }
@@ -934,20 +1005,33 @@ setTimeout(function(){
       <h2 class="bk-title reveal" data-t="book_h">Reserva tu estadía</h2>
       <p class="bk-sub reveal" data-t="book_p">Elige tus fechas y te respondemos por WhatsApp con disponibilidad y tarifas.</p>
       <form class="bk-form reveal d1" id="bkForm" novalidate>
-        <div class="bk-field"><label for="bkIn" data-t="bk_in">Llegada</label><input type="date" id="bkIn" name="in"></div>
-        <div class="bk-field"><label for="bkOut" data-t="bk_out">Salida</label><input type="date" id="bkOut" name="out"></div>
-        <div class="bk-field full"><label for="bkGuests" data-t="bk_guests">Huéspedes</label><select id="bkGuests" name="guests"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div>
+        <button type="button" class="bk-field" id="bkInBtn" aria-haspopup="dialog" aria-controls="bkCal"><span class="bk-k" data-t="bk_in">Llegada</span><span class="bk-v ph" id="bkInV" data-t="bk_add">Elegir fecha</span></button>
+        <button type="button" class="bk-field" id="bkOutBtn" aria-haspopup="dialog" aria-controls="bkCal"><span class="bk-k" data-t="bk_out">Salida</span><span class="bk-v ph" id="bkOutV" data-t="bk_add">Elegir fecha</span><span class="bk-nights" id="bkNights"></span></button>
+        <button type="button" class="bk-field full" id="bkGBtn" aria-haspopup="dialog" aria-controls="bkGuestsPop"><span style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="bk-k" data-t="bk_guests">Huéspedes</span><span class="bk-v" id="bkGV">2 huéspedes</span></span><svg class="bk-chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg></button>
+        <div class="bk-pop bk-cal" id="bkCal" role="dialog" aria-label="Calendario">
+          <div class="bk-sheet-head"><span data-t="bk_dates">Tus fechas</span><button type="button" class="bk-link" data-close data-t="bk_close">Cerrar</button></div>
+          <div class="cal-top"><button type="button" class="cal-nav" id="calPrev" aria-label="Mes anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="cal-sum" id="calHint"></span><button type="button" class="cal-nav" id="calNext" aria-label="Mes siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+          <div class="cal-months" id="calMonths"></div>
+          <div class="cal-foot"><button type="button" class="bk-link" id="calClear" data-t="bk_clear">Borrar fechas</button><span class="cal-sum" id="calSum"></span><button type="button" class="bk-ok" data-close data-t="bk_done">Listo</button></div>
+        </div>
+        <div class="bk-pop bk-guests" id="bkGuestsPop" role="dialog" aria-label="Huéspedes">
+          <div class="bk-sheet-head" style="padding-left:0;padding-right:0"><span data-t="bk_guests">Huéspedes</span><button type="button" class="bk-link" data-close data-t="bk_close">Cerrar</button></div>
+          <div class="gs-row"><div><b data-t="bk_ad">Adultos</b><small data-t="bk_ad_s">13 años o más</small></div><div class="gs-step"><button type="button" class="gs-btn" data-k="a" data-d="-1" aria-label="Menos adultos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button><span class="gs-n" id="gsA">2</span><button type="button" class="gs-btn" data-k="a" data-d="1" aria-label="Más adultos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+          <div class="gs-row"><div><b data-t="bk_ch">Niños</b><small data-t="bk_ch_s">De 2 a 12 años</small></div><div class="gs-step"><button type="button" class="gs-btn" data-k="c" data-d="-1" aria-label="Menos niños"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button><span class="gs-n" id="gsC">0</span><button type="button" class="gs-btn" data-k="c" data-d="1" aria-label="Más niños"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+          <div class="gs-row" style="border-bottom:0"><div><b data-t="bk_in2">Bebés</b><small data-t="bk_in2_s">Menores de 2 años</small></div><div class="gs-step"><button type="button" class="gs-btn" data-k="b" data-d="-1" aria-label="Menos bebés"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button><span class="gs-n" id="gsB">0</span><button type="button" class="gs-btn" data-k="b" data-d="1" aria-label="Más bebés"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+          <p class="gs-note" data-t="bk_cap_note">Capacidad máxima: 10 huéspedes. Los bebés no cuentan.</p>
+          <div class="cal-foot" style="justify-content:flex-end"><button type="button" class="bk-ok" data-close data-t="bk_done">Listo</button></div>
+        </div>
         <button class="bk-send" type="submit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c.6.3 1.1.4 1.5.5a3.6 3.6 0 0 0 1.7.1 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span data-t="bk_send">Consultar por WhatsApp</span></button>
       </form>
       <p class="bk-err" id="bkErr" role="status" aria-live="polite"></p>
+      <div class="bk-scrim" id="bkScrim"></div>
       <div class="ct-grid reveal d2">
-        <div class="ct-item"><span class="ct-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><b data-t="ct1_h">Ubicación</b><span data-t="ct1_p">Gran Roque, Los Roques, Venezuela</span></div></div>
         <div class="ct-item"><span class="ct-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 14.5l2 1.6 2-1.6"/></svg></span><div><b data-t="ct2_h">Incluye staff</b><span data-t="ct2_p">Chef, asistentes y tripulación</span></div></div>
         <div class="ct-item"><span class="ct-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 19a6 6 0 0 1 12 0"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg></span><div><b data-t="ct3_h">Capacidad</b><span data-t="ct3_p">Hasta 10 huéspedes · Casa completa</span></div></div>
         <div class="ct-item"><span class="ct-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><div><b data-t="ct4_h">WhatsApp directo</b><a href="https://wa.me/584123030330" target="_blank" rel="noopener">+58 412-303-0330</a></div></div>
       </div>
       <div class="bk-alt reveal d2">
-        <a href="https://www.instagram.com/casaverdelosroques" target="_blank" rel="noopener" data-t="bk_ig">Escríbenos por Instagram</a>
         <!-- Correo: poner la dirección en href y quitar "hidden" -->
         <a href="mailto:" hidden data-t="book_mail">Correo</a>
       </div>
@@ -1040,8 +1124,6 @@ const T = {
   sv2_p: { es:'Habitaciones y áreas comunes incluidas.', en:'Bedrooms and common areas included.' },
   sv3_h: { es:'Chef privado', en:'Private chef' },
   sv3_p: { es:'Desayuno, almuerzo y cena con la pesca del día.', en:'Breakfast, lunch and dinner with the catch of the day.' },
-  ct1_h: { es:'Ubicación', en:'Location' },
-  ct1_p: { es:'Gran Roque, Los Roques, Venezuela', en:'Gran Roque, Los Roques, Venezuela' },
   ct2_h: { es:'Incluye staff', en:'Staff included' },
   ct2_p: { es:'Chef, asistentes y tripulación', en:'Chef, assistants and crew' },
   ct3_h: { es:'Capacidad', en:'Capacity' },
@@ -1054,8 +1136,19 @@ const T = {
   bk_in: { es:'Llegada', en:'Arrival' },
   bk_out: { es:'Salida', en:'Departure' },
   bk_guests: { es:'Huéspedes', en:'Guests' },
+  bk_add: { es:'Elegir fecha', en:'Add date' },
+  bk_dates: { es:'Tus fechas', en:'Your dates' },
+  bk_close: { es:'Cerrar', en:'Close' },
+  bk_clear: { es:'Borrar fechas', en:'Clear dates' },
+  bk_done: { es:'Listo', en:'Done' },
+  bk_ad: { es:'Adultos', en:'Adults' },
+  bk_ad_s: { es:'13 años o más', en:'Ages 13 or above' },
+  bk_ch: { es:'Niños', en:'Children' },
+  bk_ch_s: { es:'De 2 a 12 años', en:'Ages 2–12' },
+  bk_in2: { es:'Bebés', en:'Infants' },
+  bk_in2_s: { es:'Menores de 2 años', en:'Under 2' },
+  bk_cap_note: { es:'Capacidad máxima: 10 huéspedes. Los bebés no cuentan.', en:'Maximum 10 guests. Infants don’t count.' },
   bk_send: { es:'Consultar por WhatsApp', en:'Ask on WhatsApp' },
-  bk_ig: { es:'Escríbenos por Instagram', en:'Message us on Instagram' },
   sp1_h: { es:'La Sala', en:'The Living Room' },
   sp2_h: { es:'Las Habitaciones', en:'The Bedrooms' },
   sp3_h: { es:'El Comedor', en:'The Dining Terrace' },
@@ -1094,6 +1187,7 @@ function applyLang(l) {
     btn.classList.toggle('active', btn.dataset.lc === l);
   });
   document.documentElement.lang = l;
+  if (window.cvBookRefresh) window.cvBookRefresh();
 }
 
 function setLang(l) {
@@ -1324,23 +1418,124 @@ document.addEventListener('click', e => {
     new IntersectionObserver(es => { visible = es[0].isIntersecting; visible ? restart() : clearTimeout(timer); }, { threshold: .35 }).observe(sec);
   }
 
-  /* Reserva: arma el mensaje de WhatsApp */
+  /* Reserva: calendario de rango + huéspedes premium */
   const f = document.getElementById('bkForm');
   if (f) {
-    const inp = f.querySelector('#bkIn'), out = f.querySelector('#bkOut'), err = document.getElementById('bkErr');
-    const today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
-    inp.min = today.toISOString().slice(0,10);
-    inp.addEventListener('change', () => { out.min = inp.value || inp.min; if (out.value && out.value <= inp.value) out.value = ''; });
-    const fmt = v => { if (!v) return ''; const [y,m,d] = v.split('-'); return d + '/' + m + '/' + y; };
+    const $ = id => document.getElementById(id);
+    const cal = $('bkCal'), gp = $('bkGuestsPop'), scrim = $('bkScrim'), err = $('bkErr');
+    const inBtn = $('bkInBtn'), outBtn = $('bkOutBtn'), gBtn = $('bkGBtn');
+    const isEn = () => document.documentElement.lang === 'en';
+    const loc = () => isEn() ? 'en-US' : 'es-VE';
+    const today = new Date(); today.setHours(0,0,0,0);
+    let start = null, end = null, hover = null, view = new Date(today.getFullYear(), today.getMonth(), 1);
+    const g = { a: 2, c: 0, b: 0 }, MAX = 10;
+    const key = d => d.getFullYear()*10000 + d.getMonth()*100 + d.getDate();
+    const same = (a,b) => a && b && key(a) === key(b);
+    const nights = () => (start && end) ? Math.round((end - start) / 864e5) : 0;
+    const fmtShort = d => d.toLocaleDateString(loc(), { weekday: 'short', day: 'numeric', month: 'short' });
+    const fmtNum = d => String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();
+
+    let openPop = null;
+    function open(pop, field) {
+      close();
+      pop.classList.add('open'); scrim.classList.add('open'); field && field.classList.add('active'); document.body.classList.add('bk-open');
+      openPop = pop; if (pop === cal) render();
+    }
+    function close() {
+      [cal, gp].forEach(p => p.classList.remove('open')); scrim.classList.remove('open'); document.body.classList.remove('bk-open');
+      [inBtn, outBtn, gBtn].forEach(b => b.classList.remove('active')); openPop = null;
+    }
+    inBtn.addEventListener('click', e => { e.stopPropagation(); open(cal, inBtn); });
+    outBtn.addEventListener('click', e => { e.stopPropagation(); open(cal, start ? outBtn : inBtn); });
+    gBtn.addEventListener('click', e => { e.stopPropagation(); openPop === gp ? close() : open(gp, gBtn); });
+    document.querySelectorAll('#bkForm [data-close]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); close(); }));
+    scrim.addEventListener('click', close);
+    document.addEventListener('click', e => { if (openPop && !openPop.contains(e.target)) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    [cal, gp].forEach(p => p.addEventListener('click', e => e.stopPropagation()));
+
+    function monthHTML(m) {
+      const y = m.getFullYear(), mo = m.getMonth();
+      const first = (new Date(y, mo, 1).getDay() + 6) % 7, days = new Date(y, mo+1, 0).getDate();
+      const t0 = m.toLocaleDateString(loc(), { month: 'long', year: 'numeric' }); const title = t0.charAt(0).toUpperCase() + t0.slice(1);
+      const dows = isEn() ? ['Mo','Tu','We','Th','Fr','Sa','Su'] : ['Lu','Ma','Mi','Ju','Vi','Sá','Do'];
+      let h = `<div class="cal-m"><h4>${title}</h4><div class="cal-g">` + dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
+      for (let i = 0; i < first; i++) h += '<span class="cal-d empty"></span>';
+      const rangeEnd = end || (start && hover && hover > start ? hover : null);
+      for (let d = 1; d <= days; d++) {
+        const dt = new Date(y, mo, d); const c = ['cal-d'];
+        if (dt < today) c.push('past');
+        if (same(dt, today)) c.push('today');
+        if (same(dt, start)) c.push('start');
+        if (rangeEnd && same(dt, rangeEnd)) c.push('end');
+        if (start && rangeEnd && dt > start && dt < rangeEnd) c.push('in');
+        h += `<button type="button" class="${c.join(' ')}" data-d="${y}-${mo}-${d}" ${dt < today ? 'disabled' : ''} aria-label="${dt.toLocaleDateString(loc(), {day:'numeric', month:'long', year:'numeric'})}"><span>${d}</span></button>`;
+      }
+      return h + '</div></div>';
+    }
+    function render() {
+      const m2 = new Date(view.getFullYear(), view.getMonth()+1, 1);
+      $('calMonths').innerHTML = monthHTML(view) + monthHTML(m2);
+      $('calPrev').disabled = view <= new Date(today.getFullYear(), today.getMonth(), 1);
+      const n = nights();
+      $('calHint').textContent = !start ? (isEn() ? 'Select arrival' : 'Elige tu llegada') : !end ? (isEn() ? 'Select departure' : 'Elige tu salida') : '';
+      $('calSum').innerHTML = n ? `<b>${n}</b> ${isEn() ? (n === 1 ? 'night' : 'nights') : (n === 1 ? 'noche' : 'noches')}` : '';
+      $('calMonths').querySelectorAll('.cal-d:not(.empty):not(.past)').forEach(b => {
+        const [y, mo, d] = b.dataset.d.split('-').map(Number); const dt = new Date(y, mo, d);
+        b.addEventListener('click', () => pick(dt));
+        b.addEventListener('mouseenter', () => { if (start && !end) { hover = dt; paintHover(); } });
+      });
+    }
+    function paintHover() {
+      $('calMonths').querySelectorAll('.cal-d:not(.empty)').forEach(b => {
+        const [y, mo, d] = b.dataset.d.split('-').map(Number); const dt = new Date(y, mo, d);
+        const ok = start && hover && hover > start;
+        b.classList.toggle('in', !!(ok && dt > start && dt < hover));
+        b.classList.toggle('end', !!(ok && same(dt, hover)));
+      });
+    }
+    function pick(dt) {
+      err.textContent = '';
+      if (!start || end || dt <= start) { start = dt; end = null; hover = null; inBtn.classList.remove('active'); outBtn.classList.add('active'); }
+      else { end = dt; outBtn.classList.remove('active'); setTimeout(close, 380); }
+      update(); render();
+    }
+    $('calPrev').addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth()-1, 1); render(); });
+    $('calNext').addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth()+1, 1); render(); });
+    $('calClear').addEventListener('click', () => { start = end = hover = null; update(); render(); inBtn.classList.add('active'); outBtn.classList.remove('active'); });
+
+    gp.querySelectorAll('.gs-btn').forEach(b => b.addEventListener('click', () => {
+      const k = b.dataset.k; g[k] += +b.dataset.d; update();
+    }));
+    function update() {
+      const setV = (el, d) => { el.classList.toggle('ph', !d); el.textContent = d ? fmtShort(d) : (isEn() ? 'Add date' : 'Elegir fecha'); };
+      setV($('bkInV'), start); setV($('bkOutV'), end);
+      const n = nights(); $('bkNights').textContent = n ? (n + (isEn() ? (n === 1 ? ' night' : ' nights') : (n === 1 ? ' noche' : ' noches'))) : '';
+      $('gsA').textContent = g.a; $('gsC').textContent = g.c; $('gsB').textContent = g.b;
+      const tot = g.a + g.c;
+      gp.querySelector('[data-k="a"][data-d="-1"]').disabled = g.a <= 1;
+      gp.querySelector('[data-k="c"][data-d="-1"]').disabled = g.c <= 0;
+      gp.querySelector('[data-k="b"][data-d="-1"]').disabled = g.b <= 0;
+      gp.querySelector('[data-k="a"][data-d="1"]').disabled = tot >= MAX;
+      gp.querySelector('[data-k="c"][data-d="1"]').disabled = tot >= MAX;
+      gp.querySelector('[data-k="b"][data-d="1"]').disabled = g.b >= 4;
+      let txt = isEn() ? `${tot} guest${tot === 1 ? '' : 's'}` : `${tot} huésped${tot === 1 ? '' : 'es'}`;
+      if (g.b) txt += isEn() ? `, ${g.b} infant${g.b === 1 ? '' : 's'}` : `, ${g.b} bebé${g.b === 1 ? '' : 's'}`;
+      $('bkGV').textContent = txt;
+    }
+    window.cvBookRefresh = () => { update(); if (openPop === cal) render(); };
+    update();
+
     f.addEventListener('submit', e => {
       e.preventDefault(); err.textContent = '';
-      if (inp.value && out.value && out.value <= inp.value) { err.textContent = (document.documentElement.lang === 'en') ? 'Departure must be after arrival.' : 'La salida debe ser después de la llegada.'; return; }
-      const en = document.documentElement.lang === 'en';
-      const g = f.querySelector('#bkGuests').value;
-      let msg = en ? 'Hello! I would like to book Casa Verde' : '¡Hola! Quisiera reservar en Casa Verde';
-      if (inp.value && out.value) msg += en ? ` from ${fmt(inp.value)} to ${fmt(out.value)}` : ` del ${fmt(inp.value)} al ${fmt(out.value)}`;
-      else if (inp.value) msg += en ? ` arriving ${fmt(inp.value)}` : ` con llegada el ${fmt(inp.value)}`;
-      msg += en ? ` for ${g} guest${g === '1' ? '' : 's'}.` : ` para ${g} huésped${g === '1' ? '' : 'es'}.`;
+      const en = isEn();
+      if (!start || !end) { err.textContent = en ? 'Choose your arrival and departure dates.' : 'Elige tus fechas de llegada y salida.'; open(cal, start ? outBtn : inBtn); return; }
+      const n = nights();
+      let msg = en ? `Hello! I would like to book Casa Verde from ${fmtNum(start)} to ${fmtNum(end)} (${n} night${n === 1 ? '' : 's'}) for ${g.a} adult${g.a === 1 ? '' : 's'}`
+                   : `¡Hola! Quisiera reservar en Casa Verde del ${fmtNum(start)} al ${fmtNum(end)} (${n} noche${n === 1 ? '' : 's'}) para ${g.a} adulto${g.a === 1 ? '' : 's'}`;
+      if (g.c) msg += en ? `, ${g.c} child${g.c === 1 ? '' : 'ren'}` : `, ${g.c} niño${g.c === 1 ? '' : 's'}`;
+      if (g.b) msg += en ? `, ${g.b} infant${g.b === 1 ? '' : 's'}` : `, ${g.b} bebé${g.b === 1 ? '' : 's'}`;
+      msg += '.';
       window.open('https://wa.me/584123030330?text=' + encodeURIComponent(msg), '_blank', 'noopener');
     });
   }
