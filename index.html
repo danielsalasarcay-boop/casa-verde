@@ -292,23 +292,27 @@
     /* ═══ MAIN v2 — manifiesto · espacios · incluido · reserva ═══ */
     :root { --paper: #FBF9F5; --ink-soft: rgba(26,74,74,.62); --hair: rgba(26,74,74,.14); }
 
-    /* Manifiesto */
-    .manifest { background: var(--paper); padding: 104px 52px 88px; }
-    .mf-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 44px;
-      font-family: var(--f-label); font-size: 10.5px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--verde-dk); }
-    .mf-top span:last-child { color: var(--ink-soft); }
-    .mf-text { font-family: var(--f-disp); font-weight: 300; color: var(--teal);
-      font-size: clamp(32px, 5.1vw, 74px); line-height: 1.14; letter-spacing: -.012em; max-width: 1180px; margin: 0; }
-    .mf-text em { font-style: italic; color: var(--verde-dk); }
-    .mf-pill { display: inline-block; width: 2.05em; height: .92em; border-radius: 999px; overflow: hidden;
-      vertical-align: -.08em; margin: 0 .08em; background: var(--sand-dark); }
-    .mf-pill img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .mf-w { display: inline; }
-    .mf-facts { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 64px; border-top: 1px solid var(--hair); }
-    .mf-fact { padding: 22px 24px 0 0; }
-    .mf-fact + .mf-fact { padding-left: 24px; border-left: 1px solid var(--hair); }
-    .mf-fact b { font-variant-numeric: lining-nums; font-feature-settings: 'lnum' 1; display: block; font-family: var(--f-disp); font-weight: 300; font-size: clamp(30px, 3vw, 42px); line-height: 1; color: var(--teal); margin-bottom: 8px; }
-    .mf-fact span { font-family: var(--f-label); font-size: 10.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); }
+    /* Nuestra casa (estructura de Casa Panza) */
+    .about { background: var(--sand); padding: 96px 52px; }
+    .ab-grid { display: grid; grid-template-columns: 1fr .9fr; gap: 80px; align-items: center; max-width: 1190px; margin: 0 auto; }
+    .ab-copy .s-label { color: var(--verde-dk); }
+    .ab-title { font-family: var(--f-disp); font-weight: 300; font-size: clamp(36px, 4.4vw, 60px); line-height: 1.08; color: var(--teal); margin: 0 0 24px; }
+    .ab-title em { font-style: italic; color: var(--verde-dk); }
+    .ab-tag { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; margin-bottom: 26px;
+      background: rgba(62,207,171,.12); border: 1px solid rgba(43,168,140,.28); border-radius: 3px;
+      font-family: var(--f-label); font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--verde-dk); }
+    .ab-tag svg { width: 14px; height: 14px; }
+    .ab-p { font-size: 16px; font-weight: 300; line-height: 1.95; color: #4a5656; margin: 0 0 18px; max-width: 560px; }
+    .ab-p em { font-style: italic; color: var(--verde-dk); }
+    .ab-stats { display: flex; gap: 52px; margin: 34px 0 22px; }
+    .ab-stats b { display: block; font-family: var(--f-disp); font-weight: 400; font-size: 44px; line-height: 1; color: var(--verde-dk); font-variant-numeric: lining-nums; font-feature-settings: 'lnum' 1; }
+    .ab-stats span { display: block; margin-top: 10px; font-family: var(--f-label); font-size: 10.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(26,74,74,.6); }
+    .ab-feats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; max-width: 520px; }
+    .ab-feat { display: flex; align-items: center; gap: 14px; font-size: 14px; font-weight: 500; color: var(--teal); }
+    .ab-feat svg { width: 22px; height: 22px; flex-shrink: 0; fill: none; stroke: var(--verde-dk); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .ab-media { position: relative; padding: 0 0 32px 32px; }
+    .ab-media::before { content: ''; position: absolute; left: 32px; right: 0; bottom: 0; height: 64%; background: var(--verde); border-radius: 2px; }
+    .ab-media img { position: relative; display: block; width: calc(100% - 32px); aspect-ratio: 5/6; object-fit: cover; border-radius: 2px; box-shadow: 0 24px 50px -24px rgba(26,74,74,.35); }
 
     /* Espacios: índice interactivo */
     .spaces { background: #0C2424; color: #fff; padding: 96px 52px; }
@@ -340,19 +344,51 @@
     .sp-cap { position: absolute; left: 20px; bottom: 18px; z-index: 2; font-family: var(--f-label); font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: #fff;
       background: rgba(12,36,36,.45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 8px 14px; border-radius: 999px; }
 
-    /* Incluido: cinta continua */
-    .incl { background: var(--paper); padding: 0 !important; border-bottom: 1px solid var(--hair); display: flex; align-items: stretch; overflow: hidden; }
-    .incl-lbl { flex-shrink: 0; display: flex; align-items: center; padding: 0 28px 0 52px; position: relative; z-index: 2; background: var(--paper);
-      font-family: var(--f-label); font-size: 10.5px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--verde-dk); }
-    .incl-lbl::after { content: ''; position: absolute; right: -48px; top: 0; bottom: 0; width: 48px; background: linear-gradient(to right, var(--paper), transparent); }
-    .incl-track { display: flex; width: max-content; animation: inclMove 46s linear infinite; }
-    .incl:hover .incl-track { animation-play-state: paused; }
-    .incl-row { display: flex; align-items: center; }
-    .incl-it { display: inline-flex; align-items: center; gap: 12px; padding: 26px 34px; white-space: nowrap;
-      font-family: var(--f-disp); font-size: 22px; font-weight: 400; color: var(--teal); position: relative; }
-    .incl-it::after { content: ''; position: absolute; right: 0; top: 50%; width: 4px; height: 4px; border-radius: 50%; background: var(--verde); transform: translate(50%,-50%); }
-    .incl-it svg { width: 22px; height: 22px; fill: none; stroke: var(--verde-dk); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    @keyframes inclMove { to { transform: translateX(-50%); } }
+    /* Comodidades (estructura Casa Panza) */
+    .amen { background: var(--sand); padding: 88px 52px; }
+    .amen-head { text-align: center; margin-bottom: 44px; }
+    .amen-head .s-title { margin: 0 0 12px; font-size: clamp(34px, 4.2vw, 56px); }
+    .amen-head .s-label { color: var(--verde-dk); margin: 0; }
+    .amen-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; max-width: 1190px; margin: 0 auto; }
+    .amen-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 36px; }
+    .amen-list li { display: flex; align-items: center; gap: 14px; padding: 16px 0; border-bottom: 1px solid rgba(26,74,74,.12); font-size: 14.5px; color: var(--teal); }
+    .amen-list svg, .ct-ico svg { width: 20px; height: 20px; flex-shrink: 0; fill: none; stroke: var(--verde-dk); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .amen-svc { border-top: 1px solid rgba(26,74,74,.12); }
+    .amen-svc div { display: grid; grid-template-columns: 56px 1fr; padding: 24px 0; border-bottom: 1px solid rgba(26,74,74,.12); }
+    .amen-svc i { font-family: var(--f-disp); font-size: 24px; color: rgba(26,74,74,.3); }
+    .amen-svc b { display: block; font-size: 15px; font-weight: 500; color: var(--teal); margin-bottom: 6px; }
+    .amen-svc span { font-size: 14px; font-weight: 300; color: rgba(26,74,74,.7); }
+
+    /* Gastronomía: carrusel */
+    .food { background: #fff; padding: 88px 0 72px; }
+    .food-head { text-align: center; max-width: 620px; margin: 0 auto 40px; padding: 0 24px; }
+    .food-head .s-label { color: var(--verde-dk); }
+    .food-head .s-title { margin: 0 0 16px; font-size: clamp(34px, 4.2vw, 56px); }
+    .food-head .s-title em { font-style: italic; color: var(--verde-dk); }
+    .food-head p { margin: 0; font-size: 15.5px; font-weight: 300; line-height: 1.8; color: rgba(26,74,74,.7); }
+    .food-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 56px; padding: 0 56px 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .food-track::-webkit-scrollbar { display: none; }
+    .food-track figure { margin: 0; flex: 0 0 auto; width: clamp(220px, 22vw, 300px); aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; scroll-snap-align: start; background: var(--sand-dark); }
+    .food-track img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1s var(--ease); }
+    .food-nav { display: flex; justify-content: center; gap: 12px; margin-top: 26px; }
+    .food-nav button { all: unset; cursor: pointer; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(43,168,140,.45); color: var(--verde-dk); display: grid; place-items: center; transition: background .3s, color .3s; }
+    .food-nav svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    /* Datos de contacto bajo la reserva */
+    .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; margin-top: 30px; max-width: 480px; }
+    .ct-item { display: flex; gap: 14px; align-items: flex-start; }
+    .ct-ico { width: 40px; height: 40px; border-radius: 50%; background: var(--sand); display: grid; place-items: center; flex-shrink: 0; }
+    .ct-item b { display: block; font-size: 13.5px; font-weight: 500; color: var(--teal); margin-bottom: 3px; }
+    .ct-item span, .ct-item a { font-size: 13px; font-weight: 300; color: rgba(26,74,74,.7); line-height: 1.5; }
+
+    /* Botón Reservar del menú */
+    .nav-book { padding: 9px 18px; border-radius: 999px; background: var(--verde-dk); color: #fff !important; font-family: var(--f-label); font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; transition: background .3s; }
+    @media (max-width: 900px) { .nav-book { display: none; } }
+    @media (hover: hover) {
+      .food-nav button:hover { background: var(--verde-dk); color: #fff; }
+      .food-track figure:hover img { transform: scale(1.05); }
+      .nav-book:hover { background: var(--teal); }
+    }
 
     /* Reserva */
     .bk { background: var(--paper); padding: 0 !important; }
@@ -389,24 +425,29 @@
 
     /* Tablet */
     @media (max-width: 1024px) {
-      .manifest { padding: 88px 40px 72px; }
+      .about { padding: 80px 40px; }
+      .ab-grid { gap: 48px; }
       .spaces { padding: 80px 40px; }
       .sp-grid { gap: 40px; }
       .sp-media { min-height: 480px; }
-      .incl-lbl { padding-left: 40px; }
       .bk-grid { grid-template-columns: 1fr 1fr; min-height: 560px; }
       .bk-panel { padding: 56px 40px; }
     }
     /* Teléfono */
     @media (max-width: 768px) {
-      .manifest { padding: 64px 20px 56px; }
-      .mf-top { margin-bottom: 28px; font-size: 9.5px; }
-      .mf-top span:last-child { display: none; }
-      .mf-text { font-size: clamp(27px, 7.6vw, 38px); line-height: 1.2; }
-      .mf-facts { grid-template-columns: 1fr 1fr; margin-top: 40px; }
-      .mf-fact, .mf-fact + .mf-fact { padding: 18px 12px 18px 0; border-left: 0; }
-      .mf-fact:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--hair); }
-      .mf-fact:nth-child(n+3) { border-top: 1px solid var(--hair); }
+      .about { padding: 0 0 56px; }
+      .ab-grid { grid-template-columns: 1fr; gap: 28px; }
+      .ab-media { order: -1; padding: 0 20px 24px 20px; }
+      .ab-media::before { left: 52px; right: 20px; height: 40%; }
+      .ab-media img { width: 100%; aspect-ratio: 4/3; }
+      .ab-copy { padding: 0 20px; }
+      .ab-title { font-size: 34px; margin-bottom: 18px; }
+      .ab-tag { font-size: 10px; letter-spacing: .14em; margin-bottom: 20px; }
+      .ab-p { font-size: 15px; line-height: 1.85; }
+      .ab-stats { gap: 40px; margin: 26px 0 20px; }
+      .ab-stats b { font-size: 38px; }
+      .ab-feats { gap: 14px 18px; }
+      .ab-feat { font-size: 13.5px; }
       .spaces { padding: 56px 20px 48px; }
       .sp-grid { grid-template-columns: 1fr; gap: 24px; }
       .sp-media { order: -1; min-height: 0; aspect-ratio: 4/3; width: 100%; }
@@ -416,17 +457,23 @@
       .sp-btn { padding: 12px 0 10px; }
       .sp-desc p { padding-left: 40px; font-size: 14.5px; }
       .sp-more { padding-top: 22px; }
-      .incl-lbl { padding: 0 18px 0 20px; font-size: 9.5px; }
-      .incl-it { padding: 20px 24px; font-size: 19px; }
-      .incl-track { animation-duration: 36s; }
       .bk-grid { grid-template-columns: 1fr; min-height: 0; }
       .bk-media { aspect-ratio: 16/11; }
       .bk-panel { padding: 44px 20px 56px; }
       .bk-form { max-width: none; }
+      .amen { padding: 56px 20px; }
+      .amen-head { margin-bottom: 28px; }
+      .amen-grid { grid-template-columns: 1fr; gap: 28px; }
+      .amen-list { grid-template-columns: 1fr 1fr; column-gap: 16px; }
+      .amen-list li { font-size: 13.5px; gap: 10px; padding: 13px 0; }
+      .amen-svc div { grid-template-columns: 44px 1fr; padding: 18px 0; }
+      .food { padding: 56px 0 48px; }
+      .food-head { margin-bottom: 26px; }
+      .food-track { padding: 0 20px 4px; gap: 10px; scroll-padding-inline: 20px; }
+      .food-track figure { width: 66vw; }
+      .ct-grid { grid-template-columns: 1fr; max-width: none; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .incl-track { animation: none; flex-wrap: wrap; width: auto; }
-      .incl-row + .incl-row { display: none; }
       .sp-media img { transition: none; }
     }
 
@@ -682,10 +729,12 @@
     <li><a href="#casa"      data-t="nav_villa">La Casa</a></li>
     <li><a href="#espacios" data-t="nav_exp">Espacios</a></li>
     <li><a href="galeria.html" data-t="nav_gal">Galería</a></li>
+    <li><a href="#gastronomia" data-t="nav_food">Gastronomía</a></li>
     <li><a href="#location"   data-t="nav_loc">Ubicación</a></li>
   </ul>
 
   <div class="nav-right">
+    <a href="#reservas" class="nav-book" data-t="nav_book">Reservar</a>
     <a href="https://www.instagram.com/casaverdelosroques" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
     </a>
@@ -703,7 +752,9 @@
   <a href="#casa"      onclick="toggleMenu()" data-t="nav_villa">La Casa</a>
   <a href="#espacios" onclick="toggleMenu()" data-t="nav_exp">Espacios</a>
   <a href="galeria.html" onclick="toggleMenu()" data-t="nav_gal">Galería</a>
+  <a href="#gastronomia" onclick="toggleMenu()" data-t="nav_food">Gastronomía</a>
   <a href="#location"   onclick="toggleMenu()" data-t="nav_loc">Ubicación</a>
+  <a href="#reservas"   onclick="toggleMenu()" data-t="nav_book">Reservar</a>
   <div class="mobile-menu-lang">
     <button class="lang-btn" data-lc="es" onclick="setLang('es');toggleMenu()">ES</button>
     <button class="lang-btn" data-lc="en" onclick="setLang('en');toggleMenu()">EN</button>
@@ -775,17 +826,24 @@ setTimeout(function(){
   </div>
 </section>
 
-<!-- MANIFIESTO ─────────────────────────────────────────────── -->
-<section class="manifest" id="casa">
-  <div class="wrap" style="max-width:1280px">
-    <div class="mf-top"><span data-t="mf_lbl">Casa Verde · Gran Roque</span><span>11°56′ N · 66°40′ O</span></div>
-    <p class="mf-text" data-t="mf_text" data-html="true">Una casa frente al mar <span class="mf-pill"><img src="img/gal/nuevas/cv-03.jpeg" alt="Sala frente al mar" loading="lazy" decoding="async"></span> en Gran Roque, con chef <span class="mf-pill"><img src="img/gal/nuevas/cv-21.jpeg" alt="Mesa servida frente al mar" loading="lazy" decoding="async"></span>, bote <span class="mf-pill"><img src="img/gal/nuevas/cv-19.jpeg" alt="Bote al atardecer" loading="lazy" decoding="async"></span> y tripulación propios. <em>Nada que planear: solo llegar.</em></p>
-    <div class="mf-facts">
-      <div class="mf-fact reveal"><b>3</b><span data-t="mf_f1">Habitaciones</span></div>
-      <div class="mf-fact reveal d1"><b>10</b><span data-t="mf_f2">Huéspedes</span></div>
-      <div class="mf-fact reveal d2"><b>24/7</b><span data-t="mf_f3">Bote y tripulación</span></div>
-      <div class="mf-fact reveal d3"><b>1</b><span data-t="mf_f4">Chef privado</span></div>
+<!-- NUESTRA CASA ───────────────────────────────────────────── -->
+<section class="about" id="casa">
+  <div class="ab-grid">
+    <div class="ab-copy">
+      <span class="s-label reveal" data-t="ab_lbl">Nuestra casa</span>
+      <h2 class="ab-title reveal" data-t="ab_h" data-html="true">Una casa verde<br><em>frente al Caribe</em></h2>
+      <div class="ab-tag reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 8c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M3 13c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M3 18c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0"/></svg><span data-t="ab_tag">Frente al mar · Gran Roque, Los Roques</span></div>
+      <p class="ab-p reveal" data-t="ab_p1" data-html="true">Casa Verde es una casa de lujo en Gran Roque, el corazón del Archipiélago Los Roques. Sus tres habitaciones, terraza rooftop con vistas panorámicas y cocina gourmet crean un espacio donde cada detalle está pensado para el descanso absoluto y una atención sin igual.</p>
+      <p class="ab-p reveal" data-t="ab_p2" data-html="true">Abres la puerta y estás en el mar. Chef, tripulación y bote propios se ocupan de todo, para que tu única preocupación sea disfrutar el <em>turquesa</em>.</p>
+      <div class="ab-stats reveal">
+        <div><b>3</b><span data-t="ab_s1">Habitaciones</span></div>
+        <div><b>10</b><span data-t="ab_s2">Huéspedes</span></div>
+      </div>
+      <div class="ab-feats reveal"><div class="ab-feat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16h18l-2.5 4h-13z"/><path d="M12 3v13"/><path d="M12 4l6 9h-6"/><path d="M12 7l-4 6h4"/></svg><span data-t="ab_f1">Bote privado 24/7</span></div><div class="ab-feat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 2 2v9"/><path d="M11 3v7a2 2 0 0 1-2 2"/><path d="M9 3v6"/><path d="M17 21V3c-2 1-3 4-3 8h3"/></svg><span data-t="ab_f2">Chef privado</span></div><div class="ab-feat"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 14.5l2 1.6 2-1.6"/></svg><span data-t="ab_f3">Staff incluido</span></div><div class="ab-feat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.8 12.5a9 9 0 0 1 12.4 0"/><path d="M9 16a4.5 4.5 0 0 1 6 0"/><circle cx="12" cy="19.3" r=".9" fill="currentColor"/></svg><span data-t="ab_f4">Internet Starlink®</span></div></div>
     </div>
+    <figure class="ab-media reveal" style="margin:0">
+      <img src="img/gal/pasillo-pergola.jpeg" alt="Pasillo verde de Casa Verde con buganvillas y el mar al fondo" loading="lazy" decoding="async">
+    </figure>
   </div>
 </section>
 
@@ -828,16 +886,10 @@ setTimeout(function(){
       <img src="img/gal/nuevas/cv-11.jpeg" alt="Habitación verde — Casa Verde" class="" loading="eager" decoding="async">
       <img src="img/gal/nuevas/cv-23.jpeg" alt="Comedor de la terraza — Casa Verde" class="" loading="lazy" decoding="async">
       <img src="img/gal/nuevas/cv-19.jpeg" alt="Bote privado al atardecer — Casa Verde" class="" loading="lazy" decoding="async">
-      <img src="img/gal/pasillo-pergola.jpeg" alt="Pasillo con pérgola — Casa Verde" class="" loading="lazy" decoding="async">
+      <img src="img/gal/nuevas/cv-40.jpeg" alt="Puerta abierta al mar — Casa Verde" class="" loading="lazy" decoding="async">
       <span class="sp-cap" aria-hidden="true">01 / 05</span>
     </div>
   </div>
-</section>
-
-<!-- INCLUIDO: cinta continua ──────────────────────────────── -->
-<section class="incl" aria-label="Incluido en tu estadía">
-  <div class="incl-lbl" data-t="in_lbl">Incluido</div>
-  <div class="incl-track"><div class="incl-row"><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M12 11v9"/><path d="M3 20h18"/><path d="M15 17h3"/></svg><span data-t="in_cm1">Frente al mar</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16h18l-2.5 4h-13z"/><path d="M12 3v13"/><path d="M12 4l6 9h-6"/><path d="M12 7l-4 6h4"/></svg><span data-t="in_cm9">Bote privado 24/7</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 2 2v9"/><path d="M11 3v7a2 2 0 0 1-2 2"/><path d="M9 3v6"/><path d="M17 21V3c-2 1-3 4-3 8h3"/></svg><span data-t="in_cm8">Chef y gastronomía gourmet</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 14.5l2 1.6 2-1.6"/></svg><span data-t="in_cm6">Staff de servicio</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M5 17v4M3 19h4"/><path d="M19 16v4M17 18h4"/></svg><span data-t="in_cm4">Limpieza diaria</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.8 12.5a9 9 0 0 1 12.4 0"/><path d="M9 16a4.5 4.5 0 0 1 6 0"/><circle cx="12" cy="19.3" r=".9" fill="currentColor"/></svg><span data-t="in_cm5">Internet Starlink®</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V7"/><path d="M21 19v-5"/><path d="M3 14h18v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg><span data-t="in_cm2">3 habitaciones con A/C</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 19a6 6 0 0 1 12 0"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg><span data-t="in_cm3">Hasta 10 huéspedes</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V6a3 3 0 0 1 6 0"/><path d="M8.5 9h5"/><path d="M10 12v.01M12 12v.01M14 12v.01M11 14.5v.01M13 14.5v.01"/><path d="M16 15c-1 1.2 1 2.3 0 3.5M19 15c-1 1.2 1 2.3 0 3.5"/></svg><span data-t="in_cm7">Agua caliente</span></span></div><div class="incl-row" aria-hidden="true"><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M12 11v9"/><path d="M3 20h18"/><path d="M15 17h3"/></svg><span data-t="in_cm1">Frente al mar</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16h18l-2.5 4h-13z"/><path d="M12 3v13"/><path d="M12 4l6 9h-6"/><path d="M12 7l-4 6h4"/></svg><span data-t="in_cm9">Bote privado 24/7</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 2 2v9"/><path d="M11 3v7a2 2 0 0 1-2 2"/><path d="M9 3v6"/><path d="M17 21V3c-2 1-3 4-3 8h3"/></svg><span data-t="in_cm8">Chef y gastronomía gourmet</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 14.5l2 1.6 2-1.6"/></svg><span data-t="in_cm6">Staff de servicio</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M5 17v4M3 19h4"/><path d="M19 16v4M17 18h4"/></svg><span data-t="in_cm4">Limpieza diaria</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.8 12.5a9 9 0 0 1 12.4 0"/><path d="M9 16a4.5 4.5 0 0 1 6 0"/><circle cx="12" cy="19.3" r=".9" fill="currentColor"/></svg><span data-t="in_cm5">Internet Starlink®</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V7"/><path d="M21 19v-5"/><path d="M3 14h18v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg><span data-t="in_cm2">3 habitaciones con A/C</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 19a6 6 0 0 1 12 0"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg><span data-t="in_cm3">Hasta 10 huéspedes</span></span><span class="incl-it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V6a3 3 0 0 1 6 0"/><path d="M8.5 9h5"/><path d="M10 12v.01M12 12v.01M14 12v.01M11 14.5v.01M13 14.5v.01"/><path d="M16 15c-1 1.2 1 2.3 0 3.5M19 15c-1 1.2 1 2.3 0 3.5"/></svg><span data-t="in_cm7">Agua caliente</span></span></div></div>
 </section>
 
 <!-- GALLERY TEASER: de la estratósfera a Casa Verde ───────── -->
@@ -853,6 +905,45 @@ setTimeout(function(){
       <p class="gal-plaque-sub" data-t="gal_sub">Fotografías de la casa, la terraza y los atardeceres de Los Roques.</p>
       <a href="galeria.html" class="gal-btn" data-t="gal_btn">Explorar la galería →</a>
     </div>
+  </div>
+</section>
+
+<!-- COMODIDADES ───────────────────────────────────────────── -->
+<section class="amen" id="comodidades">
+  <div class="amen-head">
+    <h2 class="s-title reveal" data-t="amen_h">Comodidades</h2>
+    <span class="s-label reveal" data-t="amen_lbl">Incluido en tu estadía</span>
+  </div>
+  <div class="amen-grid">
+    <ul class="amen-list reveal"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M12 11v9"/><path d="M3 20h18"/><path d="M15 17h3"/></svg><span data-t="am_1">Frente al mar</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.9 6.5l14.2 11M4.9 17.5l14.2-11"/><path d="M9.5 3.5 12 6l2.5-2.5M9.5 20.5 12 18l2.5 2.5"/></svg><span data-t="am_2">Aire acondicionado</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V6a3 3 0 0 1 6 0"/><path d="M8.5 9h5"/><path d="M10 12v.01M12 12v.01M14 12v.01M11 14.5v.01M13 14.5v.01"/><path d="M16 15c-1 1.2 1 2.3 0 3.5M19 15c-1 1.2 1 2.3 0 3.5"/></svg><span data-t="am_3">Agua caliente</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.8 12.5a9 9 0 0 1 12.4 0"/><path d="M9 16a4.5 4.5 0 0 1 6 0"/><circle cx="12" cy="19.3" r=".9" fill="currentColor"/></svg><span data-t="am_4">Internet Starlink®</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span data-t="am_5">Planta eléctrica</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16H6z"/><path d="M6 8h12M9 4v4"/></svg><span data-t="am_6">Toallas de casa y playa</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16h18l-2.5 4h-13z"/><path d="M12 3v13"/><path d="M12 4l6 9h-6"/><path d="M12 7l-4 6h4"/></svg><span data-t="am_7">Bote privado 24/7</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 19a6 6 0 0 1 12 0"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg><span data-t="am_8">Hasta 10 huéspedes</span></li></ul>
+    <div class="amen-svc reveal d1">
+      <div><i>01</i><p style="margin:0"><b data-t="sv1_h">Staff</b><span data-t="sv1_p">Disponible para asistirte durante toda tu estadía.</span></p></div>
+      <div><i>02</i><p style="margin:0"><b data-t="sv2_h">Limpieza diaria</b><span data-t="sv2_p">Habitaciones y áreas comunes incluidas.</span></p></div>
+      <div><i>03</i><p style="margin:0"><b data-t="sv3_h">Chef privado</b><span data-t="sv3_p">Desayuno, almuerzo y cena con la pesca del día.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GASTRONOMÍA ───────────────────────────────────────────── -->
+<section class="food" id="gastronomia">
+  <div class="food-head">
+    <span class="s-label reveal" data-t="food_lbl">Gastronomía</span>
+    <h2 class="s-title reveal" data-t="food_h" data-html="true">La mesa <em>frente al mar</em></h2>
+    <p class="reveal" data-t="food_p">Desayunos con vista al arrecife y cenas al atardecer, preparados por nuestro chef privado con la pesca del día.</p>
+  </div>
+  <div class="food-track" id="foodTrack">
+    <figure><img src="img/gal/nuevas/cv-22.jpeg" alt="Mesa servida frente al mar — Casa Verde" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/gal/nuevas/cv-21.jpeg" alt="Mesa con vista al mar turquesa — Casa Verde" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/gal/nuevas/cv-23.jpeg" alt="Comedor de la terraza — Casa Verde" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/gal/nuevas/cv-31.jpeg" alt="Termos Casa Verde — Casa Verde" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/gal/nuevas/cv-24.jpeg" alt="Mesa con vista al cerro de Gran Roque — Casa Verde" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/gal/nuevas/cv-27.jpeg" alt="Flores frente al mar — Casa Verde" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/gal/nuevas/cv-18.jpeg" alt="Atardecer en Los Roques — Casa Verde" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/gal/nuevas/cv-16.jpeg" alt="Atardecer desde el bote — Casa Verde" loading="lazy" decoding="async"></figure>
+  </div>
+  <div class="food-nav">
+    <button type="button" data-dir="-1" aria-label="Anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button type="button" data-dir="1" aria-label="Siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
   </div>
 </section>
 
@@ -895,6 +986,12 @@ setTimeout(function(){
         <button class="bk-send" type="submit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c.6.3 1.1.4 1.5.5a3.6 3.6 0 0 0 1.7.1 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span data-t="bk_send">Consultar por WhatsApp</span></button>
       </form>
       <p class="bk-err" id="bkErr" role="status" aria-live="polite"></p>
+      <div class="ct-grid reveal d2">
+        <div class="ct-item"><span class="ct-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><b data-t="ct1_h">Ubicación</b><span data-t="ct1_p">Gran Roque, Los Roques, Venezuela</span></div></div>
+        <div class="ct-item"><span class="ct-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 14.5l2 1.6 2-1.6"/></svg></span><div><b data-t="ct2_h">Incluye staff</b><span data-t="ct2_p">Chef, asistentes y tripulación</span></div></div>
+        <div class="ct-item"><span class="ct-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 19a6 6 0 0 1 12 0"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg></span><div><b data-t="ct3_h">Capacidad</b><span data-t="ct3_p">Hasta 10 huéspedes · Casa completa</span></div></div>
+        <div class="ct-item"><span class="ct-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><div><b data-t="ct4_h">WhatsApp directo</b><a href="https://wa.me/584123030330" target="_blank" rel="noopener">+58 412-303-0330</a></div></div>
+      </div>
       <div class="bk-alt reveal d2">
         <a href="https://www.instagram.com/casaverdelosroques" target="_blank" rel="noopener" data-t="bk_ig">Escríbenos por Instagram</a>
         <!-- Correo: poner la dirección en href y quitar "hidden" -->
@@ -961,15 +1058,47 @@ const T = {
 
 
 
-  mf_lbl: { es:'Casa Verde · Gran Roque', en:'Casa Verde · Gran Roque' },
-  mf_text: { es:'Una casa frente al mar <span class="mf-pill"><img src="img/gal/nuevas/cv-03.jpeg" alt="Sala frente al mar" loading="lazy" decoding="async"></span> en Gran Roque, con chef <span class="mf-pill"><img src="img/gal/nuevas/cv-21.jpeg" alt="Mesa servida frente al mar" loading="lazy" decoding="async"></span>, bote <span class="mf-pill"><img src="img/gal/nuevas/cv-19.jpeg" alt="Bote al atardecer" loading="lazy" decoding="async"></span> y tripulación propios. <em>Nada que planear: solo llegar.</em>', en:'A home on the sea <span class="mf-pill"><img src="img/gal/nuevas/cv-03.jpeg" alt="Seaside living room" loading="lazy" decoding="async"></span> in Gran Roque, with its own chef <span class="mf-pill"><img src="img/gal/nuevas/cv-21.jpeg" alt="Table set by the sea" loading="lazy" decoding="async"></span>, boat <span class="mf-pill"><img src="img/gal/nuevas/cv-19.jpeg" alt="Boat at sunset" loading="lazy" decoding="async"></span> and crew. <em>Nothing to plan: just arrive.</em>' },
-  mf_f1: { es:'Habitaciones', en:'Bedrooms' },
-  mf_f2: { es:'Huéspedes', en:'Guests' },
-  mf_f3: { es:'Bote y tripulación', en:'Boat & crew' },
-  mf_f4: { es:'Chef privado', en:'Private chef' },
+  ab_lbl: { es:'Nuestra casa', en:'Our home' },
+  ab_h: { es:'Una casa verde<br><em>frente al Caribe</em>', en:'A green house<br><em>on the Caribbean</em>' },
+  ab_tag: { es:'Frente al mar · Gran Roque, Los Roques', en:'On the sea · Gran Roque, Los Roques' },
+  ab_p1: { es:'Casa Verde es una casa de lujo en Gran Roque, el corazón del Archipiélago Los Roques. Sus tres habitaciones, terraza rooftop con vistas panorámicas y cocina gourmet crean un espacio donde cada detalle está pensado para el descanso absoluto y una atención sin igual.', en:'Casa Verde is a luxury home in Gran Roque, the heart of the Los Roques Archipelago. Its three bedrooms, rooftop terrace with panoramic views and gourmet kitchen create a space where every detail is designed for absolute rest and unrivaled service.' },
+  ab_p2: { es:'Abres la puerta y estás en el mar. Chef, tripulación y bote propios se ocupan de todo, para que tu única preocupación sea disfrutar el <em>turquesa</em>.', en:'Open the door and you are at the sea. Your own chef, crew and boat take care of everything, so your only concern is enjoying the <em>turquoise</em>.' },
+  ab_s1: { es:'Habitaciones', en:'Bedrooms' },
+  ab_s2: { es:'Huéspedes', en:'Guests' },
+  ab_f1: { es:'Bote privado 24/7', en:'Private boat 24/7' },
+  ab_f2: { es:'Chef privado', en:'Private chef' },
+  ab_f3: { es:'Staff incluido', en:'Staff included' },
+  ab_f4: { es:'Internet Starlink®', en:'Starlink® internet' },
+  nav_book: { es:'Reservar', en:'Book' },
+  nav_food: { es:'Gastronomía', en:'Dining' },
+  amen_h: { es:'Comodidades', en:'Amenities' },
+  amen_lbl: { es:'Incluido en tu estadía', en:'Included in your stay' },
+  am_1: { es:'Frente al mar', en:'Beachfront' },
+  am_2: { es:'Aire acondicionado', en:'Air conditioning' },
+  am_3: { es:'Agua caliente', en:'Hot water' },
+  am_4: { es:'Internet Starlink®', en:'Starlink® internet' },
+  am_5: { es:'Planta eléctrica', en:'Power generator' },
+  am_6: { es:'Toallas de casa y playa', en:'House & beach towels' },
+  am_7: { es:'Bote privado 24/7', en:'Private boat 24/7' },
+  am_8: { es:'Hasta 10 huéspedes', en:'Up to 10 guests' },
+  sv1_h: { es:'Staff', en:'Staff' },
+  sv1_p: { es:'Disponible para asistirte durante toda tu estadía.', en:'Available to assist you throughout your stay.' },
+  sv2_h: { es:'Limpieza diaria', en:'Daily housekeeping' },
+  sv2_p: { es:'Habitaciones y áreas comunes incluidas.', en:'Bedrooms and common areas included.' },
+  sv3_h: { es:'Chef privado', en:'Private chef' },
+  sv3_p: { es:'Desayuno, almuerzo y cena con la pesca del día.', en:'Breakfast, lunch and dinner with the catch of the day.' },
+  food_lbl: { es:'Gastronomía', en:'Dining' },
+  food_h: { es:'La mesa <em>frente al mar</em>', en:'The table <em>by the sea</em>' },
+  food_p: { es:'Desayunos con vista al arrecife y cenas al atardecer, preparados por nuestro chef privado con la pesca del día.', en:'Breakfasts overlooking the reef and sunset dinners, prepared by our private chef with the catch of the day.' },
+  ct1_h: { es:'Ubicación', en:'Location' },
+  ct1_p: { es:'Gran Roque, Los Roques, Venezuela', en:'Gran Roque, Los Roques, Venezuela' },
+  ct2_h: { es:'Incluye staff', en:'Staff included' },
+  ct2_p: { es:'Chef, asistentes y tripulación', en:'Chef, assistants and crew' },
+  ct3_h: { es:'Capacidad', en:'Capacity' },
+  ct3_p: { es:'Hasta 10 huéspedes · Casa completa', en:'Up to 10 guests · Entire home' },
+  ct4_h: { es:'WhatsApp directo', en:'Direct WhatsApp' },
   sp_lbl: { es:'La casa por dentro', en:'Inside the home' },
   sp_more: { es:'Ver las 43 fotos', en:'See all 43 photos' },
-  in_lbl: { es:'Incluido', en:'Included' },
   book_p: { es:'Elige tus fechas y te respondemos por WhatsApp con disponibilidad y tarifas.', en:'Choose your dates and we will reply on WhatsApp with availability and rates.' },
   bk_cap: { es:'Te esperamos en Gran Roque', en:'We look forward to welcoming you' },
   bk_in: { es:'Llegada', en:'Arrival' },
@@ -987,15 +1116,6 @@ const T = {
   sp3_p: { es:'La mesa frente al mar donde el chef sirve desayuno, almuerzo y cena con la pesca del día.', en:'The table by the sea where the chef serves breakfast, lunch and dinner with the catch of the day.' },
   sp4_p: { es:'Bote privado con tripulación para recorrer cayos, playas vírgenes y arrecifes a tu ritmo.', en:'Private boat with crew to explore cayes, pristine beaches and reefs at your pace.' },
   sp5_p: { es:'Una pérgola de buganvillas que termina en el agua turquesa, a pasos de la puerta.', en:'A bougainvillea pergola that ends in turquoise water, steps from the door.' },
-  in_cm1: { es:'Frente al mar', en:'Beachfront' },
-  in_cm9: { es:'Bote privado 24/7', en:'Private boat 24/7' },
-  in_cm8: { es:'Chef y gastronomía gourmet', en:'Chef & gourmet cuisine' },
-  in_cm6: { es:'Staff de servicio', en:'Service staff' },
-  in_cm4: { es:'Limpieza diaria', en:'Daily housekeeping' },
-  in_cm5: { es:'Internet Starlink®', en:'Starlink® internet' },
-  in_cm2: { es:'3 habitaciones con A/C', en:'3 bedrooms with A/C' },
-  in_cm3: { es:'Hasta 10 huéspedes', en:'Up to 10 guests' },
-  in_cm7: { es:'Agua caliente', en:'Hot water' },
 
   gal_lbl: { es:'Galería',              en:'Gallery' },
   gal_h:   { es:'La casa en imágenes', en:'The home in images' },
@@ -1024,7 +1144,6 @@ function applyLang(l) {
     btn.classList.toggle('active', btn.dataset.lc === l);
   });
   document.documentElement.lang = l;
-  if (window.cvMainSplit) window.cvMainSplit();
 }
 
 function setLang(l) {
@@ -1276,38 +1395,15 @@ document.addEventListener('click', e => {
     });
   }
 
-  /* Manifiesto: palabras que se encienden al hacer scroll */
-  const mf = document.querySelector('.mf-text');
-  function splitWords() {
-    if (!mf) return;
-    const walk = node => {
-      [...node.childNodes].forEach(n => {
-        if (n.nodeType === 3) {
-          const frag = document.createDocumentFragment();
-          n.textContent.split(/(\s+)/).forEach(t => {
-            if (!t) return;
-            if (/^\s+$/.test(t)) frag.appendChild(document.createTextNode(t));
-            else { const sp = document.createElement('span'); sp.className = 'mf-w'; sp.textContent = t; frag.appendChild(sp); }
-          });
-          n.replaceWith(frag);
-        } else if (n.nodeType === 1 && !n.classList.contains('mf-pill') && !n.classList.contains('mf-w')) walk(n);
-      });
-    };
-    walk(mf);
-  }
-  window.cvMainSplit = function(){
-    if (!mf || !window.gsap || !window.ScrollTrigger || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    splitWords();
-    if (window.__mfTween) { window.__mfTween.scrollTrigger && window.__mfTween.scrollTrigger.kill(); window.__mfTween.kill(); }
-    const parts = mf.querySelectorAll('.mf-w, .mf-pill');
-    window.__mfTween = gsap.fromTo(parts, { opacity: .14 }, {
-      opacity: 1, stagger: .08, ease: 'none',
-      scrollTrigger: { trigger: mf, start: 'top 82%', end: 'bottom 45%', scrub: true }
-    });
-    gsap.utils.toArray('.mf-pill').forEach(p => gsap.fromTo(p, { width: 0, marginLeft: 0, marginRight: 0 }, { width: '2.05em', marginLeft: '.08em', marginRight: '.08em', ease: 'power2.out',
-      scrollTrigger: { trigger: p, start: 'top 85%', end: 'top 55%', scrub: true } }));
-  };
-  if (document.readyState === 'complete') window.cvMainSplit(); else window.addEventListener('load', () => window.cvMainSplit());
+})();
+
+/* Gastronomía: flechas del carrusel */
+(function(){
+  const t = document.getElementById('foodTrack'); if (!t) return;
+  document.querySelectorAll('.food-nav button').forEach(b => b.addEventListener('click', () => {
+    const f = t.querySelector('figure'); const step = f ? f.getBoundingClientRect().width + 14 : 300;
+    t.scrollBy({ left: step * (+b.dataset.dir), behavior: 'smooth' });
+  }));
 })();
 </script>
 </body>
