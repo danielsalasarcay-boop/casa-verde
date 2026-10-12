@@ -770,21 +770,27 @@
        fachada. Aquí va de borde a borde arriba, con la casa completa, y
        debajo un panel verde con el nombre, como portada de revista. */
     @media (max-width: 768px) and (orientation: portrait) {
-      .hero-stage { min-height: 0; --hero-ph: calc(100vw * .66 + var(--nav-h)); }
-      .hero-bg { inset: 0 0 auto 0; height: var(--hero-ph); overflow: hidden; }
-      .hero-bg img { object-position: 52% 50%; }
-      .hero-shade {
-        background: linear-gradient(to bottom, rgba(8,24,24,.45) 0, rgba(8,24,24,0) calc(var(--nav-h) + 40px));
+      .hero-stage {
+        min-height: 0;
+        --ph-h: calc(100vw * .76);
+        --ph-top: max(calc(var(--nav-h) + 150px), calc((100svh - var(--ph-h)) / 2 + 40px));
+        --t-size: min(14.5vw, 72px);
+      }
+      .hero-bg { inset: auto 0 auto 0; top: var(--ph-top); height: var(--ph-h); overflow: hidden; }
+      .hero-bg img { object-position: 52% 52%; }
+      .hero-shade { display: none; }
+      .hero-title {
+        top: auto; bottom: calc(100svh - var(--ph-top) + 26px);
+        left: 20px; font-size: var(--t-size); text-shadow: none;
       }
       .hero-eyebrow {
-        top: calc((var(--hero-ph) + 100svh) / 2 - 66px); bottom: auto;
+        top: auto; bottom: calc(100svh - var(--ph-top) + 44px + var(--t-size) * .9);
         left: 20px; right: 20px; text-shadow: none; color: rgba(255,255,255,.78);
       }
-      .hero-title {
-        top: calc((var(--hero-ph) + 100svh) / 2 - 36px); bottom: auto;
-        left: 20px; font-size: clamp(46px, 14.5vw, 72px); text-shadow: none;
+      .hero-hint {
+        display: block; left: 20px; transform: none; bottom: auto;
+        top: calc((var(--ph-top) + var(--ph-h) + 100svh) / 2 - 32px);
       }
-      .hero-hint { display: block; bottom: calc(26px + env(safe-area-inset-bottom)); left: 20px; transform: none; }
       .hero-hint .scroll-hint { align-items: flex-start; }
     }
     @media (max-width: 390px) and (orientation: portrait) {
@@ -883,9 +889,9 @@ setTimeout(function(){
 <section class="hero" id="home">
   <div class="hero-stage">
     <div class="hero-bg">
-      <img class="hero-img-day" src="img/portada.jpeg" srcset="img/portada-mobile.jpeg 1200w, img/portada.jpeg 2600w" sizes="100vw" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
-      <img class="hero-img-dusk" src="img/portada-atardecer.jpeg" srcset="img/portada-atardecer-mobile.jpeg 1200w, img/portada-atardecer.jpeg 2600w" sizes="100vw" alt="" aria-hidden="true" loading="eager" fetchpriority="low" decoding="async">
-      <img class="hero-img-night" src="img/portada-noche.jpeg" srcset="img/portada-noche-mobile.jpeg 1200w, img/portada-noche.jpeg 2600w" sizes="100vw" alt="" aria-hidden="true" loading="eager" fetchpriority="low" decoding="async">
+      <img class="hero-img-day" src="img/portada.jpeg" srcset="img/portada-mobile.jpeg 1200w, img/portada.jpeg 2600w" sizes="(max-width: 768px) 400px, 100vw" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
+      <img class="hero-img-dusk" src="img/portada-atardecer.jpeg" srcset="img/portada-atardecer-mobile.jpeg 1200w, img/portada-atardecer.jpeg 2600w" sizes="(max-width: 768px) 400px, 100vw" alt="" aria-hidden="true" loading="eager" fetchpriority="low" decoding="async">
+      <img class="hero-img-night" src="img/portada-noche.jpeg" srcset="img/portada-noche-mobile.jpeg 1200w, img/portada-noche.jpeg 2600w" sizes="(max-width: 768px) 400px, 100vw" alt="" aria-hidden="true" loading="eager" fetchpriority="low" decoding="async">
     </div>
     <div class="hero-shade"></div>
     <h1 class="hero-title">Casa Verde</h1>
