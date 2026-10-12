@@ -698,28 +698,6 @@
 
     }
 
-    .hero-fill { display: none; }
-    /* teléfono vertical: la foto es muy apaisada y a pantalla completa solo
-       se veía un trozo de fachada. La casa entera va en una franja nítida y
-       el resto de la pantalla lo llena la misma foto estirada y difuminada
-       (cielo arriba, agua abajo), con bordes fundidos. */
-    @media (max-width: 768px) and (orientation: portrait) {
-      .hero-fill { display: block; position: absolute; inset: 0; }
-      .hero-fill-day   { background: linear-gradient(to bottom, #2594e2 0%, #4699de 34%, #5d8f86 62%, #48746f 78%, #2e5552 100%); }
-      .hero-fill-dusk  { background: linear-gradient(to bottom, #a182ae 0%, #ac88a0 34%, #4f5048 62%, #2e4340 78%, #1e2e2c 100%); }
-      .hero-fill-night { background: linear-gradient(to bottom, #1f2439 0%, #21273c 34%, #2a2730 62%, #262228 78%, #18161b 100%); }
-      .hero-bg img:not(.hero-fill) {
-        inset: auto 0 auto 0; top: 46%;
-        height: calc(100vw * 0.82); margin-top: calc(100vw * -0.41);
-        object-position: 52% 58%;
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 24%, #000 82%, transparent 100%);
-                mask-image: linear-gradient(to bottom, transparent 0, #000 24%, #000 82%, transparent 100%);
-      }
-      .hero-shade {
-        background: linear-gradient(to bottom,
-          rgba(8,24,24,.38) 0%, rgba(8,24,24,0) 28%, rgba(8,24,24,0) 64%, rgba(8,24,24,.55) 100%);
-      }
-    }
     /* ── TABLET PORTRAIT (768px) ────────────────────────────── */
     @media (max-width: 768px) {
       :root { --nav-h: 60px; }
@@ -786,6 +764,31 @@
       .hero-title { bottom: 22px; font-size: clamp(34px, 7vw, 56px); }
       .hero-eyebrow { bottom: 28px; }
       .hero-hint { display: none; }
+    }
+    /* teléfono vertical (como casa-panza: foto nítida, sin difuminados).
+       La foto es muy apaisada: a pantalla completa solo se veía un trozo de
+       fachada. Aquí va de borde a borde arriba, con la casa completa, y
+       debajo un panel verde con el nombre, como portada de revista. */
+    @media (max-width: 768px) and (orientation: portrait) {
+      .hero-stage { min-height: 0; --hero-ph: calc(100vw * .66 + var(--nav-h)); }
+      .hero-bg { inset: 0 0 auto 0; height: var(--hero-ph); overflow: hidden; }
+      .hero-bg img { object-position: 52% 50%; }
+      .hero-shade {
+        background: linear-gradient(to bottom, rgba(8,24,24,.45) 0, rgba(8,24,24,0) calc(var(--nav-h) + 40px));
+      }
+      .hero-eyebrow {
+        top: calc((var(--hero-ph) + 100svh) / 2 - 66px); bottom: auto;
+        left: 20px; right: 20px; text-shadow: none; color: rgba(255,255,255,.78);
+      }
+      .hero-title {
+        top: calc((var(--hero-ph) + 100svh) / 2 - 36px); bottom: auto;
+        left: 20px; font-size: clamp(46px, 14.5vw, 72px); text-shadow: none;
+      }
+      .hero-hint { display: block; bottom: calc(26px + env(safe-area-inset-bottom)); left: 20px; transform: none; }
+      .hero-hint .scroll-hint { align-items: flex-start; }
+    }
+    @media (max-width: 390px) and (orientation: portrait) {
+      .hero-eyebrow, .hero-title, .hero-hint { left: 16px; }
     }
   </style>
 </head>
@@ -880,9 +883,6 @@ setTimeout(function(){
 <section class="hero" id="home">
   <div class="hero-stage">
     <div class="hero-bg">
-      <div class="hero-fill hero-fill-day hero-img-day" aria-hidden="true"></div>
-      <div class="hero-fill hero-fill-dusk hero-img-dusk" aria-hidden="true"></div>
-      <div class="hero-fill hero-fill-night hero-img-night" aria-hidden="true"></div>
       <img class="hero-img-day" src="img/portada.jpeg" srcset="img/portada-mobile.jpeg 1200w, img/portada.jpeg 2600w" sizes="100vw" alt="Casa Verde desde el mar, Gran Roque" loading="eager" fetchpriority="high">
       <img class="hero-img-dusk" src="img/portada-atardecer.jpeg" srcset="img/portada-atardecer-mobile.jpeg 1200w, img/portada-atardecer.jpeg 2600w" sizes="100vw" alt="" aria-hidden="true" loading="eager" fetchpriority="low" decoding="async">
       <img class="hero-img-night" src="img/portada-noche.jpeg" srcset="img/portada-noche-mobile.jpeg 1200w, img/portada-noche.jpeg 2600w" sizes="100vw" alt="" aria-hidden="true" loading="eager" fetchpriority="low" decoding="async">
