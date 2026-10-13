@@ -28,8 +28,8 @@
       --teal:      #1A4A4A;
       --deep:      #0C2424;
       --charcoal:  #2C2C2C;
-      --verde:     #3ECFAB;
-      --verde-dk:  #2BA88C;
+      --verde:     #00C292;
+      --verde-dk:  #008763;
       --wa:        #25D366;
       --f-disp:    'Cormorant Garamond', Georgia, serif;
       --f-body:    'Jost', system-ui, sans-serif;
@@ -92,7 +92,7 @@
     }
     .gal-hero::before {
       content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(ellipse at 50% 110%, rgba(62,207,171,.12) 0%, transparent 55%);
+      background: radial-gradient(ellipse at 50% 110%, rgba(0,194,146,.12) 0%, transparent 55%);
     }
     .gal-hero-title {
       font-family: var(--f-disp); font-weight: 300;
@@ -162,7 +162,7 @@
       position: absolute; bottom: 32px; left: 4vw; right: 4vw;
       height: 1px; background: rgba(255,255,255,.15);
     }
-    .gal-h-bar { height: 100%; width: 0%; background: var(--verde); box-shadow: 0 0 12px rgba(62,207,171,.6); }
+    .gal-h-bar { height: 100%; width: 0%; background: var(--verde); box-shadow: 0 0 12px rgba(0,194,146,.6); }
     @media (max-width: 768px) {
       .gal-h-item.gal-h-pano img { width: 172vw !important; height: 50vw !important; } /* panorámica completa, se recorre deslizando */
       .gal-h-item.gal-h-fit img { width: 45vh !important; height: 60vh !important; }
@@ -207,9 +207,9 @@
       bottom: calc(26px + env(safe-area-inset-bottom));
       right: calc(26px + env(safe-area-inset-right));
       z-index: 200; width: 54px; height: 54px; border-radius: 50%;
-      background: var(--wa); color: #fff;
+      background: var(--verde); color: #fff;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 22px rgba(37,211,102,.38);
+      box-shadow: 0 6px 22px rgba(0,0,0,.25);
       transition: transform .35s var(--ease);
     }
     .wa-float:hover { transform: scale(1.08); }
@@ -220,9 +220,9 @@
       bottom: calc(96px + env(safe-area-inset-bottom));
       right: calc(26px + env(safe-area-inset-right));
       z-index: 200; width: 54px; height: 54px; border-radius: 50%;
-      background: #E1306C; color: #fff;
+      background: #fff; color: var(--verde-dk);
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 22px rgba(225,48,108,.38);
+      box-shadow: 0 6px 22px rgba(0,0,0,.25);
       transition: transform .35s var(--ease);
     }
     .ig-float:hover { transform: scale(1.08); }
