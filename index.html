@@ -34,7 +34,7 @@
       --sand-dark: #F1FAF7;
       --ink:       #121212;
       --verde:     #00C292;   /* verde exacto de la fachada */
-      --verde-dk:  #008763;   /* mismo verde, legible como texto/botón sobre blanco */
+      --verde-dk:  #00C292;   /* un solo verde en toda la web: el del botón flotante de WhatsApp */
       --white:     #FFFFFF;
       --wa:        #25D366;
       --f-disp:    'Cormorant Garamond', Georgia, serif;
@@ -296,7 +296,7 @@
     .ab-title { font-family: var(--f-disp); font-weight: 300; font-size: clamp(36px, 4.4vw, 60px); line-height: 1.08; color: var(--ink); margin: 0 0 24px; }
     .ab-title em { font-style: italic; color: var(--verde-dk); }
     .ab-tag { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; margin-bottom: 26px;
-      background: rgba(0,194,146,.12); border: 1px solid rgba(0,135,99,.28); border-radius: 3px;
+      background: rgba(0,194,146,.12); border: 1px solid rgba(0,194,146,.28); border-radius: 3px;
       font-family: var(--f-label); font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--verde-dk); }
     .ab-tag svg { width: 14px; height: 14px; }
     .ab-p { font-size: 16px; font-weight: 300; line-height: 1.95; color: var(--ink-soft); margin: 0 0 18px; max-width: 560px; }
@@ -416,7 +416,7 @@
     .cal-d span { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; position: relative; z-index: 1; transition: background .15s, color .15s; }
     .cal-d.empty { cursor: default; }
     .cal-d.past { color: rgba(18,18,18,.22); cursor: default; text-decoration: line-through; }
-    .cal-d.today span { box-shadow: inset 0 0 0 1px rgba(0,135,99,.5); }
+    .cal-d.today span { box-shadow: inset 0 0 0 1px rgba(0,194,146,.5); }
     .cal-d.in::before { content: ''; position: absolute; inset: 1px 0; background: rgba(0,194,146,.14); }
     .cal-d.start::before { content: ''; position: absolute; inset: 1px 0 1px 50%; background: rgba(0,194,146,.14); }
     .cal-d.end::before { content: ''; position: absolute; inset: 1px 50% 1px 0; background: rgba(0,194,146,.14); }
@@ -859,7 +859,7 @@
 
     /* Botones flotantes en la paleta: WhatsApp verde fachada, Instagram blanco */
     .wa-float { background: var(--verde-dk); box-shadow: 0 6px 22px rgba(0,0,0,.18); }
-    .wa-float::before { background: rgba(0,135,99,.3); }
+    .wa-float::before { background: rgba(0,194,146,.3); }
     .ig-float { background: #fff; color: var(--verde-dk); box-shadow: 0 6px 22px rgba(0,0,0,.16); }
     .ig-float::before { display: none; }
     @media (hover: hover) and (pointer: fine) {
