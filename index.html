@@ -857,20 +857,6 @@
     }
     .ab-tag { background: transparent; border: 0; padding: 0; color: var(--verde-dk); }
 
-    /* Pie de página: verde fachada, texto negro legible */
-    footer { background: var(--verde); color: var(--ink); }
-    .foot-logo img { filter: none; }
-    .foot-sub, .foot-copy, .foot-phone a, .foot-links a { color: rgba(0,0,0,.78); }
-    .foot-div { background: var(--ink); opacity: .35; }
-    .foot-socials a { border-color: rgba(0,0,0,.28); color: var(--ink); }
-    .foot-lang { border-color: rgba(0,0,0,.2); background: rgba(255,255,255,.25); }
-    .foot-lang .lang-btn { color: rgba(0,0,0,.6); }
-    .foot-lang .lang-btn.active { background: #fff !important; color: var(--ink) !important; }
-    @media (hover: hover) and (pointer: fine) {
-      .foot-links a:hover, .foot-phone a:hover { color: #fff !important; }
-      .foot-socials a:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
-    }
-
     /* Botones flotantes en la paleta: WhatsApp verde fachada, Instagram blanco */
     .wa-float { background: var(--verde); box-shadow: 0 6px 22px rgba(0,0,0,.18); }
     .wa-float::before { background: rgba(0,194,146,.3); }
@@ -1013,7 +999,7 @@ setTimeout(function(){
   <div class="ab-grid">
     <div class="ab-copy">
       <span class="s-label reveal" data-t="ab_lbl">Nuestra casa</span>
-      <h2 class="ab-title reveal" data-t="ab_h" data-html="true">Una casa verde<br><em>frente al Caribe</em></h2>
+      <h2 class="ab-title reveal" data-t="ab_h" data-html="true">Casa verde<br><em>frente al Caribe</em></h2>
       <div class="ab-tag reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 8c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M3 13c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M3 18c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0"/></svg><span data-t="ab_tag">Frente al mar · Gran Roque, Los Roques</span></div>
       <p class="ab-p reveal" data-t="ab_p1" data-html="true">Casa Verde es una casa de lujo en Gran Roque, el corazón del Archipiélago Los Roques. Sus tres habitaciones, terraza rooftop con vistas panorámicas y cocina gourmet crean un espacio donde cada detalle está pensado para el descanso absoluto y una atención sin igual.</p>
       <p class="ab-p reveal" data-t="ab_p2" data-html="true">Abres la puerta y estás en el mar. Chef, tripulación y bote propios se ocupan de todo, para que tu única preocupación sea disfrutar el <em>turquesa</em>.</p>
@@ -1222,7 +1208,7 @@ const T = {
 
 
   ab_lbl: { es:'Nuestra casa', en:'Our home' },
-  ab_h: { es:'Una casa verde<br><em>frente al Caribe</em>', en:'A green house<br><em>on the Caribbean</em>' },
+  ab_h: { es:'Casa verde<br><em>frente al Caribe</em>', en:'A green house<br><em>on the Caribbean</em>' },
   ab_tag: { es:'Frente al mar · Gran Roque, Los Roques', en:'On the sea · Gran Roque, Los Roques' },
   ab_p1: { es:'Casa Verde es una casa de lujo en Gran Roque, el corazón del Archipiélago Los Roques. Sus tres habitaciones, terraza rooftop con vistas panorámicas y cocina gourmet crean un espacio donde cada detalle está pensado para el descanso absoluto y una atención sin igual.', en:'Casa Verde is a luxury home in Gran Roque, the heart of the Los Roques Archipelago. Its three bedrooms, rooftop terrace with panoramic views and gourmet kitchen create a space where every detail is designed for absolute rest and unrivaled service.' },
   ab_p2: { es:'Abres la puerta y estás en el mar. Chef, tripulación y bote propios se ocupan de todo, para que tu única preocupación sea disfrutar el <em>turquesa</em>.', en:'Open the door and you are at the sea. Your own chef, crew and boat take care of everything, so your only concern is enjoying the <em>turquoise</em>.' },
