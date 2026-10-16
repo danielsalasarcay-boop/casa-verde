@@ -529,7 +529,7 @@
        Secuencia de 242 cuadros (video de referencia, invertido) dibujada
        en <canvas> y atada al scroll: más fluida que un <video> en ambos
        sentidos. Capítulos de ubicación + altímetro + placa final. */
-    .gal-teaser { position: relative; height: 340vh; padding: 0 !important; background: #000; }
+    .gal-teaser { position: relative; height: 380vh; padding: 0 !important; background: #000; }
     .gt-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: #000; }
     .gt-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
     .gt-shade { position: absolute; inset: 0; pointer-events: none;
@@ -546,12 +546,8 @@
     .gt-title em { font-style: italic; color: var(--verde); }
     .gt-sub { margin: 16px 0 0; font-size: 16px; line-height: 1.6; color: rgba(255,255,255,.86); max-width: 420px; }
 
-    .gt-alt { position: absolute; right: var(--sec-x, 52px); top: 50%; transform: translateY(-50%); display: flex; align-items: stretch; gap: 18px; color: #fff; }
-    .gt-alt-track { width: 1px; height: 36vh; background: rgba(255,255,255,.24); position: relative; }
-    .gt-alt-dot { position: absolute; left: -4px; top: -4px; width: 9px; height: 9px; border-radius: 50%; background: var(--verde); box-shadow: 0 0 0 5px rgba(0,194,146,.25); will-change: transform; }
-    .gt-alt-read { display: flex; flex-direction: column; justify-content: space-between; font-family: var(--f-label); }
-    .gt-alt-read span { font-size: 10px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.72); }
-    .gt-alt-read b { display: block; margin-top: 6px; font-family: var(--f-disp); font-weight: 400; font-size: 30px; line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
+    .gt-credit { position: absolute; left: var(--sec-x, 52px); bottom: 14px; margin: 0; font-family: var(--f-label); font-size: 9.5px;
+      letter-spacing: .06em; color: rgba(255,255,255,.55); pointer-events: none; }
 
     /* placa final: doble bisel (marco de vidrio + núcleo blanco) */
     .gal-plaque { position: absolute; left: 0; right: 0; bottom: 8vh; margin: 0 auto; z-index: 5; width: min(440px, calc(100% - 40px));
@@ -575,21 +571,18 @@
     }
 
     @media (max-width: 768px) {
-      .gal-teaser { height: 300vh; }
+      .gal-teaser { height: 320vh; }
       .gt-chap { left: 20px; right: 20px; bottom: auto; top: calc(var(--nav-h) + 28px); }
       .gt-title { font-size: clamp(38px, 11vw, 52px); }
       .gt-sub { font-size: 15px; }
-      .gt-alt { right: 16px; top: auto; bottom: 22vh; transform: none; gap: 10px; }
-      .gt-alt-track { height: 18vh; }
-      .gt-alt-read b { font-size: 22px; }
-      .gt-alt-read span { font-size: 9px; }
+      .gt-credit { left: 16px; bottom: 8px; font-size: 8.5px; }
       .gal-plaque { bottom: calc(5vh + env(safe-area-inset-bottom)); left: 16px; right: 80px; width: auto; }
       .gal-plaque-core { padding: 24px 22px 22px; }
       .gal-btn { letter-spacing: .12em; padding-left: 18px; }
     }
     .no-gsap .gal-teaser { height: auto; }
     .no-gsap .gt-stage { position: relative; height: 100svh; min-height: 560px; }
-    .no-gsap .gt-chap, .no-gsap .gt-alt { display: none; }
+    .no-gsap .gt-chap { display: none; }
     .no-gsap .gal-plaque { opacity: 1; }
 
     /* ─── LOCATION (igual a Casa Panza: header corto + mapa a todo el ancho) ─── */
@@ -1088,27 +1081,27 @@ setTimeout(function(){
 <!-- GALLERY TEASER: de la estratósfera a Casa Verde ───────── -->
 <section class="gal-teaser" id="gallery" aria-label="Galería">
   <div class="gt-stage">
-    <canvas class="gt-canvas" role="img" aria-label="Descenso desde el espacio hasta Casa Verde en Gran Roque, Los Roques"></canvas>
+    <canvas class="gt-canvas" role="img" aria-label="Ascenso desde Casa Verde, en Gran Roque, hasta ver el planeta desde el espacio"></canvas>
     <div class="gt-shade" aria-hidden="true"></div>
 
-    <div class="gt-chap gt-c1">
-      <span class="gt-pill"><i></i><span data-t="gt1_k">11°56′ N · 66°40′ O</span></span>
-      <h2 class="gt-title" data-t="gt1_h" data-html="true">Un punto<br><em>en el Caribe</em></h2>
+    <div class="gt-chap gt-c0">
+      <span class="gt-pill"><i></i><span data-t="gt0_k">Gran Roque · Los Roques</span></span>
+      <h2 class="gt-title" data-t="gt0_h" data-html="true">Casa Verde<br><em>frente al mar</em></h2>
+    </div>
+    <div class="gt-chap gt-c3">
+      <span class="gt-pill"><i></i><span data-t="gt3_k">Gran Roque</span></span>
+      <h2 class="gt-title" data-t="gt3_h" data-html="true">El corazón<br><em>del archipiélago</em></h2>
     </div>
     <div class="gt-chap gt-c2">
       <span class="gt-pill"><i></i><span data-t="gt2_k">Mar Caribe · Venezuela</span></span>
       <h2 class="gt-title" data-t="gt2_h" data-html="true">Archipiélago<br><em>Los Roques</em></h2>
       <p class="gt-sub" data-t="gt2_p">Parque Nacional desde 1972: arrecifes, cayos y agua turquesa.</p>
     </div>
-    <div class="gt-chap gt-c3">
-      <span class="gt-pill"><i></i><span data-t="gt3_k">Gran Roque</span></span>
-      <h2 class="gt-title" data-t="gt3_h" data-html="true">El corazón<br><em>del archipiélago</em></h2>
+    <div class="gt-chap gt-c1">
+      <span class="gt-pill"><i></i><span data-t="gt1_k">11°56′ N · 66°40′ O</span></span>
+      <h2 class="gt-title" data-t="gt1_h" data-html="true">Un punto<br><em>en el Caribe</em></h2>
     </div>
-
-    <div class="gt-alt" aria-hidden="true">
-      <div class="gt-alt-track"><i class="gt-alt-dot"></i></div>
-      <div class="gt-alt-read"><span data-t="gt_alt">Altitud</span><b class="gt-alt-num">36.000 km</b></div>
-    </div>
+    <p class="gt-credit">Imágenes: NASA Blue Marble · Copernicus Sentinel-2 (EOX) · Esri, Maxar</p>
 
     <div class="gal-plaque">
       <div class="gal-plaque-core">
@@ -1322,7 +1315,8 @@ const T = {
   gt2_p:   { es:'Parque Nacional desde 1972: arrecifes, cayos y agua turquesa.', en:'A National Park since 1972: reefs, cays and turquoise water.' },
   gt3_k:   { es:'Gran Roque', en:'Gran Roque' },
   gt3_h:   { es:'El corazón<br><em>del archipiélago</em>', en:'The heart<br><em>of the archipelago</em>' },
-  gt_alt:  { es:'Altitud', en:'Altitude' },
+  gt0_k:   { es:'Gran Roque · Los Roques', en:'Gran Roque · Los Roques' },
+  gt0_h:   { es:'Casa Verde<br><em>frente al mar</em>', en:'Casa Verde<br><em>on the water</em>' },
 
   loc_lbl: { es:'Ubicación',            en:'Location' },
   loc_h:   { es:'Gran Roque, Los Roques', en:'Gran Roque, Los Roques' },
@@ -1399,13 +1393,13 @@ document.addEventListener('click', e => {
      cuadros, luego rellena; siempre se dibuja el cuadro listo más cercano.
    · Un solo dibujo por fotograma (rAF) y lienzo a la resolución real de la
      fuente (no a 2×): el navegador lo escala en GPU.
-   window.cvSeq.set(p), p ∈ [0,1]: 0 = planeta, 1 = la casa. */
+   window.cvSeq.set(p), p ∈ [0,1]: 0 = Casa Verde, 1 = el planeta (ascenso). */
 (function () {
   const cv = document.querySelector('.gt-canvas');
   if (!cv) return;
   const ctx = cv.getContext('2d', { alpha: false });
   const mob = window.matchMedia('(max-width: 768px)').matches;
-  const N = mob ? 81 : 121, pre = mob ? 'm' : 'd';
+  const N = mob ? 72 : 107, pre = mob ? 'm' : 'd';
   const IW = mob ? 1280 : 1920, IH = mob ? 720 : 1080;
   const frames = new Array(N);
   let p = 0, drawn = -1, drawnP = -1, W = 0, H = 0, raf = 0, started = false;
@@ -1463,8 +1457,9 @@ document.addEventListener('click', e => {
     if (i === drawn && (!portrait || p === drawnP)) return;
     const f = frames[i], cover = Math.max(W / IW, H / IH);
     if (portrait) {
-      /* teléfono vertical: al llegar a la casa el encuadre se abre para verla completa */
-      const fit = W / (IW * .8), e = Math.pow(Math.min(1, Math.max(0, (p - .55) / .45)), 1.6);
+      /* teléfono vertical: en la casa el encuadre se abre para verla completa,
+         y al entrar en las nubes pasa a pantalla completa */
+      const fit = W / (IW * .8), e = 1 - Math.min(1, Math.max(0, (p - .12) / .12));
       const sc = cover + (fit - cover) * e;
       ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
       if (sc < cover) { ctx.globalAlpha = .32; blit(f, cover); ctx.globalAlpha = 1; }
@@ -1592,39 +1587,30 @@ document.addEventListener('click', e => {
     .to('.hero-eyebrow',   { y: -20, opacity: 0, ease: 'power1.in', duration: .16 }, .84)
     .to('.hero-hint',      { opacity: 0, ease: 'none', duration: .16 }, .84);
 
-  /* ── DEL PLANETA A LA CASA ──
-     La secuencia avanza con el scroll (0 → .9) y se sostiene en la casa
-     mientras se posa la placa. Capítulos de ubicación y altímetro encima. ── */
+  /* ── ASCENSO: DE CASA VERDE AL PLANETA ──
+     La secuencia avanza con el scroll (0 → .9) y se sostiene en el planeta
+     mientras se posa la placa. Un capítulo por escala: casa, isla, atolón, Caribe. ── */
   const seq = { p: 0 };
-  const altNum = document.querySelector('.gt-alt-num');
-  const fmtAlt = q => {
-    const km = 36000 * Math.pow(1 - q, 3.2);
-    if (km >= 10) return Math.round(km).toLocaleString('es-VE') + ' km';
-    if (km >= 1) return km.toFixed(1).replace('.', ',') + ' km';
-    return Math.max(0, Math.round(km * 1000)).toLocaleString('es-VE') + ' m';
-  };
-  const chapIn  = (el, at) => [el, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .06, ease: 'expo.out' }, at];
-  const chapOut = (el, at) => [el, { opacity: 0, y: -30, duration: .05, ease: 'power2.in' }, at];
-  const gt = gsap.timeline({
+  const chapIn  = (el, at) => [el, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .05, ease: 'expo.out' }, at];
+  const chapOut = (el, at) => [el, { opacity: 0, y: -30, duration: .04, ease: 'power2.in' }, at];
+  gsap.timeline({
     scrollTrigger: {
       trigger: '.gal-teaser', start: 'top top', end: 'bottom bottom',
       scrub: isTouch ? 0.15 : 0.3, invalidateOnRefresh: true,
     }
   })
-    .to(seq, { p: 1, duration: .9, ease: 'none', onUpdate() {
-      window.cvSeq && window.cvSeq.set(seq.p);
-      if (altNum) altNum.textContent = fmtAlt(seq.p);
-    } }, 0)
-    .fromTo('.gt-alt-dot', { y: 0 }, { y: () => document.querySelector('.gt-alt-track').offsetHeight, duration: .9, ease: 'none' }, 0)
-    .to('.gt-shade', { opacity: .3, duration: .3, ease: 'power1.inOut' }, .6)
-    .fromTo(...chapIn('.gt-c1', 0))
-    .to(...chapOut('.gt-c1', .2))
-    .fromTo(...chapIn('.gt-c2', .34))
-    .to(...chapOut('.gt-c2', .54))
-    .fromTo(...chapIn('.gt-c3', .62))
-    .to(...chapOut('.gt-c3', .8))
-    .to('.gt-alt', { opacity: 0, duration: .05, ease: 'power1.in' }, .86)
-    .fromTo('.gal-plaque', { opacity: 0, y: 50, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .08, ease: 'expo.out' }, .9);
+    .to(seq, { p: 1, duration: .9, ease: 'none', onUpdate() { window.cvSeq && window.cvSeq.set(seq.p); } }, 0)
+    .to('.gt-shade', { opacity: .55, duration: .2, ease: 'power1.inOut' }, .2)
+    .to('.gt-shade', { opacity: 1, duration: .2, ease: 'power1.inOut' }, .62)
+    .fromTo(...chapIn('.gt-c0', 0))
+    .to(...chapOut('.gt-c0', .12))
+    .fromTo(...chapIn('.gt-c3', .24))
+    .to(...chapOut('.gt-c3', .34))
+    .fromTo(...chapIn('.gt-c2', .39))
+    .to(...chapOut('.gt-c2', .47))
+    .fromTo(...chapIn('.gt-c1', .70))
+    .to(...chapOut('.gt-c1', .84))
+    .fromTo('.gal-plaque', { opacity: 0, y: 50, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .08, ease: 'expo.out' }, .88);
 
   /* ── Parallax full-bleed ── */
   gsap.utils.toArray('[data-parallax]').forEach(el => {
