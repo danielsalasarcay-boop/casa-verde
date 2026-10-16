@@ -529,7 +529,7 @@
        Secuencia de 242 cuadros (video de referencia, invertido) dibujada
        en <canvas> y atada al scroll: más fluida que un <video> en ambos
        sentidos. Capítulos de ubicación + altímetro + placa final. */
-    .gal-teaser { position: relative; height: 620vh; padding: 0 !important; background: #000; }
+    .gal-teaser { position: relative; height: 340vh; padding: 0 !important; background: #000; }
     .gt-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: #000; }
     .gt-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
     .gt-shade { position: absolute; inset: 0; pointer-events: none;
@@ -575,7 +575,7 @@
     }
 
     @media (max-width: 768px) {
-      .gal-teaser { height: 520vh; }
+      .gal-teaser { height: 300vh; }
       .gt-chap { left: 20px; right: 20px; bottom: auto; top: calc(var(--nav-h) + 28px); }
       .gt-title { font-size: clamp(38px, 11vw, 52px); }
       .gt-sub { font-size: 15px; }
@@ -1394,79 +1394,98 @@ document.addEventListener('click', e => {
 
 <script>
 /* ── Motor de la secuencia de la galería ──
-   Carga progresiva (primero 1 de cada 16 cuadros, luego rellena) y dibuja
-   siempre el cuadro cargado más cercano. window.cvSeq.set(p) con p ∈ [0,1]:
-   0 = planeta, 1 = la casa. Sin GSAP se fija en la casa (ver bloque no-gsap). */
+   · Cuadros decodificados fuera del hilo principal (createImageBitmap) → sin tirones.
+   · Precarga en segundo plano tras cargar la página: primero 1 de cada 16
+     cuadros, luego rellena; siempre se dibuja el cuadro listo más cercano.
+   · Un solo dibujo por fotograma (rAF) y lienzo a la resolución real de la
+     fuente (no a 2×): el navegador lo escala en GPU.
+   window.cvSeq.set(p), p ∈ [0,1]: 0 = planeta, 1 = la casa. */
 (function () {
   const cv = document.querySelector('.gt-canvas');
   if (!cv) return;
-  const ctx = cv.getContext('2d');
+  const ctx = cv.getContext('2d', { alpha: false });
   const mob = window.matchMedia('(max-width: 768px)').matches;
-  const N = mob ? 121 : 242, pre = mob ? 'm' : 'd', IW = 1280, IH = 720;
-  const imgs = new Array(N);
-  let p = 0, drawn = -1, W = 0, H = 0, started = false;
+  const N = mob ? 81 : 121, pre = mob ? 'm' : 'd';
+  const IW = mob ? 1280 : 1920, IH = mob ? 720 : 1080;
+  const frames = new Array(N);
+  let p = 0, drawn = -1, drawnP = -1, W = 0, H = 0, raf = 0, started = false;
 
   const url = i => 'img/seq/' + pre + String(i).padStart(3, '0') + '.webp';
-  function order() {
-    const seen = new Set([0, N - 1]), o = [N - 1, 0];
-    [16, 8, 4, 2, 1].forEach(st => { for (let i = 0; i < N; i += st) if (!seen.has(i)) { seen.add(i); o.push(i); } });
-    return o;
+  const canBitmap = 'createImageBitmap' in window;
+  function fetchFrame(i) {
+    if (canBitmap) {
+      return fetch(url(i)).then(r => r.blob()).then(b => createImageBitmap(b));
+    }
+    const im = new Image(); im.src = url(i);
+    return im.decode().then(() => im);
   }
   function load() {
     if (started) return; started = true;
-    const q = order(); let k = 0, active = 0;
-    const next = () => {
-      while (active < 6 && k < q.length) {
-        const i = q[k++], im = new Image(); active++;
-        im.decoding = 'async';
-        im.onload = () => { imgs[i] = im; active--; if (Math.abs(i - target()) < Math.abs(drawn - target()) || drawn < 0) draw(); next(); };
-        im.onerror = () => { active--; next(); };
-        im.src = url(i);
-      }
+    const seen = new Set([0, N - 1]), q = [0, N - 1];
+    [16, 8, 4, 2, 1].forEach(st => { for (let i = 0; i < N; i += st) if (!seen.has(i)) { seen.add(i); q.push(i); } });
+    let k = 0;
+    const worker = () => {
+      if (k >= q.length) return;
+      const i = q[k++];
+      fetchFrame(i).then(f => { frames[i] = f; schedule(true); }).catch(() => {}).then(worker);
     };
-    next();
+    for (let c = 0; c < 6; c++) worker();
   }
-  const target = () => Math.round(Math.min(1, Math.max(0, p)) * (N - 1));
   function nearest(t) {
     for (let d = 0; d < N; d++) {
-      if (imgs[t - d]) return t - d;
-      if (imgs[t + d]) return t + d;
+      if (frames[t - d]) return t - d;
+      if (frames[t + d]) return t + d;
     }
     return -1;
   }
   function size() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = cv.clientWidth; H = cv.clientHeight;
-    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.imageSmoothingQuality = 'high';
-    drawn = -1; draw();
+    if (!W || !H) return;
+    const dpr = window.devicePixelRatio || 1;
+    const cover = Math.max(W / IW, H / IH);
+    /* nunca más píxeles de los que trae la fuente: k ≤ 1 px de fuente por px de lienzo */
+    const k = Math.min(dpr, 1 / cover);
+    cv.width = Math.round(W * k); cv.height = Math.round(H * k);
+    ctx.setTransform(k, 0, 0, k, 0, 0);
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    drawn = -1; schedule(true);
   }
-  function blit(im, s, a) {
+  function blit(f, s) {
     const w = IW * s, h = IH * s;
-    ctx.globalAlpha = a;
-    ctx.drawImage(im, (W - w) / 2, (H - h) / 2, w, h);
+    ctx.drawImage(f, (W - w) / 2, (H - h) / 2, w, h);
   }
   function draw() {
-    const i = nearest(target());
+    raf = 0;
+    const t = Math.round(Math.min(1, Math.max(0, p)) * (N - 1));
+    const i = nearest(t);
     if (i < 0 || !W) return;
-    const im = imgs[i], cover = Math.max(W / IW, H / IH);
-    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
-    if (H > W) {
-      /* teléfono vertical: al llegar a la casa se abre el encuadre para verla completa */
+    const portrait = H > W;
+    if (i === drawn && (!portrait || p === drawnP)) return;
+    const f = frames[i], cover = Math.max(W / IW, H / IH);
+    if (portrait) {
+      /* teléfono vertical: al llegar a la casa el encuadre se abre para verla completa */
       const fit = W / (IW * .8), e = Math.pow(Math.min(1, Math.max(0, (p - .55) / .45)), 1.6);
-      const s = cover + (fit - cover) * e;
-      if (s < cover) blit(im, cover, .32);
-      blit(im, s, 1);
-      ctx.globalAlpha = 1;
+      const sc = cover + (fit - cover) * e;
+      ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+      if (sc < cover) { ctx.globalAlpha = .32; blit(f, cover); ctx.globalAlpha = 1; }
+      blit(f, sc);
     } else {
-      blit(im, cover, 1);
+      blit(f, cover);
     }
-    drawn = i;
+    drawn = i; drawnP = p;
   }
-  window.cvSeq = { set(v) { p = v; draw(); } };
-  new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { load(); o.disconnect(); } }, { rootMargin: '150% 0px' }).observe(cv);
-  window.addEventListener('resize', size);
+  function schedule(force) {
+    if (force) drawn = -1;
+    if (!raf) raf = requestAnimationFrame(draw);
+  }
+  window.cvSeq = { set(v) { p = v; schedule(); } };
+
+  /* precarga: cuando la página ya cargó (sin competir con la portada),
+     o antes si el usuario se acerca a la sección */
+  const idle = window.requestIdleCallback || (fn => setTimeout(fn, 1200));
+  window.addEventListener('load', () => idle(load, { timeout: 2500 }));
+  new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { load(); o.disconnect(); } }, { rootMargin: '250% 0px' }).observe(cv);
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(size, 120); });
   size();
 })();
 </script>
@@ -1589,7 +1608,7 @@ document.addEventListener('click', e => {
   const gt = gsap.timeline({
     scrollTrigger: {
       trigger: '.gal-teaser', start: 'top top', end: 'bottom bottom',
-      scrub: isTouch ? 0.4 : 0.8, invalidateOnRefresh: true,
+      scrub: isTouch ? 0.15 : 0.3, invalidateOnRefresh: true,
     }
   })
     .to(seq, { p: 1, duration: .9, ease: 'none', onUpdate() {
