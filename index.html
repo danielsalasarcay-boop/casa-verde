@@ -823,6 +823,17 @@
       .hero-eyebrow, .hero-title, .hero-hint { left: 16px; }
     }
 
+    /* ─── Áreas táctiles de 44px en pantallas táctiles (WCAG 2.5.5) ─── */
+    @media (pointer: coarse) {
+      .nav-ig { padding: 13px; margin: -13px; }
+      .lang-btn { min-height: 36px; }
+      .cal-nav, .gs-btn { width: 44px; height: 44px; }
+      .bk-link { padding: 12px 6px; margin: -12px -6px; }
+      .bk-ok { padding: 14px 24px; }
+      .sp-more, .loc-map-btn { min-height: 44px; }
+      .foot-links a, .foot-phone a { display: inline-block; padding: 12px 6px; }
+    }
+
     /* ═══ ORDEN VISUAL — una sola escala tipográfica, un solo ritmo ═══
        Todas las secciones comparten: etiqueta verde arriba, título grande
        a la izquierda, texto negro legible y el mismo espacio vertical. */
@@ -1400,7 +1411,7 @@ document.addEventListener('click', e => {
   const ctx = cv.getContext('2d', { alpha: false });
   const mob = window.matchMedia('(max-width: 768px)').matches;
   const N = mob ? 82 : 122, pre = mob ? 'm' : 'd';
-  const IW = mob ? 1280 : 1920, IH = mob ? 720 : 1080;
+  const IW = mob ? 1600 : 1920, IH = mob ? 900 : 1080;
   const frames = new Array(N);
   let p = 0, drawn = -1, drawnP = -1, W = 0, H = 0, raf = 0, started = false;
 
@@ -1478,8 +1489,8 @@ document.addEventListener('click', e => {
   /* precarga: cuando la página ya cargó (sin competir con la portada),
      o antes si el usuario se acerca a la sección */
   const idle = window.requestIdleCallback || (fn => setTimeout(fn, 1200));
-  window.addEventListener('load', () => idle(load, { timeout: 2500 }));
-  new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { load(); o.disconnect(); } }, { rootMargin: '250% 0px' }).observe(cv);
+  if (!mob) window.addEventListener('load', () => idle(load, { timeout: 2500 }));
+  new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { load(); o.disconnect(); } }, { rootMargin: mob ? '500% 0px' : '250% 0px' }).observe(cv);
   let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(size, 120); });
   size();
 })();
