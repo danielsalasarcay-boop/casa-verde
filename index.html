@@ -1399,7 +1399,7 @@ document.addEventListener('click', e => {
   if (!cv) return;
   const ctx = cv.getContext('2d', { alpha: false });
   const mob = window.matchMedia('(max-width: 768px)').matches;
-  const N = mob ? 72 : 107, pre = mob ? 'm' : 'd';
+  const N = mob ? 76 : 113, pre = mob ? 'm' : 'd';
   const IW = mob ? 1280 : 1920, IH = mob ? 720 : 1080;
   const frames = new Array(N);
   let p = 0, drawn = -1, drawnP = -1, W = 0, H = 0, raf = 0, started = false;
@@ -1604,12 +1604,12 @@ document.addEventListener('click', e => {
     .to('.gt-shade', { opacity: 1, duration: .2, ease: 'power1.inOut' }, .62)
     .fromTo(...chapIn('.gt-c0', 0))
     .to(...chapOut('.gt-c0', .12))
-    .fromTo(...chapIn('.gt-c3', .24))
-    .to(...chapOut('.gt-c3', .34))
-    .fromTo(...chapIn('.gt-c2', .39))
-    .to(...chapOut('.gt-c2', .47))
-    .fromTo(...chapIn('.gt-c1', .70))
-    .to(...chapOut('.gt-c1', .84))
+    .fromTo(...chapIn('.gt-c3', .22))
+    .to(...chapOut('.gt-c3', .36))
+    .fromTo(...chapIn('.gt-c2', .42))
+    .to(...chapOut('.gt-c2', .52))
+    .fromTo(...chapIn('.gt-c1', .71))
+    .to(...chapOut('.gt-c1', .85))
     .fromTo('.gal-plaque', { opacity: 0, y: 50, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .08, ease: 'expo.out' }, .88);
 
   /* ── Parallax full-bleed ── */
