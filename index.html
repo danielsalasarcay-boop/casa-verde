@@ -1101,7 +1101,7 @@ setTimeout(function(){
       <span class="gt-pill"><i></i><span data-t="gt1_k">11°56′ N · 66°40′ O</span></span>
       <h2 class="gt-title" data-t="gt1_h" data-html="true">Un punto<br><em>en el Caribe</em></h2>
     </div>
-    <p class="gt-credit">Imágenes: NASA Blue Marble · Copernicus Sentinel-2 (EOX) · Esri, Maxar</p>
+    <p class="gt-credit">Gran Roque: imagen satelital © Esri, Maxar</p>
 
     <div class="gal-plaque">
       <div class="gal-plaque-core">
@@ -1399,7 +1399,7 @@ document.addEventListener('click', e => {
   if (!cv) return;
   const ctx = cv.getContext('2d', { alpha: false });
   const mob = window.matchMedia('(max-width: 768px)').matches;
-  const N = mob ? 76 : 113, pre = mob ? 'm' : 'd';
+  const N = mob ? 82 : 122, pre = mob ? 'm' : 'd';
   const IW = mob ? 1280 : 1920, IH = mob ? 720 : 1080;
   const frames = new Array(N);
   let p = 0, drawn = -1, drawnP = -1, W = 0, H = 0, raf = 0, started = false;
@@ -1603,13 +1603,13 @@ document.addEventListener('click', e => {
     .to('.gt-shade', { opacity: .55, duration: .2, ease: 'power1.inOut' }, .2)
     .to('.gt-shade', { opacity: 1, duration: .2, ease: 'power1.inOut' }, .62)
     .fromTo(...chapIn('.gt-c0', 0))
-    .to(...chapOut('.gt-c0', .12))
-    .fromTo(...chapIn('.gt-c3', .22))
-    .to(...chapOut('.gt-c3', .36))
-    .fromTo(...chapIn('.gt-c2', .42))
-    .to(...chapOut('.gt-c2', .52))
-    .fromTo(...chapIn('.gt-c1', .71))
-    .to(...chapOut('.gt-c1', .85))
+    .to(...chapOut('.gt-c0', .14))
+    .fromTo(...chapIn('.gt-c3', .32))
+    .to(...chapOut('.gt-c3', .44))
+    .fromTo(...chapIn('.gt-c2', .46))
+    .to(...chapOut('.gt-c2', .56))
+    .fromTo(...chapIn('.gt-c1', .64))
+    .to(...chapOut('.gt-c1', .82))
     .fromTo('.gal-plaque', { opacity: 0, y: 50, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .08, ease: 'expo.out' }, .88);
 
   /* ── Parallax full-bleed ── */
