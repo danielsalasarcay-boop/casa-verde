@@ -525,45 +525,72 @@
     }
 
     /* ─── GALLERY TEASER: caída desde la estratósfera hasta la casa ─── */
-    .gal-teaser { position: relative; height: 420vh; padding: 0 !important; background: #000; }
-    .zoom-stage {
-      position: sticky; top: 0; height: 100vh; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
+    /* ─── GALERÍA · DEL PLANETA A LA CASA ──────────────────────
+       Secuencia de 242 cuadros (video de referencia, invertido) dibujada
+       en <canvas> y atada al scroll: más fluida que un <video> en ambos
+       sentidos. Capítulos de ubicación + altímetro + placa final. */
+    .gal-teaser { position: relative; height: 620vh; padding: 0 !important; background: #000; }
+    .gt-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: #000; }
+    .gt-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .gt-shade { position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 72% 78% at 50% 48%, transparent 46%, rgba(0,0,0,.78) 100%),
+        linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 42%); }
+    .gt-chap { position: absolute; left: var(--sec-x, 52px); bottom: 12vh; max-width: 620px; color: #fff; opacity: 0;
+      text-shadow: 0 2px 28px rgba(0,0,0,.45); will-change: transform, opacity; }
+    .gt-pill { display: inline-flex; align-items: center; gap: 10px; padding: 7px 15px 7px 12px; margin-bottom: 20px; border-radius: 999px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.26); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      font-family: var(--f-label); font-size: 11px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: #fff; text-shadow: none; }
+    .gt-pill i { width: 6px; height: 6px; border-radius: 50%; background: var(--verde); box-shadow: 0 0 0 4px rgba(0,194,146,.28); }
+    .gt-title { margin: 0; font-family: var(--f-disp); font-weight: 400; font-size: clamp(44px, 6.4vw, 104px); line-height: .96; letter-spacing: -.015em; color: #fff; }
+    .gt-title em { font-style: italic; color: var(--verde); }
+    .gt-sub { margin: 16px 0 0; font-size: 16px; line-height: 1.6; color: rgba(255,255,255,.86); max-width: 420px; }
+
+    .gt-alt { position: absolute; right: var(--sec-x, 52px); top: 50%; transform: translateY(-50%); display: flex; align-items: stretch; gap: 18px; color: #fff; }
+    .gt-alt-track { width: 1px; height: 36vh; background: rgba(255,255,255,.24); position: relative; }
+    .gt-alt-dot { position: absolute; left: -4px; top: -4px; width: 9px; height: 9px; border-radius: 50%; background: var(--verde); box-shadow: 0 0 0 5px rgba(0,194,146,.25); will-change: transform; }
+    .gt-alt-read { display: flex; flex-direction: column; justify-content: space-between; font-family: var(--f-label); }
+    .gt-alt-read span { font-size: 10px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.72); }
+    .gt-alt-read b { display: block; margin-top: 6px; font-family: var(--f-disp); font-weight: 400; font-size: 30px; line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
+
+    /* placa final: doble bisel (marco de vidrio + núcleo blanco) */
+    .gal-plaque { position: absolute; left: 0; right: 0; bottom: 8vh; margin: 0 auto; z-index: 5; width: min(440px, calc(100% - 40px));
+      padding: 6px; border-radius: 30px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.32);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); opacity: 0; will-change: transform, opacity; }
+    .gal-plaque-core { background: #fff; border-radius: 24px; padding: 30px 30px 26px; text-align: center;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,.7), 0 40px 90px -40px rgba(0,0,0,.6); }
+    .gal-plaque .gt-pill { background: rgba(0,194,146,.1); border-color: rgba(0,194,146,.3); color: var(--verde-dk); backdrop-filter: none; margin-bottom: 14px; }
+    .gal-plaque .s-title { font-size: clamp(30px, 3vw, 40px); margin-bottom: 8px; }
+    .gal-plaque-sub { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 auto 20px; max-width: 320px; }
+    .gal-btn { display: inline-flex; align-items: center; gap: 14px; white-space: nowrap; padding: 7px 7px 7px 24px; border-radius: 999px; background: var(--verde-dk); color: #fff;
+      font-family: var(--f-label); font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+      transition: transform .5s cubic-bezier(.32,.72,0,1), background .4s cubic-bezier(.32,.72,0,1); }
+    .gal-btn i { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.22); display: grid; place-items: center;
+      transition: transform .5s cubic-bezier(.32,.72,0,1); }
+    .gal-btn i svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .gal-btn:active { transform: scale(.98); }
+    @media (hover: hover) and (pointer: fine) {
+      .gal-btn:hover { background: var(--ink); }
+      .gal-btn:hover i { transform: translateX(3px) scale(1.06); }
     }
-    .zoom-layer {
-      position: absolute; inset: 0;
-      will-change: transform, opacity, filter;
-      transform: translateZ(0);
+
+    @media (max-width: 768px) {
+      .gal-teaser { height: 520vh; }
+      .gt-chap { left: 20px; right: 20px; bottom: auto; top: calc(var(--nav-h) + 28px); }
+      .gt-title { font-size: clamp(38px, 11vw, 52px); }
+      .gt-sub { font-size: 15px; }
+      .gt-alt { right: 16px; top: auto; bottom: 22vh; transform: none; gap: 10px; }
+      .gt-alt-track { height: 18vh; }
+      .gt-alt-read b { font-size: 22px; }
+      .gt-alt-read span { font-size: 9px; }
+      .gal-plaque { bottom: calc(5vh + env(safe-area-inset-bottom)); left: 16px; right: 80px; width: auto; }
+      .gal-plaque-core { padding: 24px 22px 22px; }
+      .gal-btn { letter-spacing: .12em; padding-left: 18px; }
     }
-    .zoom-layer img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .zoom-aereo, .zoom-agua, .zoom-casa { opacity: 0; }
-    .zoom-casa::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.32); }
-    .gal-plaque {
-      position: relative; z-index: 5; text-align: center;
-      background: rgba(255,255,255,.95);
-      padding: 30px 34px 28px; border-radius: 4px;
-      max-width: 300px;
-      box-shadow: 0 30px 90px rgba(0,0,0,.5);
-      opacity: 0; transform: scale(.92);
-      will-change: transform, opacity;
-    }
-    .gal-plaque .s-title { font-size: clamp(24px, 2.6vw, 34px); margin-bottom: 8px; }
-    .gal-plaque-sub {
-      font-size: 12.5px; font-weight: 300; line-height: 1.65; color: var(--ink-soft);
-      margin-bottom: 18px;
-    }
-    .gal-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 12px 26px; background: var(--verde-dk); color: #fff;
-      border-radius: 40px; font-family: var(--f-label);
-      font-size: 10px; font-weight: 500;
-      letter-spacing: .18em; text-transform: uppercase;
-      transition: filter .3s, transform .3s; min-height: 42px;
-    }
-    .no-gsap .gal-teaser { height: auto; min-height: 82vh; display: flex; }
-    .no-gsap .zoom-stage { position: relative; width: 100%; }
-    .no-gsap .zoom-espacio, .no-gsap .zoom-aereo, .no-gsap .zoom-agua { display: none; }
-    .no-gsap .zoom-casa, .no-gsap .gal-plaque { opacity: 1; transform: none; filter: none; }
+    .no-gsap .gal-teaser { height: auto; }
+    .no-gsap .gt-stage { position: relative; height: 100svh; min-height: 560px; }
+    .no-gsap .gt-chap, .no-gsap .gt-alt { display: none; }
+    .no-gsap .gal-plaque { opacity: 1; }
 
     /* ─── LOCATION (igual a Casa Panza: header corto + mapa a todo el ancho) ─── */
     .location { background: var(--sand); padding: 32px 0 0 !important; }
@@ -672,7 +699,6 @@
     @media (hover: hover) and (pointer: fine) {
       .nav-links a:hover   { opacity: .5; }
       .nav-ig:hover        { opacity: .5; }
-      .gal-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
       .foot-links a:hover   { color: var(--verde); }
       .foot-phone a:hover   { color: var(--verde) !important; }
       .foot-socials a:hover { background: var(--verde-dk); border-color: var(--verde-dk); color: #fff; transform: translateY(-2px); }
@@ -721,7 +747,6 @@
       .hero-hint { display: none; }
       .pre-stage { width: 76vw; }
 
-      .gal-plaque { max-width: 260px; padding: 26px 24px 24px; }
 
 
 
@@ -1062,16 +1087,36 @@ setTimeout(function(){
 
 <!-- GALLERY TEASER: de la estratósfera a Casa Verde ───────── -->
 <section class="gal-teaser" id="gallery" aria-label="Galería">
-  <div class="zoom-stage">
-    <div class="zoom-layer zoom-espacio" aria-hidden="true"><img src="img/estratosfera.jpeg" alt="" loading="eager" decoding="async"></div>
-    <div class="zoom-layer zoom-aereo" aria-hidden="true"><img src="img/aerial-losroques.jpeg" alt="" loading="eager" decoding="async"></div>
-    <div class="zoom-layer zoom-agua" aria-hidden="true"><img src="img/gal/agua-lejos.jpeg" alt="" loading="eager" decoding="async"></div>
-    <div class="zoom-layer zoom-casa"><img src="img/gal/casa-cerca.jpeg" alt="Casa Verde vista desde el mar al anochecer" loading="eager" decoding="async"></div>
+  <div class="gt-stage">
+    <canvas class="gt-canvas" role="img" aria-label="Descenso desde el espacio hasta Casa Verde en Gran Roque, Los Roques"></canvas>
+    <div class="gt-shade" aria-hidden="true"></div>
+
+    <div class="gt-chap gt-c1">
+      <span class="gt-pill"><i></i><span data-t="gt1_k">11°56′ N · 66°40′ O</span></span>
+      <h2 class="gt-title" data-t="gt1_h" data-html="true">Un punto<br><em>en el Caribe</em></h2>
+    </div>
+    <div class="gt-chap gt-c2">
+      <span class="gt-pill"><i></i><span data-t="gt2_k">Mar Caribe · Venezuela</span></span>
+      <h2 class="gt-title" data-t="gt2_h" data-html="true">Archipiélago<br><em>Los Roques</em></h2>
+      <p class="gt-sub" data-t="gt2_p">Parque Nacional desde 1972: arrecifes, cayos y agua turquesa.</p>
+    </div>
+    <div class="gt-chap gt-c3">
+      <span class="gt-pill"><i></i><span data-t="gt3_k">Gran Roque</span></span>
+      <h2 class="gt-title" data-t="gt3_h" data-html="true">El corazón<br><em>del archipiélago</em></h2>
+    </div>
+
+    <div class="gt-alt" aria-hidden="true">
+      <div class="gt-alt-track"><i class="gt-alt-dot"></i></div>
+      <div class="gt-alt-read"><span data-t="gt_alt">Altitud</span><b class="gt-alt-num">36.000 km</b></div>
+    </div>
+
     <div class="gal-plaque">
-      <span class="s-label" data-t="gal_lbl">Galería</span>
-      <h2 class="s-title" data-t="gal_h">La casa en imágenes</h2>
-      <p class="gal-plaque-sub" data-t="gal_sub">Fotografías de la casa, la terraza y los atardeceres de Los Roques.</p>
-      <a href="galeria.html" class="gal-btn" data-t="gal_btn">Explorar la galería →</a>
+      <div class="gal-plaque-core">
+        <span class="gt-pill"><i></i><span data-t="gal_lbl">Galería</span></span>
+        <h2 class="s-title" data-t="gal_h">La casa en imágenes</h2>
+        <p class="gal-plaque-sub" data-t="gal_sub">Fotografías de la casa, la terraza y los atardeceres de Los Roques.</p>
+        <a href="galeria.html" class="gal-btn"><span data-t="gal_btn">Explorar la galería</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+      </div>
     </div>
   </div>
 </section>
@@ -1269,7 +1314,15 @@ const T = {
   gal_lbl: { es:'Galería',              en:'Gallery' },
   gal_h:   { es:'La casa en imágenes', en:'The home in images' },
   gal_sub: { es:'Fotografías de la casa, la terraza y los atardeceres de Los Roques.', en:'Photographs of the home, the terrace and the sunsets of Los Roques.' },
-  gal_btn: { es:'Explorar la galería →', en:'Explore the gallery →' },
+  gal_btn: { es:'Explorar la galería', en:'Explore the gallery' },
+  gt1_k:   { es:'11°56′ N · 66°40′ O', en:'11°56′ N · 66°40′ W' },
+  gt1_h:   { es:'Un punto<br><em>en el Caribe</em>', en:'One point<br><em>in the Caribbean</em>' },
+  gt2_k:   { es:'Mar Caribe · Venezuela', en:'Caribbean Sea · Venezuela' },
+  gt2_h:   { es:'Archipiélago<br><em>Los Roques</em>', en:'Los Roques<br><em>Archipelago</em>' },
+  gt2_p:   { es:'Parque Nacional desde 1972: arrecifes, cayos y agua turquesa.', en:'A National Park since 1972: reefs, cays and turquoise water.' },
+  gt3_k:   { es:'Gran Roque', en:'Gran Roque' },
+  gt3_h:   { es:'El corazón<br><em>del archipiélago</em>', en:'The heart<br><em>of the archipelago</em>' },
+  gt_alt:  { es:'Altitud', en:'Altitude' },
 
   loc_lbl: { es:'Ubicación',            en:'Location' },
   loc_h:   { es:'Gran Roque, Los Roques', en:'Gran Roque, Los Roques' },
@@ -1339,6 +1392,85 @@ document.addEventListener('click', e => {
 
 </script>
 
+<script>
+/* ── Motor de la secuencia de la galería ──
+   Carga progresiva (primero 1 de cada 16 cuadros, luego rellena) y dibuja
+   siempre el cuadro cargado más cercano. window.cvSeq.set(p) con p ∈ [0,1]:
+   0 = planeta, 1 = la casa. Sin GSAP se fija en la casa (ver bloque no-gsap). */
+(function () {
+  const cv = document.querySelector('.gt-canvas');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const mob = window.matchMedia('(max-width: 768px)').matches;
+  const N = mob ? 121 : 242, pre = mob ? 'm' : 'd', IW = 1280, IH = 720;
+  const imgs = new Array(N);
+  let p = 0, drawn = -1, W = 0, H = 0, started = false;
+
+  const url = i => 'img/seq/' + pre + String(i).padStart(3, '0') + '.webp';
+  function order() {
+    const seen = new Set([0, N - 1]), o = [N - 1, 0];
+    [16, 8, 4, 2, 1].forEach(st => { for (let i = 0; i < N; i += st) if (!seen.has(i)) { seen.add(i); o.push(i); } });
+    return o;
+  }
+  function load() {
+    if (started) return; started = true;
+    const q = order(); let k = 0, active = 0;
+    const next = () => {
+      while (active < 6 && k < q.length) {
+        const i = q[k++], im = new Image(); active++;
+        im.decoding = 'async';
+        im.onload = () => { imgs[i] = im; active--; if (Math.abs(i - target()) < Math.abs(drawn - target()) || drawn < 0) draw(); next(); };
+        im.onerror = () => { active--; next(); };
+        im.src = url(i);
+      }
+    };
+    next();
+  }
+  const target = () => Math.round(Math.min(1, Math.max(0, p)) * (N - 1));
+  function nearest(t) {
+    for (let d = 0; d < N; d++) {
+      if (imgs[t - d]) return t - d;
+      if (imgs[t + d]) return t + d;
+    }
+    return -1;
+  }
+  function size() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.imageSmoothingQuality = 'high';
+    drawn = -1; draw();
+  }
+  function blit(im, s, a) {
+    const w = IW * s, h = IH * s;
+    ctx.globalAlpha = a;
+    ctx.drawImage(im, (W - w) / 2, (H - h) / 2, w, h);
+  }
+  function draw() {
+    const i = nearest(target());
+    if (i < 0 || !W) return;
+    const im = imgs[i], cover = Math.max(W / IW, H / IH);
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+    if (H > W) {
+      /* teléfono vertical: al llegar a la casa se abre el encuadre para verla completa */
+      const fit = W / (IW * .8), e = Math.pow(Math.min(1, Math.max(0, (p - .55) / .45)), 1.6);
+      const s = cover + (fit - cover) * e;
+      if (s < cover) blit(im, cover, .32);
+      blit(im, s, 1);
+      ctx.globalAlpha = 1;
+    } else {
+      blit(im, cover, 1);
+    }
+    drawn = i;
+  }
+  window.cvSeq = { set(v) { p = v; draw(); } };
+  new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { load(); o.disconnect(); } }, { rootMargin: '150% 0px' }).observe(cv);
+  window.addEventListener('resize', size);
+  size();
+})();
+</script>
+
 <!-- ══ GSAP + Lenis: scroll cinemático ══ -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -1349,6 +1481,7 @@ document.addEventListener('click', e => {
 
   if (!window.gsap || !window.ScrollTrigger || reduced) {
     document.documentElement.classList.add('no-gsap');
+    window.cvSeq && window.cvSeq.set(1);
     const p = document.getElementById('preloader');
     if (p) p.remove();
     document.body.style.overflow = '';
@@ -1440,34 +1573,39 @@ document.addEventListener('click', e => {
     .to('.hero-eyebrow',   { y: -20, opacity: 0, ease: 'power1.in', duration: .16 }, .84)
     .to('.hero-hint',      { opacity: 0, ease: 'none', duration: .16 }, .84);
 
-  /* ── CAÍDA DESDE LA ESTRATÓSFERA HASTA CASA VERDE ──
-     Cuatro escenas (espacio → aéreo → agua cristalina → la casa) que se
-     atraviesan como si cayeras a través de ellas: cada una se dispara hacia
-     la cámara con desenfoque de movimiento mientras la siguiente entra
-     enfocándose, como una cámara de dron descendiendo sin cortes. ── */
-  gsap.timeline({
+  /* ── DEL PLANETA A LA CASA ──
+     La secuencia avanza con el scroll (0 → .9) y se sostiene en la casa
+     mientras se posa la placa. Capítulos de ubicación y altímetro encima. ── */
+  const seq = { p: 0 };
+  const altNum = document.querySelector('.gt-alt-num');
+  const fmtAlt = q => {
+    const km = 36000 * Math.pow(1 - q, 3.2);
+    if (km >= 10) return Math.round(km).toLocaleString('es-VE') + ' km';
+    if (km >= 1) return km.toFixed(1).replace('.', ',') + ' km';
+    return Math.max(0, Math.round(km * 1000)).toLocaleString('es-VE') + ' m';
+  };
+  const chapIn  = (el, at) => [el, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .06, ease: 'expo.out' }, at];
+  const chapOut = (el, at) => [el, { opacity: 0, y: -30, duration: .05, ease: 'power2.in' }, at];
+  const gt = gsap.timeline({
     scrollTrigger: {
       trigger: '.gal-teaser', start: 'top top', end: 'bottom bottom',
-      scrub: isTouch ? 0.5 : 1,
+      scrub: isTouch ? 0.4 : 0.8, invalidateOnRefresh: true,
     }
   })
-    // 1 · Estratósfera: el planeta se acerca y se disuelve en desenfoque
-    .fromTo('.zoom-espacio', { scale: 1, filter: 'blur(0px)' }, { scale: 3.4, filter: 'blur(22px)', ease: 'power1.in', duration: .22 }, 0)
-    .to('.zoom-espacio', { opacity: 0, duration: .06, ease: 'none' }, .18)
-    .fromTo('.zoom-aereo', { scale: .5, opacity: 0, filter: 'blur(26px)' }, { scale: 1, opacity: 1, filter: 'blur(0px)', duration: .16, ease: 'power2.out' }, .14)
-
-    // 2 · Aéreo: los cayos y arrecifes se alejan en picada
-    .to('.zoom-aereo', { scale: 2.5, filter: 'blur(18px)', ease: 'power1.in', duration: .22 }, .36)
-    .to('.zoom-aereo', { opacity: 0, duration: .06, ease: 'none' }, .52)
-    .fromTo('.zoom-agua', { scale: .55, opacity: 0, filter: 'blur(24px)' }, { scale: 1, opacity: 1, filter: 'blur(0px)', duration: .16, ease: 'power2.out' }, .48)
-
-    // 3 · Agua cristalina a ras del mar: Gran Roque a lo lejos
-    .to('.zoom-agua', { scale: 2.1, filter: 'blur(16px)', ease: 'power1.in', duration: .2 }, .7)
-    .to('.zoom-agua', { opacity: 0, duration: .06, ease: 'none' }, .84)
-    .fromTo('.zoom-casa', { scale: 1.3, opacity: 0, filter: 'blur(20px)' }, { scale: 1, opacity: 1, filter: 'blur(0px)', duration: .16, ease: 'power2.out' }, .8)
-
-    // 4 · Llegada: Casa Verde, y la placa se posa
-    .fromTo('.gal-plaque', { opacity: 0, scale: .9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: .12, ease: 'power2.out' }, .92);
+    .to(seq, { p: 1, duration: .9, ease: 'none', onUpdate() {
+      window.cvSeq && window.cvSeq.set(seq.p);
+      if (altNum) altNum.textContent = fmtAlt(seq.p);
+    } }, 0)
+    .fromTo('.gt-alt-dot', { y: 0 }, { y: () => document.querySelector('.gt-alt-track').offsetHeight, duration: .9, ease: 'none' }, 0)
+    .to('.gt-shade', { opacity: .3, duration: .3, ease: 'power1.inOut' }, .6)
+    .fromTo(...chapIn('.gt-c1', 0))
+    .to(...chapOut('.gt-c1', .2))
+    .fromTo(...chapIn('.gt-c2', .34))
+    .to(...chapOut('.gt-c2', .54))
+    .fromTo(...chapIn('.gt-c3', .62))
+    .to(...chapOut('.gt-c3', .8))
+    .to('.gt-alt', { opacity: 0, duration: .05, ease: 'power1.in' }, .86)
+    .fromTo('.gal-plaque', { opacity: 0, y: 50, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .08, ease: 'expo.out' }, .9);
 
   /* ── Parallax full-bleed ── */
   gsap.utils.toArray('[data-parallax]').forEach(el => {
