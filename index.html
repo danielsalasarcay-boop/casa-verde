@@ -525,8 +525,8 @@
     }
 
     /* ─── GALLERY TEASER: caída desde la estratósfera hasta la casa ─── */
-    /* ─── GALERÍA · DEL PLANETA A LA CASA ──────────────────────
-       Secuencia de 242 cuadros (video de referencia, invertido) dibujada
+    /* ─── GALERÍA · DE LA CASA A GRAN ROQUE ────────────────────
+       Secuencia de 120 cuadros (video del ascenso casa → Gran Roque) dibujada
        en <canvas> y atada al scroll: más fluida que un <video> en ambos
        sentidos. Capítulos de ubicación + altímetro + placa final. */
     .gal-teaser { position: relative; height: 380vh; padding: 0 !important; background: #000; }
@@ -546,8 +546,6 @@
     .gt-title em { font-style: italic; color: var(--verde); }
     .gt-sub { margin: 16px 0 0; font-size: 16px; line-height: 1.6; color: rgba(255,255,255,.86); max-width: 420px; }
 
-    .gt-credit { position: absolute; left: var(--sec-x, 52px); bottom: 14px; margin: 0; font-family: var(--f-label); font-size: 9.5px;
-      letter-spacing: .06em; color: rgba(255,255,255,.55); pointer-events: none; }
 
     /* placa final: doble bisel (marco de vidrio + núcleo blanco) */
     .gal-plaque { position: absolute; left: 0; right: 0; bottom: 8vh; margin: 0 auto; z-index: 5; width: min(440px, calc(100% - 40px));
@@ -575,7 +573,6 @@
       .gt-chap { left: 20px; right: 20px; bottom: auto; top: calc(var(--nav-h) + 28px); }
       .gt-title { font-size: clamp(38px, 11vw, 52px); }
       .gt-sub { font-size: 15px; }
-      .gt-credit { left: 16px; bottom: 8px; font-size: 8.5px; }
       .gal-plaque { bottom: calc(5vh + env(safe-area-inset-bottom)); left: 16px; right: 80px; width: auto; }
       .gal-plaque-core { padding: 24px 22px 22px; }
       .gal-btn { letter-spacing: .12em; padding-left: 18px; }
@@ -1092,7 +1089,7 @@ setTimeout(function(){
 <!-- GALLERY TEASER: de la estratósfera a Casa Verde ───────── -->
 <section class="gal-teaser" id="gallery" aria-label="Galería">
   <div class="gt-stage">
-    <canvas class="gt-canvas" role="img" aria-label="Ascenso desde Casa Verde, en Gran Roque, hasta ver el planeta desde el espacio"></canvas>
+    <canvas class="gt-canvas" role="img" aria-label="Ascenso desde Casa Verde hasta ver la isla de Gran Roque desde el aire"></canvas>
     <div class="gt-shade" aria-hidden="true"></div>
 
     <div class="gt-chap gt-c0">
@@ -1108,11 +1105,6 @@ setTimeout(function(){
       <h2 class="gt-title" data-t="gt2_h" data-html="true">Archipiélago<br><em>Los Roques</em></h2>
       <p class="gt-sub" data-t="gt2_p">Parque Nacional desde 1972: arrecifes, cayos y agua turquesa.</p>
     </div>
-    <div class="gt-chap gt-c1">
-      <span class="gt-pill"><i></i><span data-t="gt1_k">11°56′ N · 66°40′ O</span></span>
-      <h2 class="gt-title" data-t="gt1_h" data-html="true">Un punto<br><em>en el Caribe</em></h2>
-    </div>
-    <p class="gt-credit">Gran Roque: imagen satelital © Esri, Maxar</p>
 
     <div class="gal-plaque">
       <div class="gal-plaque-core">
@@ -1319,8 +1311,6 @@ const T = {
   gal_h:   { es:'La casa en imágenes', en:'The home in images' },
   gal_sub: { es:'Fotografías de la casa, la terraza y los atardeceres de Los Roques.', en:'Photographs of the home, the terrace and the sunsets of Los Roques.' },
   gal_btn: { es:'Explorar la galería', en:'Explore the gallery' },
-  gt1_k:   { es:'11°56′ N · 66°40′ O', en:'11°56′ N · 66°40′ W' },
-  gt1_h:   { es:'Un punto<br><em>en el Caribe</em>', en:'One point<br><em>in the Caribbean</em>' },
   gt2_k:   { es:'Mar Caribe · Venezuela', en:'Caribbean Sea · Venezuela' },
   gt2_h:   { es:'Archipiélago<br><em>Los Roques</em>', en:'Los Roques<br><em>Archipelago</em>' },
   gt2_p:   { es:'Parque Nacional desde 1972: arrecifes, cayos y agua turquesa.', en:'A National Park since 1972: reefs, cays and turquoise water.' },
@@ -1404,14 +1394,14 @@ document.addEventListener('click', e => {
      cuadros, luego rellena; siempre se dibuja el cuadro listo más cercano.
    · Un solo dibujo por fotograma (rAF) y lienzo a la resolución real de la
      fuente (no a 2×): el navegador lo escala en GPU.
-   window.cvSeq.set(p), p ∈ [0,1]: 0 = Casa Verde, 1 = el planeta (ascenso). */
+   window.cvSeq.set(p), p ∈ [0,1]: 0 = Casa Verde, 1 = la isla de Gran Roque (ascenso). */
 (function () {
   const cv = document.querySelector('.gt-canvas');
   if (!cv) return;
   const ctx = cv.getContext('2d', { alpha: false });
   const mob = window.matchMedia('(max-width: 768px)').matches;
-  const N = mob ? 82 : 122, pre = mob ? 'm' : 'd';
-  const IW = mob ? 1600 : 1920, IH = mob ? 900 : 1080;
+  const N = mob ? 80 : 120, pre = mob ? 'm' : 'd';
+  const IW = mob ? 1280 : 1696, IH = mob ? 720 : 960;
   const frames = new Array(N);
   let p = 0, drawn = -1, drawnP = -1, W = 0, H = 0, raf = 0, started = false;
 
@@ -1468,9 +1458,10 @@ document.addEventListener('click', e => {
     if (i === drawn && (!portrait || p === drawnP)) return;
     const f = frames[i], cover = Math.max(W / IW, H / IH);
     if (portrait) {
-      /* teléfono vertical: en la casa el encuadre se abre para verla completa,
-         y al entrar en las nubes pasa a pantalla completa */
-      const fit = W / (IW * .8), e = 1 - Math.min(1, Math.max(0, (p - .12) / .12));
+      /* teléfono vertical: en la casa y en la isla el encuadre se abre para
+         verlas completas (con la etiqueta del video); en el ascenso, pantalla completa */
+      const ramp = (a, b) => Math.min(1, Math.max(0, (p - a) / (b - a)));
+      const fit = W / (IW * .8), e = Math.max(1 - ramp(.12, .24), ramp(.42, .56));
       const sc = cover + (fit - cover) * e;
       ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
       if (sc < cover) { ctx.globalAlpha = .32; blit(f, cover); ctx.globalAlpha = 1; }
@@ -1599,8 +1590,8 @@ document.addEventListener('click', e => {
     .to('.hero-hint',      { opacity: 0, ease: 'none', duration: .16 }, .84);
 
   /* ── ASCENSO: DE CASA VERDE AL PLANETA ──
-     La secuencia avanza con el scroll (0 → .9) y se sostiene en el planeta
-     mientras se posa la placa. Un capítulo por escala: casa, isla, atolón, Caribe. ── */
+     La secuencia avanza con el scroll (0 → .9) y se sostiene en la isla
+     mientras se posa la placa. Un capítulo por escala: casa, archipiélago, Gran Roque. ── */
   const seq = { p: 0 };
   const chapIn  = (el, at) => [el, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .05, ease: 'expo.out' }, at];
   const chapOut = (el, at) => [el, { opacity: 0, y: -30, duration: .04, ease: 'power2.in' }, at];
@@ -1615,12 +1606,10 @@ document.addEventListener('click', e => {
     .to('.gt-shade', { opacity: 1, duration: .2, ease: 'power1.inOut' }, .62)
     .fromTo(...chapIn('.gt-c0', 0))
     .to(...chapOut('.gt-c0', .14))
-    .fromTo(...chapIn('.gt-c3', .32))
-    .to(...chapOut('.gt-c3', .44))
-    .fromTo(...chapIn('.gt-c2', .46))
-    .to(...chapOut('.gt-c2', .56))
-    .fromTo(...chapIn('.gt-c1', .64))
-    .to(...chapOut('.gt-c1', .82))
+    .fromTo(...chapIn('.gt-c2', .25))
+    .to(...chapOut('.gt-c2', .37))
+    .fromTo(...chapIn('.gt-c3', .46))
+    .to(...chapOut('.gt-c3', .6))
     .fromTo('.gal-plaque', { opacity: 0, y: 50, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .08, ease: 'expo.out' }, .88);
 
   /* ── Parallax full-bleed ── */
