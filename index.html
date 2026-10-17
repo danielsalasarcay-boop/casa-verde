@@ -1402,17 +1402,35 @@ document.addEventListener('click', e => {
   const mob = window.matchMedia('(max-width: 768px)').matches;
   const N = mob ? 80 : 120, pre = mob ? 'm' : 'd';
   const IW = mob ? 1280 : 1696, IH = mob ? 720 : 960;
-  const frames = new Array(N);
-  let p = 0, drawn = -1, drawnP = -1, W = 0, H = 0, raf = 0, started = false;
+  /* frames[i] = cuadro comprimido (Blob); solo unos pocos se mantienen
+     decodificados (bmp, LRU). Decodificar los 120 a la vez ocupaba cientos de MB
+     y en iPhone la página se trababa al terminar la secuencia. */
+  const frames = new Array(N), bmp = new Map(), busy = new Set(), LIM = mob ? 8 : 14;
+  let p = 0, drawn = -1, drawnP = -1, W = 0, H = 0, raf = 0, started = false, cur = null, curI = -1;
 
   const url = i => 'img/seq/' + pre + String(i).padStart(3, '0') + '.webp';
   const canBitmap = 'createImageBitmap' in window;
   function fetchFrame(i) {
-    if (canBitmap) {
-      return fetch(url(i)).then(r => r.blob()).then(b => createImageBitmap(b));
-    }
+    if (canBitmap) return fetch(url(i)).then(r => r.blob());
     const im = new Image(); im.src = url(i);
     return im.decode().then(() => im);
+  }
+  function decoded(i) {
+    if (i < 0 || i >= N || !frames[i]) return null;
+    const b = bmp.get(i);
+    if (b) { bmp.delete(i); bmp.set(i, b); return b; }
+    if (!busy.has(i)) {
+      busy.add(i);
+      (canBitmap ? createImageBitmap(frames[i]) : Promise.resolve(frames[i])).then(b => {
+        bmp.set(i, b);
+        for (const [k, o] of bmp) {
+          if (bmp.size <= LIM) break;
+          if (o !== cur) { bmp.delete(k); o.close && o.close(); }
+        }
+        schedule(true);
+      }).catch(() => {}).then(() => busy.delete(i));
+    }
+    return null;
   }
   function load() {
     if (started) return; started = true;
@@ -1452,11 +1470,15 @@ document.addEventListener('click', e => {
   function draw() {
     raf = 0;
     const t = Math.round(Math.min(1, Math.max(0, p)) * (N - 1));
-    const i = nearest(t);
-    if (i < 0 || !W) return;
+    const n = nearest(t);
+    if (n < 0 || !W) return;
+    /* si el cuadro aún se decodifica, se mantiene el último dibujado */
+    const d = decoded(n), i = d ? n : curI, f = d || cur;
+    decoded(n + 1); decoded(n - 1);
+    if (!f) return;
     const portrait = H > W;
     if (i === drawn && (!portrait || p === drawnP)) return;
-    const f = frames[i], cover = Math.max(W / IW, H / IH);
+    const cover = Math.max(W / IW, H / IH);
     if (portrait) {
       /* teléfono vertical: en la casa y en la isla el encuadre se abre para
          verlas completas (con la etiqueta del video); en el ascenso, pantalla completa */
@@ -1469,7 +1491,7 @@ document.addEventListener('click', e => {
     } else {
       blit(f, cover);
     }
-    drawn = i; drawnP = p;
+    drawn = i; drawnP = p; cur = f; curI = i;
   }
   function schedule(force) {
     if (force) drawn = -1;
