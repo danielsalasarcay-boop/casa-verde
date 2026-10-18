@@ -1,0 +1,56 @@
+/* Páginas legales de Casa Verde: misma tipografía y verde que el sitio. */
+:root {
+  --ink: #121212; --ink-soft: rgba(18,18,18,.72); --hair: rgba(18,18,18,.12);
+  --verde: #00C292; --sand-dark: #F1FAF7;
+  --f-disp: 'Cormorant Garamond', Georgia, serif; --f-body: 'Jost', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; background: #fff; color: var(--ink); font-family: var(--f-body); font-weight: 300; font-size: 16px; line-height: 1.75;
+  -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+
+.lg-nav { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px 52px; background: rgba(255,255,255,.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--hair); }
+.lg-nav img { height: 40px; width: auto; display: block; }
+.lg-back { font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; }
+.lg-lang { display: flex; gap: 4px; padding: 3px; border-radius: 999px; border: 1px solid var(--hair); }
+.lg-lang button { all: unset; cursor: pointer; padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 500; letter-spacing: .12em; }
+.lg-lang button.active { background: var(--verde); color: #fff; }
+.lg-right { display: flex; align-items: center; gap: 22px; }
+
+main { max-width: 780px; margin: 0 auto; padding: 72px 24px 96px; }
+.lg-label { margin: 0 0 14px; font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--verde); }
+h1 { margin: 0 0 12px; font-family: var(--f-disp); font-weight: 400; font-size: clamp(40px, 6vw, 64px); line-height: 1.02; }
+.lg-meta { margin: 0 0 40px; padding-bottom: 28px; border-bottom: 1px solid var(--hair); font-size: 13px; color: var(--ink-soft); }
+h2 { margin: 44px 0 10px; font-family: var(--f-disp); font-weight: 500; font-size: 28px; line-height: 1.2; }
+h3 { margin: 24px 0 6px; font-size: 16px; font-weight: 500; }
+p, li { color: var(--ink-soft); }
+ul { padding-left: 20px; }
+li { margin: 4px 0; }
+strong { font-weight: 500; color: var(--ink); }
+.lg-box { margin: 20px 0; padding: 18px 20px; border-radius: 10px; background: var(--sand-dark); }
+.lg-box p { margin: 4px 0; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--hair); color: var(--ink-soft); }
+th { font-weight: 500; color: var(--ink); }
+.lg-btn { all: unset; cursor: pointer; display: inline-block; margin-top: 8px; padding: 12px 22px; border-radius: 999px; background: var(--ink); color: #fff;
+  font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+.lg-btn:focus-visible { outline: 2px solid var(--verde); outline-offset: 3px; }
+.lg-ok { display: block; margin-top: 10px; font-size: 13px; color: var(--verde); min-height: 1em; }
+[data-f].pend { color: #B4533A; }
+
+.lg-foot { padding: 32px 24px 48px; border-top: 1px solid var(--hair); text-align: center; font-size: 12.5px; color: var(--ink-soft); }
+.lg-foot ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin: 0 0 10px; padding: 0; }
+.lg-foot a[aria-current] { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 768px) {
+  .lg-nav { padding: 12px 20px; }
+  .lg-nav img { height: 34px; }
+  .lg-back { display: none; }
+  main { padding: 48px 20px 72px; }
+  h2 { font-size: 24px; }
+  th, td { padding: 8px; }
+}
+@media (hover: hover) { .lg-btn:hover { background: var(--verde); } }

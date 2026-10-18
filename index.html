@@ -20,12 +20,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link href="fonts/fonts.css" rel="stylesheet">
   <style>
     /* ─── TOKENS ─────────────────────────────────────────────── */
     :root {
@@ -466,6 +463,14 @@
     .bk-send svg { width: 18px; height: 18px; }
     .bk-alt { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 22px; font-size: 13px; color: var(--ink-soft); }
     .bk-alt a { color: var(--ink); border-bottom: 1px solid var(--hair); padding-bottom: 2px; transition: border-color .3s, color .3s; }
+    /* casillas legales: dos consentimientos separados, cada uno con su documento */
+    .bk-legal { grid-column: span 2; display: grid; gap: 10px; padding: 16px 18px; background: #fff; border-top: 1px solid var(--hair); }
+    .bk-check { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.45; color: var(--ink-soft); }
+    .bk-check input { flex-shrink: 0; width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--verde-dk); cursor: pointer; }
+    .bk-check label { cursor: pointer; }
+    .bk-check a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+    .bk-note { font-size: 12px; line-height: 1.5; color: var(--ink-soft); margin: 2px 0 0 28px; }
+    .bk-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
     .bk-err:empty { display: none; }
     .bk-err { margin-top: 10px; font-size: 12.5px; color: #B4533A; }
     @media (hover: hover) {
@@ -590,34 +595,28 @@
     .loc-head .s-label { color: var(--verde-dk); margin-bottom: 8px; }
     .loc-head .s-title { margin: 0; color: var(--ink); font-size: clamp(30px, 4vw, 58px); }
     .loc-map-wrap { position: relative; width: 100%; height: 460px; overflow: hidden; background: var(--sand-dark); }
-    .loc-map-wrap iframe, #cv-map { width: 100%; height: 100%; border: 0; display: block; }
-    /* mapa satelital sin etiquetas de negocios; pin propio verde fachada */
-    #cv-map { background: #CFE9E6; z-index: 0; }
-    .loc-map-btn { z-index: 1; }
-    .cv-pin { position: relative; }
-    .cv-pin i { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%;
-      background: var(--verde); border: 3px solid #fff; box-shadow: 0 4px 14px rgba(0,0,0,.4); }
-    .cv-pin i::after { content: ''; position: absolute; inset: -12px; border-radius: 50%; border: 2px solid var(--verde); animation: pinPulse 2.4s ease-out infinite; }
-    @keyframes pinPulse { from { transform: scale(.5); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
-    .cv-pin b { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); white-space: nowrap; background: #fff; color: var(--ink);
-      font-family: var(--f-disp); font-weight: 500; font-size: 18px; padding: 6px 14px; border-radius: 999px; box-shadow: 0 6px 18px rgba(0,0,0,.3); }
-    .leaflet-control-attribution { font-size: 9px; }
-    .loc-map-btn {
-      position: absolute; top: 16px; left: 16px;
-      display: flex; align-items: center; gap: 9px;
-      padding: 11px 20px; background: #fff; color: var(--ink);
-      border-radius: 999px; font-size: 11px; font-weight: 500;
-      letter-spacing: .14em; text-transform: uppercase;
-      box-shadow: 0 6px 20px rgba(0,0,0,.18);
-      transition: background .3s, color .3s;
-    }
-    @media (hover: hover) { .loc-map-btn:hover { background: var(--verde-dk); color: #fff; } }
+    /* Google Maps igual que Casa Panza; se carga solo si el visitante acepta
+       (Google usa cookies propias en el mapa incrustado) */
+    .loc-map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; filter: grayscale(10%) contrast(1.02) brightness(.98); }
+    .map-consent { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+      padding: 24px; text-align: center; color: #fff;
+      background: linear-gradient(rgba(12,36,36,.62), rgba(12,36,36,.72)), url(img/gal/agua-lejos.jpeg) center/cover; }
+    .map-consent p { max-width: 460px; margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(255,255,255,.9); }
+    .map-consent-btns { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; }
+    .map-ok { padding: 13px 24px; border-radius: 999px; background: var(--verde); color: #fff; font-family: var(--f-label);
+      font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; transition: background .3s; }
+    .map-consent a { font-size: 12.5px; color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    @media (hover: hover) { .map-ok:hover { background: var(--verde-dk); } }
     @media (max-width: 768px) {
       .location { padding-top: 16px !important; }
       .loc-head { padding-bottom: 14px; }
       .loc-head .s-title { font-size: 30px; }
+      .loc-map-wrap { height: 340px; }
+      .map-consent p { font-size: 13.5px; }
+    }
+    @media (max-width: 480px) {
       .loc-map-wrap { height: 260px; }
-      .loc-map-btn { top: 10px; left: 10px; padding: 9px 14px; font-size: 10px; }
+      .map-consent { gap: 12px; }
     }
 
     /* ─── FOOTER ─────────────────────────────────────────────── */
@@ -642,6 +641,10 @@
     .foot-lang .lang-btn { color: rgba(255,255,255,.38); }
     .foot-lang .lang-btn.active { background: rgba(255,255,255,.14) !important; color: rgba(255,255,255,.9) !important; }
     .foot-copy { font-size: 12px; color: rgba(255,255,255,.75); letter-spacing: .04em; }
+    .foot-ai { max-width: 520px; margin: 10px auto 0; font-size: 11px; line-height: 1.6; color: rgba(255,255,255,.6); }
+    .foot-legal { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin: 14px 0 0; padding: 0; }
+    .foot-legal a { font-size: 11.5px; color: rgba(255,255,255,.75); letter-spacing: .04em; text-decoration: underline; text-underline-offset: 3px; }
+    @media (hover: hover) { .foot-legal a:hover { color: #fff; } }
 
     /* ─── WHATSAPP FLOAT ─────────────────────────────────────── */
     .wa-float {
@@ -829,7 +832,7 @@
       .cal-nav, .gs-btn { width: 44px; height: 44px; }
       .bk-link { padding: 12px 6px; margin: -12px -6px; }
       .bk-ok { padding: 14px 24px; }
-      .sp-more, .loc-map-btn { min-height: 44px; }
+      .sp-more, .map-ok { min-height: 44px; }
       .foot-links a, .foot-phone a { display: inline-block; padding: 12px 6px; }
     }
 
@@ -914,6 +917,7 @@
       .amen-head, .loc-head { margin-bottom: 28px; }
     }
   </style>
+  <script src="consent.js"></script>
 </head>
 <body>
 
@@ -1141,12 +1145,15 @@ setTimeout(function(){
     <span class="s-label reveal" data-t="loc_lbl">Ubicación</span>
     <h2 class="s-title reveal" data-t="loc_h">Gran Roque, Los Roques</h2>
   </div>
-  <div class="loc-map-wrap">
-    <div id="cv-map" role="img" aria-label="Mapa satelital: Casa Verde, Gran Roque, Los Roques"></div>
-    <a href="https://maps.app.goo.gl/oZi7Z5DEkzjafH2z6" target="_blank" rel="noopener" class="loc-map-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span data-t="loc_btn">Ver en Google Maps</span>
-          </a>
+  <div class="loc-map-wrap" id="locMap">
+    <div class="map-consent" id="mapConsent">
+      <p data-t="map_c_txt">El mapa lo muestra Google Maps, que puede usar sus propias cookies. Se carga solo si lo aceptas.</p>
+      <div class="map-consent-btns">
+        <button type="button" class="map-ok" id="mapLoad" data-t="map_c_ok">Mostrar mapa de Google</button>
+        <a href="cookies.html" data-t="map_c_more">Política de cookies</a>
+        <a href="https://maps.app.goo.gl/oZi7Z5DEkzjafH2z6" target="_blank" rel="noopener" data-t="map_c_ext">Abrir en Google Maps</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1175,6 +1182,11 @@ setTimeout(function(){
           <div class="bk-sheet-head" style="padding-left:0;padding-right:0"><span data-t="bk_guests">Huéspedes</span><button type="button" class="bk-link" data-close data-t="bk_close">Cerrar</button></div>
           <div class="gs-row" style="border-bottom:0"><div><b data-t="bk_ppl">Personas</b><small data-t="bk_ppl_s">Hasta 10 huéspedes</small></div><div class="gs-step"><button type="button" class="gs-btn" data-k="a" data-d="-1" aria-label="Menos personas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button><span class="gs-n" id="gsA">2</span><button type="button" class="gs-btn" data-k="a" data-d="1" aria-label="Más personas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
           <div class="cal-foot" style="justify-content:flex-end"><button type="button" class="bk-ok" data-close data-t="bk_done">Listo</button></div>
+        </div>
+        <div class="bk-legal">
+          <div class="bk-check"><input type="checkbox" id="bkTerms" name="terms"><label for="bkTerms" data-t="bk_terms">He leído y acepto los Términos y condiciones</label><a href="terminos.html" target="_blank" rel="noopener" data-t="bk_read">Leer</a></div>
+          <div class="bk-check"><input type="checkbox" id="bkPriv" name="privacy"><label for="bkPriv" data-t="bk_priv">He leído y acepto la Política de privacidad</label><a href="privacidad.html" target="_blank" rel="noopener" data-t="bk_read">Leer</a></div>
+          <p class="bk-note" data-t="bk_note" data-html="true">Solo usamos tus fechas y número de huéspedes para responderte por WhatsApp. Consulta también la <a href="reembolso.html" target="_blank" rel="noopener">Política de cancelación y reembolso</a>.</p>
         </div>
         <button class="bk-send" type="submit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c.6.3 1.1.4 1.5.5a3.6 3.6 0 0 0 1.7.1 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span data-t="bk_send">Consultar por WhatsApp</span></button>
       </form>
@@ -1217,6 +1229,13 @@ setTimeout(function(){
     </div>
     <p class="foot-phone"><a href="https://wa.me/584123030330">+58 412-303-0330</a></p>
     <p class="foot-copy">© <span class="foot-year">2026</span> Casa Verde. <span data-t="foot_copy_rights">Todos los derechos reservados.</span></p>
+    <p class="foot-ai" data-t="foot_ai">Algunas imágenes de portada y la animación aérea son recreaciones digitales ilustrativas hechas a partir de fotos reales de la casa.</p>
+    <ul class="foot-legal">
+      <li><a href="terminos.html" data-t="foot_terms">Términos y condiciones</a></li>
+      <li><a href="privacidad.html" data-t="foot_priv">Privacidad</a></li>
+      <li><a href="cookies.html" data-t="foot_cook">Cookies</a></li>
+      <li><a href="reembolso.html" data-t="foot_refund">Cancelación y reembolso</a></li>
+    </ul>
   </div>
 </footer>
 
@@ -1323,9 +1342,25 @@ const T = {
 
   loc_lbl: { es:'Ubicación',            en:'Location' },
   loc_h:   { es:'Gran Roque, Los Roques', en:'Gran Roque, Los Roques' },
-  loc_btn: { es:'Ver en Google Maps',   en:'View on Google Maps' },
 
   foot_copy_rights: { es:'Todos los derechos reservados.', en:'All rights reserved.' },
+  foot_terms: { es:'Términos y condiciones', en:'Terms and conditions' },
+  foot_priv:  { es:'Privacidad', en:'Privacy' },
+  foot_cook:  { es:'Cookies', en:'Cookies' },
+  foot_refund:{ es:'Cancelación y reembolso', en:'Cancellations and refunds' },
+  foot_ai:    { es:'Algunas imágenes de portada y la animación aérea son recreaciones digitales ilustrativas hechas a partir de fotos reales de la casa.',
+                en:'Some cover images and the aerial animation are illustrative digital recreations based on real photos of the house.' },
+
+  bk_terms: { es:'He leído y acepto los Términos y condiciones', en:'I have read and accept the Terms and conditions' },
+  bk_priv:  { es:'He leído y acepto la Política de privacidad', en:'I have read and accept the Privacy policy' },
+  bk_read:  { es:'Leer', en:'Read' },
+  bk_note:  { es:'Solo usamos tus fechas y número de huéspedes para responderte por WhatsApp. Consulta también la <a href="reembolso.html" target="_blank" rel="noopener">Política de cancelación y reembolso</a>.',
+              en:'We only use your dates and number of guests to reply on WhatsApp. See also the <a href="reembolso.html" target="_blank" rel="noopener">Cancellation and refund policy</a>.' },
+
+  map_c_txt:  { es:'El mapa lo muestra Google Maps, que puede usar sus propias cookies. Se carga solo si lo aceptas.', en:'The map is provided by Google Maps, which may use its own cookies. It only loads if you accept.' },
+  map_c_ok:   { es:'Mostrar mapa de Google', en:'Show Google map' },
+  map_c_more: { es:'Política de cookies', en:'Cookie policy' },
+  map_c_ext:  { es:'Abrir en Google Maps', en:'Open in Google Maps' },
 };
 
 /* ─── LANGUAGE ─────────────────────────────────────────────── */
@@ -1355,6 +1390,7 @@ function setLang(l) {
 }
 
 applyLang(lang);
+window.cvLang = () => lang;
 
 /* ─── NAV SCROLL ───────────────────────────────────────────── */
 const nav = document.getElementById('nav');
@@ -1393,7 +1429,8 @@ document.addEventListener('click', e => {
 /* ── Motor de la secuencia de la galería ──
    · Cuadros decodificados fuera del hilo principal (createImageBitmap) → sin tirones.
    · Precarga en segundo plano tras cargar la página: primero 1 de cada 16
-     cuadros, luego rellena; siempre se dibuja el cuadro listo más cercano.
+     cuadros, luego rellena; siempre se dibuja el cuadro listo más cercano, y si
+     están los dos vecinos, un fundido entre ellos.
    · Un solo dibujo por fotograma (rAF) y lienzo a la resolución real de la
      fuente (no a 2×): el navegador lo escala en GPU.
    window.cvSeq.set(p), p ∈ [0,1]: 0 = Casa Verde, 1 = la isla de Gran Roque (ascenso). */
@@ -1402,13 +1439,16 @@ document.addEventListener('click', e => {
   if (!cv) return;
   const ctx = cv.getContext('2d', { alpha: false });
   const mob = window.matchMedia('(max-width: 768px)').matches;
-  const N = mob ? 80 : 120, pre = mob ? 'm' : 'd';
-  const IW = mob ? 1280 : 1696, IH = mob ? 720 : 960;
+  /* tres calidades: m (celular, 120 cuadros 1280), d (2560) y k (4K nativo 3392,
+     para pantallas Retina/grandes), ambas con los 240 cuadros del video */
+  const big = !mob && Math.max(screen.width, window.innerWidth) * (window.devicePixelRatio || 1) > 2700;
+  const pre = mob ? 'm' : big ? 'k' : 'd', N = mob ? 120 : 240;
+  const IW = mob ? 1280 : big ? 3392 : 2560, IH = mob ? 720 : big ? 1920 : 1440;
   /* frames[i] = cuadro comprimido (Blob); solo unos pocos se mantienen
-     decodificados (bmp, LRU). Decodificar los 120 a la vez ocupaba cientos de MB
+     decodificados (bmp, LRU). Decodificar todos a la vez ocupaba cientos de MB
      y en iPhone la página se trababa al terminar la secuencia. */
-  const frames = new Array(N), bmp = new Map(), busy = new Set(), LIM = mob ? 8 : 14;
-  let p = 0, drawn = -1, drawnP = -1, W = 0, H = 0, raf = 0, started = false, cur = null, curI = -1;
+  const frames = new Array(N), bmp = new Map(), busy = new Set(), LIM = mob ? 10 : big ? 6 : 8;
+  let p = 0, drawn = '', W = 0, H = 0, raf = 0, started = false, cur = null, curI = -1, cur2 = null;
 
   const url = i => 'img/seq/' + pre + String(i).padStart(3, '0') + '.webp';
   const canBitmap = 'createImageBitmap' in window;
@@ -1427,7 +1467,7 @@ document.addEventListener('click', e => {
         bmp.set(i, b);
         for (const [k, o] of bmp) {
           if (bmp.size <= LIM) break;
-          if (o !== cur) { bmp.delete(k); o.close && o.close(); }
+          if (o !== cur && o !== cur2) { bmp.delete(k); o.close && o.close(); }
         }
         schedule(true);
       }).catch(() => {}).then(() => busy.delete(i));
@@ -1463,7 +1503,7 @@ document.addEventListener('click', e => {
     cv.width = Math.round(W * k); cv.height = Math.round(H * k);
     ctx.setTransform(k, 0, 0, k, 0, 0);
     ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
-    drawn = -1; schedule(true);
+    schedule(true);
   }
   function blit(f, s) {
     const w = IW * s, h = IH * s;
@@ -1471,32 +1511,43 @@ document.addEventListener('click', e => {
   }
   function draw() {
     raf = 0;
-    const t = Math.round(Math.min(1, Math.max(0, p)) * (N - 1));
-    const n = nearest(t);
-    if (n < 0 || !W) return;
-    /* si el cuadro aún se decodifica, se mantiene el último dibujado */
-    const d = decoded(n), i = d ? n : curI, f = d || cur;
-    decoded(n + 1); decoded(n - 1);
-    if (!f) return;
+    if (!W) return;
+    /* fundido entre los dos cuadros vecinos según la posición exacta del scroll:
+       el movimiento es continuo, sin escalones entre cuadros */
+    const ft = Math.min(1, Math.max(0, p)) * (N - 1), a = Math.floor(ft), fr = ft - a;
+    let A = frames[a] ? decoded(a) : null, ia = a, B = null;
+    if (A && fr > .02 && frames[a + 1]) B = decoded(a + 1);
+    if (!A) {
+      const n = nearest(Math.round(ft));
+      A = n < 0 ? null : decoded(n); ia = n;
+      if (!A) { A = cur; ia = curI; }
+    }
+    decoded(a + 2); decoded(a - 1);
+    if (!A) return;
     const portrait = H > W;
-    if (i === drawn && (!portrait || p === drawnP)) return;
+    const key = ia + ':' + (B ? fr.toFixed(3) : '-') + (portrait ? ':' + p.toFixed(4) : '');
+    if (key === drawn) return;
     const cover = Math.max(W / IW, H / IH);
+    let sc = cover;
     if (portrait) {
       /* teléfono vertical: en la casa y en la isla el encuadre se abre para
          verlas completas (con la etiqueta del video); en el ascenso, pantalla completa */
-      const ramp = (a, b) => Math.min(1, Math.max(0, (p - a) / (b - a)));
+      const ramp = (x, y) => Math.min(1, Math.max(0, (p - x) / (y - x)));
       const fit = W / (IW * .8), e = Math.max(1 - ramp(.12, .24), ramp(.42, .56));
-      const sc = cover + (fit - cover) * e;
+      sc = cover + (fit - cover) * e;
       ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
-      if (sc < cover) { ctx.globalAlpha = .32; blit(f, cover); ctx.globalAlpha = 1; }
-      blit(f, sc);
-    } else {
-      blit(f, cover);
     }
-    drawn = i; drawnP = p; cur = f; curI = i;
+    const paint = (f, al) => {
+      if (sc < cover) { ctx.globalAlpha = .32 * al; blit(f, cover); }
+      ctx.globalAlpha = al; blit(f, sc);
+    };
+    paint(A, 1);
+    if (B) paint(B, fr);
+    ctx.globalAlpha = 1;
+    drawn = key; cur = A; curI = ia; cur2 = B;
   }
   function schedule(force) {
-    if (force) drawn = -1;
+    if (force) drawn = '';
     if (!raf) raf = requestAnimationFrame(draw);
   }
   window.cvSeq = { set(v) { p = v; schedule(); } };
@@ -1622,7 +1673,7 @@ document.addEventListener('click', e => {
   gsap.timeline({
     scrollTrigger: {
       trigger: '.gal-teaser', start: 'top top', end: 'bottom bottom',
-      scrub: isTouch ? 0.15 : 0.3, invalidateOnRefresh: true,
+      scrub: isTouch ? 0.3 : 0.5, invalidateOnRefresh: true,
     }
   })
     .to(seq, { p: 1, duration: .9, ease: 'none', onUpdate() { window.cvSeq && window.cvSeq.set(seq.p); } }, 0)
@@ -1630,8 +1681,8 @@ document.addEventListener('click', e => {
     .to('.gt-shade', { opacity: 1, duration: .2, ease: 'power1.inOut' }, .62)
     .fromTo(...chapIn('.gt-c0', 0))
     .to(...chapOut('.gt-c0', .14))
-    .fromTo(...chapIn('.gt-c2', .25))
-    .to(...chapOut('.gt-c2', .37))
+    .fromTo(...chapIn('.gt-c2', .3))
+    .to(...chapOut('.gt-c2', .41))
     .fromTo(...chapIn('.gt-c3', .46))
     .to(...chapOut('.gt-c3', .6))
     .fromTo('.gal-plaque', { opacity: 0, y: 50, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .08, ease: 'expo.out' }, .88);
@@ -1798,10 +1849,25 @@ document.addEventListener('click', e => {
       e.preventDefault(); err.textContent = '';
       const en = isEn();
       if (!start || !end) { err.textContent = en ? 'Choose your arrival and departure dates.' : 'Elige tus fechas de llegada y salida.'; open(cal, start ? outBtn : inBtn); return; }
+      const tOk = document.getElementById('bkTerms').checked, pOk = document.getElementById('bkPriv').checked;
+      if (!tOk || !pOk) {
+        err.textContent = en ? 'To continue, accept the Terms and conditions and the Privacy policy.' : 'Para continuar, acepta los Términos y condiciones y la Política de privacidad.';
+        (tOk ? document.getElementById('bkPriv') : document.getElementById('bkTerms')).focus();
+        return;
+      }
       const n = nights();
+      /* registro trazable: qué aceptó, cuándo, con qué versión de los documentos;
+         la referencia viaja en el WhatsApp y une el registro con la conversación */
+      const ref = window.cvConsent ? window.cvConsent.log({
+        type: 'reserva',
+        terms: true, termsDoc: 'terminos.html', termsText: document.querySelector('label[for=bkTerms]').textContent,
+        privacy: true, privacyDoc: 'privacidad.html', privacyText: document.querySelector('label[for=bkPriv]').textContent,
+        checkin: fmtNum(start), checkout: fmtNum(end), guests: g.a
+      }) : '';
       let msg = en ? `Hello! I would like to book Casa Verde from ${fmtNum(start)} to ${fmtNum(end)} (${n} night${n === 1 ? '' : 's'}) for ${g.a} guest${g.a === 1 ? '' : 's'}`
                    : `¡Hola! Quisiera reservar en Casa Verde del ${fmtNum(start)} al ${fmtNum(end)} (${n} noche${n === 1 ? '' : 's'}) para ${g.a} huésped${g.a === 1 ? '' : 'es'}`;
       msg += '.';
+      if (ref) msg += en ? `\n\n(Ref. ${ref} · accepted Terms and Privacy policy v${window.CV_LEGAL.version})` : `\n\n(Ref. ${ref} · aceptó Términos y Política de privacidad v${window.CV_LEGAL.version})`;
       window.open('https://wa.me/584123030330?text=' + encodeURIComponent(msg), '_blank', 'noopener');
     });
   }
@@ -1809,31 +1875,27 @@ document.addEventListener('click', e => {
 })();
 
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
 <script>
-  /* Mapa de ubicación: satélite Esri sin etiquetas (no muestra posadas ni negocios
-     vecinos como el Google Maps incrustado). Se inicia al acercarse a la sección. */
+  /* Mapa de ubicación: Google Maps incrustado (como Casa Panza). Google usa cookies
+     en el mapa, así que solo se carga con el consentimiento del visitante, que se
+     recuerda en este navegador y se puede retirar desde la Política de cookies. */
   (function () {
-    var el = document.getElementById('cv-map');
-    if (!el) return;
-    var start = function () {
-      if (!window.L || el._init) return; el._init = true;
-      var pos = [11.945813, -66.676766];
-      var touch = window.matchMedia('(pointer: coarse)').matches;
-      var map = L.map(el, { center: [11.9452, -66.6772], zoom: touch ? 16 : 17, maxZoom: 18, minZoom: 13,
-        scrollWheelZoom: false, dragging: !touch, tap: false, zoomControl: false, attributionControl: true });
-      if (!touch) L.control.zoom({ position: 'topright' }).addTo(map);
-      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 18, attribution: 'Imágenes &copy; Esri'
-      }).addTo(map);
-      L.marker(pos, { icon: L.divIcon({ className: 'cv-pin', html: '<i></i><b>Casa Verde</b>', iconSize: [0, 0] }), keyboard: false }).addTo(map);
-    };
-    var io = new IntersectionObserver(function (e) {
-      if (!e[0].isIntersecting) return;
-      io.disconnect();
-      if (window.L) start(); else window.addEventListener('load', start);
-    }, { rootMargin: '600px 0px' });
-    io.observe(el);
+    var wrap = document.getElementById('locMap'), btn = document.getElementById('mapLoad');
+    if (!wrap || !btn) return;
+    function show() {
+      if (wrap.querySelector('iframe')) return;
+      var hl = (window.cvLang && window.cvLang() === 'en') ? 'en' : 'es';
+      var f = document.createElement('iframe');
+      f.src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1200!2d-66.676766!3d11.945813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c28576bb4316cbd%3A0x7636a41d46e72e70!2sCasa%20Verde!5e0!3m2!1s' + hl + '!2sve!4v1791333550955!5m2!1s' + hl + '!2sve';
+      f.loading = 'lazy'; f.allowFullscreen = true; f.referrerPolicy = 'no-referrer-when-downgrade';
+      f.title = 'Casa Verde — Gran Roque, Los Roques, Venezuela';
+      wrap.innerHTML = ''; wrap.appendChild(f);
+    }
+    if (window.cvConsent && window.cvConsent.cookies() === 'maps') show();
+    btn.addEventListener('click', function () {
+      window.cvConsent && window.cvConsent.setCookies('maps');
+      show();
+    });
   })();
 </script>
 </body>
