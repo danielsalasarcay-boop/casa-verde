@@ -595,28 +595,16 @@
     .loc-head .s-label { color: var(--verde-dk); margin-bottom: 8px; }
     .loc-head .s-title { margin: 0; color: var(--ink); font-size: clamp(30px, 4vw, 58px); }
     .loc-map-wrap { position: relative; width: 100%; height: 460px; overflow: hidden; background: var(--sand-dark); }
-    /* Google Maps igual que Casa Panza; se carga solo si el visitante acepta
-       (Google usa cookies propias en el mapa incrustado) */
+    /* Google Maps igual que Casa Panza (Google pone sus cookies; ver cookies.html) */
     .loc-map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; filter: grayscale(10%) contrast(1.02) brightness(.98); }
-    .map-consent { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-      padding: 24px; text-align: center; color: #fff;
-      background: linear-gradient(rgba(12,36,36,.62), rgba(12,36,36,.72)), url(img/gal/agua-lejos.jpeg) center/cover; }
-    .map-consent p { max-width: 460px; margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(255,255,255,.9); }
-    .map-consent-btns { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; }
-    .map-ok { padding: 13px 24px; border-radius: 999px; background: var(--verde); color: #fff; font-family: var(--f-label);
-      font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; transition: background .3s; }
-    .map-consent a { font-size: 12.5px; color: #fff; text-decoration: underline; text-underline-offset: 3px; }
-    @media (hover: hover) { .map-ok:hover { background: var(--verde-dk); } }
     @media (max-width: 768px) {
       .location { padding-top: 16px !important; }
       .loc-head { padding-bottom: 14px; }
       .loc-head .s-title { font-size: 30px; }
       .loc-map-wrap { height: 340px; }
-      .map-consent p { font-size: 13.5px; }
     }
     @media (max-width: 480px) {
       .loc-map-wrap { height: 260px; }
-      .map-consent { gap: 12px; }
     }
 
     /* ─── FOOTER ─────────────────────────────────────────────── */
@@ -832,7 +820,7 @@
       .cal-nav, .gs-btn { width: 44px; height: 44px; }
       .bk-link { padding: 12px 6px; margin: -12px -6px; }
       .bk-ok { padding: 14px 24px; }
-      .sp-more, .map-ok { min-height: 44px; }
+      .sp-more { min-height: 44px; }
       .foot-links a, .foot-phone a { display: inline-block; padding: 12px 6px; }
     }
 
@@ -1145,15 +1133,10 @@ setTimeout(function(){
     <span class="s-label reveal" data-t="loc_lbl">Ubicación</span>
     <h2 class="s-title reveal" data-t="loc_h">Gran Roque, Los Roques</h2>
   </div>
-  <div class="loc-map-wrap" id="locMap">
-    <div class="map-consent" id="mapConsent">
-      <p data-t="map_c_txt">El mapa lo muestra Google Maps, que puede usar sus propias cookies. Se carga solo si lo aceptas.</p>
-      <div class="map-consent-btns">
-        <button type="button" class="map-ok" id="mapLoad" data-t="map_c_ok">Mostrar mapa de Google</button>
-        <a href="cookies.html" data-t="map_c_more">Política de cookies</a>
-        <a href="https://maps.app.goo.gl/oZi7Z5DEkzjafH2z6" target="_blank" rel="noopener" data-t="map_c_ext">Abrir en Google Maps</a>
-      </div>
-    </div>
+  <div class="loc-map-wrap">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1200!2d-66.676766!3d11.945813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c28576bb4316cbd%3A0x7636a41d46e72e70!2sCasa%20Verde!5e0!3m2!1ses!2sve!4v1791333550955!5m2!1ses!2sve"
+      allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      title="Casa Verde — Gran Roque, Los Roques, Venezuela"></iframe>
   </div>
 </section>
 
@@ -1348,10 +1331,6 @@ const T = {
   bk_note:  { es:'Solo usamos tus fechas y número de huéspedes para responderte por WhatsApp. Consulta también la <a href="reembolso.html" target="_blank" rel="noopener">Política de cancelación y reembolso</a>.',
               en:'We only use your dates and number of guests to reply on WhatsApp. See also the <a href="reembolso.html" target="_blank" rel="noopener">Cancellation and refund policy</a>.' },
 
-  map_c_txt:  { es:'El mapa lo muestra Google Maps, que puede usar sus propias cookies. Se carga solo si lo aceptas.', en:'The map is provided by Google Maps, which may use its own cookies. It only loads if you accept.' },
-  map_c_ok:   { es:'Mostrar mapa de Google', en:'Show Google map' },
-  map_c_more: { es:'Política de cookies', en:'Cookie policy' },
-  map_c_ext:  { es:'Abrir en Google Maps', en:'Open in Google Maps' },
 };
 
 /* ─── LANGUAGE ─────────────────────────────────────────────── */
@@ -1867,27 +1846,6 @@ document.addEventListener('click', e => {
 
 </script>
 <script>
-  /* Mapa de ubicación: Google Maps incrustado (como Casa Panza). Google usa cookies
-     en el mapa, así que solo se carga con el consentimiento del visitante, que se
-     recuerda en este navegador y se puede retirar desde la Política de cookies. */
-  (function () {
-    var wrap = document.getElementById('locMap'), btn = document.getElementById('mapLoad');
-    if (!wrap || !btn) return;
-    function show() {
-      if (wrap.querySelector('iframe')) return;
-      var hl = (window.cvLang && window.cvLang() === 'en') ? 'en' : 'es';
-      var f = document.createElement('iframe');
-      f.src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1200!2d-66.676766!3d11.945813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c28576bb4316cbd%3A0x7636a41d46e72e70!2sCasa%20Verde!5e0!3m2!1s' + hl + '!2sve!4v1791333550955!5m2!1s' + hl + '!2sve';
-      f.loading = 'lazy'; f.allowFullscreen = true; f.referrerPolicy = 'no-referrer-when-downgrade';
-      f.title = 'Casa Verde — Gran Roque, Los Roques, Venezuela';
-      wrap.innerHTML = ''; wrap.appendChild(f);
-    }
-    if (window.cvConsent && window.cvConsent.cookies() === 'maps') show();
-    btn.addEventListener('click', function () {
-      window.cvConsent && window.cvConsent.setCookies('maps');
-      show();
-    });
-  })();
 </script>
 </body>
 </html>
