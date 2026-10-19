@@ -3,17 +3,14 @@
 window.CV_TITULAR = {
   razon:     '',                                   // Razón social, p. ej. «Inversiones Casa Verde, C.A.»
   rif:       '',                                   // RIF J-XXXXXXXX-X
-  domicilio: 'Calle La Playa, Gran Roque, Archipiélago Los Roques, Dependencias Federales, Venezuela',
-  registro:  '',                                   // Datos del registro mercantil
-  rtn:       '',                                   // N.º en el Registro Turístico Nacional (si lo tiene)
   email:     '',                                   // Correo para reservas y privacidad
   whatsapp:  '+58 412-303-0330'
 };
 
 (function () {
   var t = window.CV_TITULAR;
-  var faltan = { razon: 'razón social', rif: 'RIF', registro: 'datos de registro', rtn: 'N.º RTN', email: 'correo' };
-  var falEn = { razon: 'company name', rif: 'RIF (tax ID)', registro: 'registration data', rtn: 'RTN no.', email: 'email' };
+  var faltan = { razon: 'razón social', rif: 'RIF', email: 'correo' };
+  var falEn = { razon: 'company name', rif: 'RIF (tax ID)', email: 'email' };
 
   function fill(lang) {
     document.querySelectorAll('[data-f]').forEach(function (el) {
