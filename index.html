@@ -641,10 +641,10 @@
     .foot-lang .lang-btn { color: rgba(255,255,255,.38); }
     .foot-lang .lang-btn.active { background: rgba(255,255,255,.14) !important; color: rgba(255,255,255,.9) !important; }
     .foot-copy { font-size: 12px; color: rgba(255,255,255,.75); letter-spacing: .04em; }
-    .foot-ai { max-width: 520px; margin: 10px auto 0; font-size: 11px; line-height: 1.6; color: rgba(255,255,255,.6); }
-    .foot-legal { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin: 14px 0 0; padding: 0; }
-    .foot-legal a { font-size: 11.5px; color: rgba(255,255,255,.75); letter-spacing: .04em; text-decoration: underline; text-underline-offset: 3px; }
+    .foot-legal { white-space: nowrap; }
+    .foot-legal a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
     @media (hover: hover) { .foot-legal a:hover { color: #fff; } }
+    @media (max-width: 480px) { .foot-rights { display: none; } .foot-copy { letter-spacing: 0; font-size: 11.5px; line-height: 18px; } }
 
     /* ─── WHATSAPP FLOAT ─────────────────────────────────────── */
     .wa-float {
@@ -1228,14 +1228,7 @@ setTimeout(function(){
       </a>
     </div>
     <p class="foot-phone"><a href="https://wa.me/584123030330">+58 412-303-0330</a></p>
-    <p class="foot-copy">© <span class="foot-year">2026</span> Casa Verde. <span data-t="foot_copy_rights">Todos los derechos reservados.</span></p>
-    <p class="foot-ai" data-t="foot_ai">Algunas imágenes de portada y la animación aérea son recreaciones digitales ilustrativas hechas a partir de fotos reales de la casa.</p>
-    <ul class="foot-legal">
-      <li><a href="terminos.html" data-t="foot_terms">Términos y condiciones</a></li>
-      <li><a href="privacidad.html" data-t="foot_priv">Privacidad</a></li>
-      <li><a href="cookies.html" data-t="foot_cook">Cookies</a></li>
-      <li><a href="reembolso.html" data-t="foot_refund">Cancelación y reembolso</a></li>
-    </ul>
+    <p class="foot-copy">© <span class="foot-year">2026</span> Casa Verde. <span class="foot-rights" data-t="foot_copy_rights">Todos los derechos reservados.</span> <span class="foot-legal"><a href="terminos.html" data-t="foot_terms">Términos</a> · <a href="privacidad.html" data-t="foot_priv">Privacidad</a> · <a href="cookies.html" data-t="foot_cook">Cookies</a> · <a href="reembolso.html" data-t="foot_refund">Reembolso</a></span></p>
   </div>
 </footer>
 
@@ -1344,12 +1337,10 @@ const T = {
   loc_h:   { es:'Gran Roque, Los Roques', en:'Gran Roque, Los Roques' },
 
   foot_copy_rights: { es:'Todos los derechos reservados.', en:'All rights reserved.' },
-  foot_terms: { es:'Términos y condiciones', en:'Terms and conditions' },
+  foot_terms: { es:'Términos', en:'Terms' },
   foot_priv:  { es:'Privacidad', en:'Privacy' },
   foot_cook:  { es:'Cookies', en:'Cookies' },
-  foot_refund:{ es:'Cancelación y reembolso', en:'Cancellations and refunds' },
-  foot_ai:    { es:'Algunas imágenes de portada y la animación aérea son recreaciones digitales ilustrativas hechas a partir de fotos reales de la casa.',
-                en:'Some cover images and the aerial animation are illustrative digital recreations based on real photos of the house.' },
+  foot_refund:{ es:'Reembolso', en:'Refunds' },
 
   bk_terms: { es:'He leído y acepto los Términos y condiciones', en:'I have read and accept the Terms and conditions' },
   bk_priv:  { es:'He leído y acepto la Política de privacidad', en:'I have read and accept the Privacy policy' },
